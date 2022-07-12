@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Doctrine Entity For Survey
  * @ORM\Entity()
- * @ORM\Table(name="survey", indexes={
+ * @ORM\Table(name="gpd_survey", indexes={
  * @ORM\Index(name="user_created_idx",columns={"created"}),
  * @ORM\Index(name="user_updated_idx",columns={"updated"})
  * })
