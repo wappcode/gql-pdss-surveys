@@ -4,30 +4,28 @@ namespace GPDSurvey\Services;
 
 
 use Exception;
-use GMP;
-use GPDCore\Library\UploadedFileModel;
-use GPDCore\Services\UploadFileService;
 use GPDCore\Library\GQLException;
+use FlowUtilities\UploadedFileModel;
+use FlowUtilities\UploadFileManager;
 use GPDCore\Library\IContextService;
 
-use function GPDCore\Functions\getFileExtension;
-
+use function FlowUtilities\getFileExtension;
 
 class SurveyUploadFileService
 {
 
 
 
-    public static function upload(IContextService $context, string $uploadDir, string $dir)
+    public static function upload(IContextService $context, string $uploadDir, string $tmpDir)
     {
-        $file = UploadFileService::uploadFile($uploadDir);
+        $file = UploadFileManager::uploadFile($tmpDir, $tmpDir);
 
         if ($file !== null) {
             try {
                 static::validateFile($file);
                 $status = 200;
-                $relativePath = static::getRelativePath($file, $dir);
-                UploadFileService::mvFile($uploadDir, $file->getFinalPath(), $relativePath);
+                $relativePath = static::getRelativePath($file, $uploadDir);
+                UploadFileManager::mvFile($file->getFinalPath(), $relativePath);
                 $response = ["filename" => $relativePath];
                 header("Content-Type: application/json; charset=UTF-8", true, $status);
                 echo json_encode($response);
@@ -49,7 +47,7 @@ class SurveyUploadFileService
         $validOffice = static::validateOffice($file);
         $extension = getFileExtension($file->getFinalPath());
         $extension = strtolower($extension);
-        $errorMsg = 'Formato de archivo inválido';
+        $errorMsg = 'Invalid file format';
 
         if (!$validImage && !$validPDF && !$validVideo && !$validOffice) {
             throw new GQLException($errorMsg);
@@ -60,7 +58,6 @@ class SurveyUploadFileService
         $valid = true;
         $extension = getFileExtension($file->getFinalPath());
         $extension = strtolower($extension);
-        $errorMsg = 'Formato inválido solo se permiten archivos PDF e Imágenes';
         if (!preg_match("/pdf/", $extension)) {
             $valid = false;
         }
@@ -76,7 +73,6 @@ class SurveyUploadFileService
         $valid = true;
         $extension = getFileExtension($file->getFinalPath());
         $extension = strtolower($extension);
-        $errorMsg = 'Formato inválido solo se permiten archivos PDF e Imágenes';
         if (!preg_match("/jpg|jpeg|gif|png/", $extension)) {
             $valid = false;
         }

@@ -2,20 +2,20 @@
 
 namespace GPDSurvey\Services;
 
-use GPDCore\Library\IContextService;
-use GPDCore\Services\UploadFileService;
+use FlowUtilities\UploadFileManager;
 
 class SurveyReadFileService
 {
     public static function read(string $uploadDir, string $path)
     {
         $filePath = urldecode($path);
-
-        UploadFileService::readFile($uploadDir, $filePath);
+        $fullPath = $uploadDir.DIRECTORY_SEPARATOR.$filePath;
+        UploadFileManager::readFile($fullPath);
     }
     public static function download(string $uploadDir, string $path)
     {
         $filePath = urldecode($path);
-        UploadFileService::downloadFile($uploadDir, $filePath);
+        $fullPath = $uploadDir.DIRECTORY_SEPARATOR.$filePath;
+        UploadFileManager::downloadFile($fullPath);
     }
 }
