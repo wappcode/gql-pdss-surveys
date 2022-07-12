@@ -12,7 +12,7 @@ use GraphQL\Doctrine\Annotation as API;
  * Guarda en formato JSON la configuración de la presentación para encuestas, secciones y preguntas opciones de preguntas, etc
  * 
  * @ORM\Entity()
- * @ORM\Table(name="survey_configuration", indexes={
+ * @ORM\Table(name="gpd_survey_configuration", indexes={
  * @ORM\Index(name="user_created_idx",columns={"created"}),
  * @ORM\Index(name="user_updated_idx",columns={"updated"})
  * })

@@ -12,7 +12,7 @@ use GraphQL\Doctrine\Annotation as API;
 /**
  * Doctrine Entity For SurveyQuestion
  * @ORM\Entity()
- * @ORM\Table(name="survey_question", indexes={
+ * @ORM\Table(name="gpd_survey_question", indexes={
  * @ORM\Index(name="user_created_idx",columns={"created"}),
  * @ORM\Index(name="user_updated_idx",columns={"updated"})
  * },

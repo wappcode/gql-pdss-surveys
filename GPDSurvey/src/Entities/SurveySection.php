@@ -11,7 +11,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 /**
  * Doctrine Entity For SurveySection
  * @ORM\Entity()
- * @ORM\Table(name="survey_section", indexes={
+ * @ORM\Table(name="gpd_survey_section", indexes={
  * @ORM\Index(name="user_created_idx",columns={"created"}),
  * @ORM\Index(name="user_updated_idx",columns={"updated"})
  * }

@@ -8,7 +8,7 @@ use GPDCore\Entities\AbstractEntityModel;
 /**
  * Doctrine Entity For SurveyAnswer
  * @ORM\Entity()
- * @ORM\Table(name="survey_answer", indexes={
+ * @ORM\Table(name="gpd_survey_answer", indexes={
  * @ORM\Index(name="user_created_idx",columns={"created"}),
  * @ORM\Index(name="user_updated_idx",columns={"updated"})
  * },
