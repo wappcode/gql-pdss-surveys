@@ -1,0 +1,16 @@
+{
+    "version": "1.0.0",
+    "name": "wappcode/gqlpdss-surveys",
+    "description": "Modulo para administar cuestionarios",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "GPDSurvey\\": "GPDSurvey/src/"
+        }
+    },
+    "require": {
+        "wappcode/flow-utilities": "^1.0",
+        "wappcode/gqlpdss": "^2.0"
+    }
+}
