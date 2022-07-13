@@ -1,16 +1,9 @@
 <?php
 
-namespace Survey;
+namespace GPDSurvey;
 
-use GPDSurvey\Entities\Survey;
-use GPDSurvey\Entities\SurveyAnswer;
-use GPDSurvey\Entities\SurveyContent;
-use GPDSurvey\Entities\SurveySection;
 use GPDCore\Library\AbstractModule;
-use GPDSurvey\Entities\SurveyQuestion;
 use GPDSurvey\Graphql\ResolversSurvey;
-use GPDSurvey\Entities\SurveySectionItem;
-use GPDSurvey\Entities\SurveyAnswerSession;
 use GPDSurvey\Graphql\ResolversSurveyAnswer;
 use GPDSurvey\Graphql\ResolversSurveyContent;
 use GPDSurvey\Graphql\ResolversSurveySection;
