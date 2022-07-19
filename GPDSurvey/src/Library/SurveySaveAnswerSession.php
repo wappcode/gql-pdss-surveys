@@ -63,7 +63,7 @@ class SurveySaveAnswerSession
             $answerSession->setPassword($password);
         }
         if ($ownerCode !== null) {
-            $answerSession->setPassword($ownerCode);
+            $answerSession->setOwnerCode($ownerCode);
         }
         if ($completed !== null) {
             $answerSession->setCompleted($completed);
