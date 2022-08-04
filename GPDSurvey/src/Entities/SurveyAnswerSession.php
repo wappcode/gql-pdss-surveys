@@ -42,7 +42,7 @@ class SurveyAnswerSession  extends AbstractEntityModelStringId
     private $ownerCode;
     /**
      *
-     * @ORM\Column(type="decimal", name="score", precision=6, scale=2, nullable=true)
+     * @ORM\Column(type="decimal", name="score", precision=10, scale=4, nullable=true)
      * @var float
      */
     private $score;
@@ -54,7 +54,7 @@ class SurveyAnswerSession  extends AbstractEntityModelStringId
     private $completed;
     /**
      *
-     * @ORM\Column(type="decimal", name="score_percent", precision=6, scale=2, nullable=true)
+     * @ORM\Column(type="decimal", name="score_percent", precision=8, scale=4, nullable=true)
      * @var float
      */
     private $scorePercent;

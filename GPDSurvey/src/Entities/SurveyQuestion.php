@@ -118,7 +118,7 @@ class SurveyQuestion  extends AbstractEntityModelStringId
      * Se establece como valor predeterminado 1 para poder calcular el puntaje máximo de la encuesta.
      * También puede servir para asignar puntaje de forma manual mediante un formulario para cada respuesta.
      * 
-     * @ORM\Column(type="decimal", precision=6, scale=2, nullable=false, options={"default":1})
+     * @ORM\Column(type="decimal", precision=10, scale=4, nullable=false, options={"default":1})
      */
     private $score;
     /**
