@@ -27,8 +27,8 @@ class SurveyConfiguration  extends AbstractEntityModel
     const SURVEY_CONFIGURATION_TYPE_CONDITION = 'CONDITION';
     const SURVEY_CONFIGURATION_TYPE_ANSWER_SCORE = 'ANSWER_SCORE';
     /**
-     * @ORM\Column(type="string", name="value", nullable=false) 
-     * @var string
+     * @ORM\Column(type="json", name="value", nullable=false) 
+     * @var array
      */
     private $value;
     /**
@@ -40,10 +40,10 @@ class SurveyConfiguration  extends AbstractEntityModel
     /**
      * Get the value of value
      *
-     * @API\Field(type="string")
-     * @return  string
+     * @API\Field(type="SurveyConfigurationValue")
+     * @return  array
      */
-    public function getValue()
+    public function getValue(): array
     {
         return $this->value;
     }
@@ -51,6 +51,7 @@ class SurveyConfiguration  extends AbstractEntityModel
     /**
      * Set the value of value
      *
+     * @API\Input(type="SurveyConfigurationValue")
      * @param  array  $value
      *
      * @return  self
