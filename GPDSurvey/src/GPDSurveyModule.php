@@ -27,7 +27,7 @@ use GPDSurvey\Graphql\Types\TypeSurveySectionEdge;
 use GPDSurvey\Graphql\ResolversSurveyAnswerSession;
 use GPDSurvey\Graphql\Types\TypeSurveyQuestionEdge;
 use GPDSurvey\Graphql\ResolversSurveyTargetAudience;
-use GPDSurvey\Graphql\Types\SurveySaveAnswerInputType;
+use GPDSurvey\Graphql\Types\TypeSurveyAnswerQuestionInput;
 use GPDSurvey\Graphql\Types\TypeSurveySectionItemEdge;
 use GPDSurvey\Graphql\Types\TypeSurveyAnswerConnection;
 use GPDSurvey\Graphql\Types\TypeSurveyConfigurationEdge;
@@ -63,8 +63,8 @@ class GPDSurveyModule extends AbstractModule
                 TypeSurveyConfigurationValue::NAME => TypeSurveyConfigurationValue::class,
             ],
             'factories' => [
-                SurveySaveAnswerInputType::class => function ($sm) {
-                    return new SurveySaveAnswerInputType();
+                TypeSurveyAnswerQuestionInput::class => function ($sm) {
+                    return new TypeSurveyAnswerQuestionInput();
                 },
                 TypeSurveyEdge::NAME => TypeSurveyEdge::getFactory($this->context, Survey::class),
                 TypeSurveyConnection::NAME => TypeSurveyConnection::getFactory($this->context, TypeSurveyEdge::NAME),

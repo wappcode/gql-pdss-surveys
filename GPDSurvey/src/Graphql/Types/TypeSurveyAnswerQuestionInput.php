@@ -7,13 +7,13 @@ namespace GPDSurvey\Graphql\Types;
 use GraphQL\Type\Definition\InputObjectType;
 use GraphQL\Type\Definition\Type;
 
-class SurveySaveAnswerInputType extends InputObjectType
+class TypeSurveyAnswerQuestionInput extends InputObjectType
 {
 
     public function __construct()
     {
         $config = [
-            'name' => 'SurveySaveAnswerInput',
+            'name' => 'SurveyAnswerQuestionInput',
             'fields' => [
                 'questionId' => [
                     'type' => Type::nonNull(Type::string()),
