@@ -9,11 +9,11 @@ use GraphQL\Type\Definition\Type;
 
 class TypeSurveyAnswerQuestionInput extends InputObjectType
 {
-
+    const NAME = 'SurveyAnswerQuestionInput';
     public function __construct()
     {
         $config = [
-            'name' => 'SurveyAnswerQuestionInput',
+            'name' => static::NAME,
             'fields' => [
                 'questionId' => [
                     'type' => Type::nonNull(Type::string()),

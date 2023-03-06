@@ -40,7 +40,7 @@ class SurveyConfiguration  extends AbstractEntityModel
     /**
      * Get the value of value
      *
-     * @API\Field(type="SurveyConfigurationValue")
+     * @API\Field(type="GPDSurvey\Graphql\Types\TypeSurveyConfigurationValue")
      * @return  array
      */
     public function getValue(): array
@@ -51,7 +51,7 @@ class SurveyConfiguration  extends AbstractEntityModel
     /**
      * Set the value of value
      *
-     * @API\Input(type="SurveyConfigurationValue")
+     * @API\Input(type="GPDSurvey\Graphql\Types\TypeSurveyConfigurationValue")
      * @param  array  $value
      *
      * @return  self

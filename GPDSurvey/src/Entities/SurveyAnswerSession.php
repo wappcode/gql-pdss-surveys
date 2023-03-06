@@ -245,6 +245,7 @@ class SurveyAnswerSession  extends AbstractEntityModelStringId
     /**
      * Set the value of answers
      *
+     * @API\Input(type="?GPDSurvey\Graphql\Types\TypeSurveyAnswerQuestionInput[]")
      * @param  Collection  $answers
      *
      * @return  self
