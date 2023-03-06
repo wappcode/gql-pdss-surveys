@@ -7,10 +7,13 @@ use GPDCore\Library\AbstractModule;
 use GPDCore\Graphql\GPDFieldFactory;
 use GPDSurvey\Entities\SurveyAnswer;
 use GPDSurvey\Entities\SurveyContent;
+use GPDSurvey\Entities\SurveySection;
 use GPDSurvey\Entities\SurveyQuestion;
 use GPDSurvey\Graphql\ResolversSurvey;
+use GPDSurvey\Entities\SurveySectionItem;
 use GPDSurvey\Entities\SurveyConfiguration;
 use GPDSurvey\Graphql\Types\TypeSurveyEdge;
+use GPDSurvey\Entities\SurveyQuestionOption;
 use GPDSurvey\Entities\SurveyTargetAudience;
 use GPDSurvey\Graphql\ResolversSurveyAnswer;
 use GPDSurvey\Graphql\ResolversSurveyContent;
@@ -20,17 +23,23 @@ use GPDSurvey\Graphql\ResolversSurveySectionItem;
 use GPDSurvey\Graphql\Types\TypeSurveyAnswerEdge;
 use GPDSurvey\Graphql\Types\TypeSurveyConnection;
 use GPDSurvey\Graphql\Types\TypeSurveyContentEdge;
+use GPDSurvey\Graphql\Types\TypeSurveySectionEdge;
 use GPDSurvey\Graphql\ResolversSurveyAnswerSession;
 use GPDSurvey\Graphql\Types\TypeSurveyQuestionEdge;
 use GPDSurvey\Graphql\ResolversSurveyTargetAudience;
 use GPDSurvey\Graphql\Types\SurveySaveAnswerInputType;
+use GPDSurvey\Graphql\Types\TypeSurveySectionItemEdge;
 use GPDSurvey\Graphql\Types\TypeSurveyAnswerConnection;
 use GPDSurvey\Graphql\Types\TypeSurveyConfigurationEdge;
 use GPDSurvey\Graphql\Types\TypeSurveyContentConnection;
+use GPDSurvey\Graphql\Types\TypeSurveySectionConnection;
 use GPDSurvey\Graphql\Types\TypeSurveyConfigurationValue;
 use GPDSurvey\Graphql\Types\TypeSurveyQuestionConnection;
+use GPDSurvey\Graphql\Types\TypeSurveyQuestionOptionEdge;
 use GPDSurvey\Graphql\Types\TypeSurveyTargetAudienceEdge;
+use GPDSurvey\Graphql\Types\TypeSurveySectionItemConnection;
 use GPDSurvey\Graphql\Types\TypeSurveyConfigurationConnection;
+use GPDSurvey\Graphql\Types\TypeSurveyQuestionOptionConnection;
 use GPDSurvey\Graphql\Types\TypeSurveyTargetAudienceConnection;
 
 class GPDSurveyModule extends AbstractModule
@@ -69,6 +78,12 @@ class GPDSurveyModule extends AbstractModule
                 TypeSurveyContentConnection::NAME => TypeSurveyContentConnection::getFactory($this->context, TypeSurveyContentEdge::NAME),
                 TypeSurveyQuestionEdge::NAME => TypeSurveyQuestionEdge::getFactory($this->context, SurveyQuestion::class),
                 TypeSurveyQuestionConnection::NAME => TypeSurveyQuestionConnection::getFactory($this->context, TypeSurveyQuestionEdge::NAME),
+                TypeSurveyQuestionOptionEdge::NAME => TypeSurveyQuestionOptionEdge::getFactory($this->context, SurveyQuestionOption::class),
+                TypeSurveyQuestionOptionConnection::NAME => TypeSurveyQuestionOptionConnection::getFactory($this->context, TypeSurveyQuestionOptionEdge::NAME),
+                TypeSurveySectionEdge::NAME => TypeSurveySectionEdge::getFactory($this->context, SurveySection::class),
+                TypeSurveySectionConnection::NAME => TypeSurveySectionConnection::getFactory($this->context, TypeSurveySectionEdge::NAME),
+                TypeSurveySectionItemEdge::NAME => TypeSurveySectionItemEdge::getFactory($this->context, SurveySectionItem::class),
+                TypeSurveySectionItemConnection::NAME => TypeSurveySectionItemConnection::getFactory($this->context, TypeSurveySectionItemEdge::NAME),
             ]
         ];
     }
@@ -113,6 +128,9 @@ class GPDSurveyModule extends AbstractModule
         $surveyConfigurationConnection = $this->context->getServiceManager()->get(TypeSurveyConfigurationConnection::NAME);
         $surveyContentConnection = $this->context->getServiceManager()->get(TypeSurveyContentConnection::NAME);
         $surveyQuestionConnection = $this->context->getServiceManager()->get(TypeSurveyQuestionConnection::NAME);
+        $surveyQuestionOptionConnection = $this->context->getServiceManager()->get(TypeSurveyQuestionOptionConnection::NAME);
+        $surveySectionConnection = $this->context->getServiceManager()->get(TypeSurveySectionConnection::NAME);
+        $surveySectionItemConnection = $this->context->getServiceManager()->get(TypeSurveySectionItemConnection::NAME);
         return [
             'surveysConnection' => GPDFieldFactory::buildFieldConnection($this->context, $surveyConnection, Survey::class, Survey::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
             'survey' => GPDFieldFactory::buildFieldItem($this->context, Survey::class, Survey::RELATIONS_MANY_TO_ONE, $proxy = null),
@@ -144,6 +162,21 @@ class GPDSurveyModule extends AbstractModule
             'createSurveyQuestion' => GPDFieldFactory::buildFieldCreate($this->context, SurveyQuestion::class, SurveyQuestion::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
             'updateSurveyQuestion' => GPDFieldFactory::buildFieldUpdate($this->context, SurveyQuestion::class, SurveyQuestion::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
             'deleteSurveyQuestion' => GPDFieldFactory::buildFieldDelete($this->context, SurveyQuestion::class, SurveyQuestion::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
+            'surveyQuestionOptionConnection' => GPDFieldFactory::buildFieldConnection($this->context, $surveyQuestionOptionConnection, SurveyQuestionOption::class, SurveyQuestionOption::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
+            'surveyQuestionOption' => GPDFieldFactory::buildFieldItem($this->context, SurveyQuestionOption::class, SurveyQuestionOption::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
+            'createSurveyQuestionOption' => GPDFieldFactory::buildFieldCreate($this->context, SurveyQuestionOption::class, SurveyQuestionOption::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
+            'updateSurveyQuestionOption' => GPDFieldFactory::buildFieldUpdate($this->context, SurveyQuestionOption::class, SurveyQuestionOption::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
+            'deleteSurveyQuestionOption' => GPDFieldFactory::buildFieldDelete($this->context, SurveyQuestionOption::class, SurveyQuestionOption::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
+            'surveySectionConnection' => GPDFieldFactory::buildFieldConnection($this->context, $surveySectionConnection, SurveySection::class, SurveySection::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
+            'surveySection' => GPDFieldFactory::buildFieldItem($this->context, SurveySection::class, SurveySection::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
+            'createSurveySection' => GPDFieldFactory::buildFieldCreate($this->context, SurveySection::class, SurveySection::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
+            'updateSurveySection' => GPDFieldFactory::buildFieldUpdate($this->context, SurveySection::class, SurveySection::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
+            'deleteSurveySection' => GPDFieldFactory::buildFieldDelete($this->context, SurveySection::class, SurveySection::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
+            'surveySectionItemConnection' => GPDFieldFactory::buildFieldConnection($this->context, $surveySectionItemConnection, SurveySectionItem::class, SurveySectionItem::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
+            'surveySectionItem' => GPDFieldFactory::buildFieldItem($this->context, SurveySectionItem::class, SurveySectionItem::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
+            'createSurveySectionItem' => GPDFieldFactory::buildFieldCreate($this->context, SurveySectionItem::class, SurveySectionItem::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
+            'updateSurveySectionItem' => GPDFieldFactory::buildFieldUpdate($this->context, SurveySectionItem::class, SurveySectionItem::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
+            'deleteSurveySectionItem' => GPDFieldFactory::buildFieldDelete($this->context, SurveySectionItem::class, SurveySectionItem::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
         ];
     }
     function getMutationFields(): array

@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
 use GPDCore\Entities\AbstractEntityModelStringId;
 use Doctrine\Common\Collections\ArrayCollection;
+use GraphQL\Doctrine\Annotation as API;
 
 /**
  * Doctrine Entity For SurveySection
@@ -136,6 +137,7 @@ class SurveySection  extends AbstractEntityModelStringId
     /**
      * Set the value of items
      *
+     * @API\Exclude()
      * @param  Collection  $items
      *
      * @return  self
