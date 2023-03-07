@@ -2,7 +2,6 @@
 
 use AppModule\AppModule;
 use AppModule\Services\AppRouter;
-use GPDAuth\GPDAuthModule;
 use GPDCore\Library\GPDApp;
 use GPDCore\Services\ContextService;
 use GPDSurvey\GPDSurveyModule;
