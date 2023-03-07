@@ -17,8 +17,8 @@ class BuildSurveyTargetAudience
             return null;
         }
         $entityManager = $context->getEntityManager();
-        $input["welcome"] = BuildSurveyContent::build($context, $input["welcome"]);
-        $input["farewall"] = BuildSurveyContent::build($context, $input["farewall"]);
+        $input["welcome"] = BuildSurveyContent::build($context, $input["welcome"] ?? null);
+        $input["farewall"] = BuildSurveyContent::build($context, $input["farewall"] ?? null);
         $targetAudience = new SurveyTargetAudience();
         ArrayToEntity::apply($targetAudience, $input);
         $entityManager->persist($targetAudience);

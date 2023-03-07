@@ -16,8 +16,8 @@ class BuildSurveyQuestionOption
             return null;
         }
         $entityManager = $context->getEntityManager();
-        $input["content"] = BuildSurveyContent::build($context, $input["content"]);
-        $input["presentation"] = BuildSurveyConfiguration::build($context, $input["presentation"]);
+        $input["content"] = BuildSurveyContent::build($context, $input["content"] ?? null);
+        $input["presentation"] = BuildSurveyConfiguration::build($context, $input["presentation"] ?? null);
         $option = new SurveyQuestionOption();
         ArrayToEntity::apply($option, $input);
         $entityManager->persist($option);

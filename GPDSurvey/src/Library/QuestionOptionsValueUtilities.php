@@ -2,7 +2,6 @@
 
 namespace GPDSurvey\Library;
 
-use GPDSurvey\Entities\SurveyQuestion;
 
 class QuestionOptionsValueUtilities
 {
@@ -16,16 +15,13 @@ class QuestionOptionsValueUtilities
         $type = $question["type"];
         $formatedAnswer = $answer;
         switch ($type) {
-            case SurveyQuestion::SURVEY_QUESTION_TYPE_CHECKBOX_LIST:
-            case SurveyQuestion::SURVEY_QUESTION_TYPE_RADIO_LIST:
+            case ISurveyQuestion::SURVEY_QUESTION_TYPE_CHECKBOX_LIST:
+            case ISurveyQuestion::SURVEY_QUESTION_TYPE_RADIO_LIST:
                 $formatedAnswer = static::formatQuestionOption($options, $answer);
                 break;
-            case SurveyQuestion::SURVEY_QUESTION_TYPE_IMAGE:
-            case SurveyQuestion::SURVEY_QUESTION_TYPE_FILE:
+            case ISurveyQuestion::SURVEY_QUESTION_TYPE_IMAGE:
+            case ISurveyQuestion::SURVEY_QUESTION_TYPE_FILE:
                 $formatedAnswer = static::formatQuestionFile($answer);
-                break;
-            case SurveyQuestion::SURVEY_QUESTION_TYPE_TSHIRT:
-                $formatedAnswer = static::formatQuestionTshit($answer);
                 break;
         }
 
@@ -47,33 +43,5 @@ class QuestionOptionsValueUtilities
         } else {
             return "";
         }
-    }
-    protected static function formatQuestionTshit(string $answer): string
-    {
-        $formatedAnswer = $answer;
-        switch ($answer) {
-            case 'XS':
-                $formatedAnswer = "Extra chica";
-                break;
-            case 'S':
-                $formatedAnswer = "Chica";
-                break;
-            case 'M':
-                $formatedAnswer = "Mediana";
-                break;
-            case 'L':
-                $formatedAnswer = "Grande";
-                break;
-            case 'XL':
-                $formatedAnswer = "Extra grande";
-                break;
-            case 'XXL':
-                $formatedAnswer = "2XL";
-                break;
-            case 'XXXL':
-                $formatedAnswer = "3XL";
-                break;
-        }
-        return $formatedAnswer;
     }
 }

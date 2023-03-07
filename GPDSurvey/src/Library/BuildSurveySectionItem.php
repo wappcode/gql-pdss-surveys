@@ -17,10 +17,10 @@ class BuildSurveySectionItem
             return null;
         }
         $entityManager = $context->getEntityManager();
-        $input["content"] = BuildSurveyContent::build($context, $input["content"]);
-        $input["question"] = BuildSurveyConfiguration::build($context, $input["question"]);
-        $input["presentation"] = BuildSurveyConfiguration::build($context, $input["presentation"]);
-        $input["conditions"] = BuildSurveyConfiguration::build($context, $input["conditions"]);
+        $input["content"] = BuildSurveyContent::build($context, $input["content"] ?? null);
+        $input["question"] = BuildSurveyConfiguration::build($context, $input["question"] ?? null);
+        $input["presentation"] = BuildSurveyConfiguration::build($context, $input["presentation"] ?? null);
+        $input["conditions"] = BuildSurveyConfiguration::build($context, $input["conditions"] ?? null);
         $targetAudience = new SurveySectionItem();
         ArrayToEntity::apply($targetAudience, $input);
         $entityManager->persist($targetAudience);

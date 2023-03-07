@@ -17,10 +17,10 @@ class BuildSurveyQuestion
             return null;
         }
         $entityManager = $context->getEntityManager();
-        $input["content"] = BuildSurveyContent::build($context, $input["content"]);
-        $input["question"] = BuildSurveyConfiguration::build($context, $input["question"]);
-        $input["presentation"] = BuildSurveyConfiguration::build($context, $input["presentation"]);
-        $input["conditions"] = BuildSurveyConfiguration::build($context, $input["conditions"]);
+        $input["content"] = BuildSurveyContent::build($context, $input["content"] ?? null);
+        $input["question"] = BuildSurveyConfiguration::build($context, $input["question"] ?? null);
+        $input["presentation"] = BuildSurveyConfiguration::build($context, $input["presentation"] ?? null);
+        $input["conditions"] = BuildSurveyConfiguration::build($context, $input["conditions"] ?? null);
         $question = new SurveyQuestion();
         ArrayToEntity::apply($question, $input);
         $entityManager->persist($question);
