@@ -8,6 +8,7 @@ use GPDSurvey\Entities\SurveyContent;
 use GPDSurvey\Entities\SurveyConfiguration;
 use GPDCore\Entities\AbstractEntityModelStringId;
 use Doctrine\ORM\Mapping as ORM;
+use GraphQL\Doctrine\Annotation as API;
 
 /**
  * Doctrine Entity For SurveyTargetAudience
@@ -97,7 +98,7 @@ class SurveyTargetAudience  extends AbstractEntityModelStringId
 
     /**
      * Get the value of starts
-     *
+     * @API\Field(type="?DateTime")
      * @return  ?DateTimeImmutable
      */
     public function getStarts()
@@ -107,7 +108,7 @@ class SurveyTargetAudience  extends AbstractEntityModelStringId
 
     /**
      * Set the value of starts
-     *
+     * @API\Input(type="?DateTime")
      * @param  DateTimeImmutable  $starts
      *
      * @return  self
@@ -121,7 +122,7 @@ class SurveyTargetAudience  extends AbstractEntityModelStringId
 
     /**
      * Get the value of ends
-     *
+     * @API\Field(type="?DateTime")
      * @return  ?DateTimeImmutable
      */
     public function getEnds()
@@ -131,7 +132,7 @@ class SurveyTargetAudience  extends AbstractEntityModelStringId
 
     /**
      * Set the value of ends
-     *
+     * @API\Input(type="?DateTime")
      * @param  DateTimeImmutable  $ends
      *
      * @return  self

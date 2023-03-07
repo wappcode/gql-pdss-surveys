@@ -22,8 +22,11 @@ class TypeBuildSurveyInput extends InputObjectType
                     'type' => Type::nonNull(Type::string()),
                 ],
                 'sections' => [
-                    'type' => Type::listOf($serviceManager->get(TypeBuildSurveySectionInput::class)),
+                    'type' => Type::nonNull(Type::listOf(Type::nonNull($serviceManager->get(TypeBuildSurveySectionInput::class)))),
                 ],
+                'targetAudience' => [
+                    'type' => $serviceManager->get(TypeBuildSurveyTargetAudienceInput::class)
+                ]
 
             ]
         ];

@@ -56,6 +56,7 @@ use GPDSurvey\Graphql\Types\TypeSurveySectionItemConnection;
 use GPDSurvey\Graphql\Types\TypeSurveyAnswerSessionConnection;
 use GPDSurvey\Graphql\Types\TypeSurveyConfigurationConnection;
 use GPDSurvey\Graphql\Types\TypeBuildSurveyQuestionOptionInput;
+use GPDSurvey\Graphql\Types\TypeBuildSurveyTargetAudienceInput;
 use GPDSurvey\Graphql\Types\TypeSurveyQuestionOptionConnection;
 use GPDSurvey\Graphql\Types\TypeSurveyTargetAudienceConnection;
 use GPDSurvey\Graphql\FieldFindAnswerSessionByUsernameAndPassword;
@@ -121,6 +122,9 @@ class GPDSurveyModule extends AbstractModule
                 },
                 TypeBuildSurveySectionInput::class => function ($sm) {
                     return new TypeBuildSurveySectionInput($this->context);
+                },
+                TypeBuildSurveyTargetAudienceInput::class => function ($sm) {
+                    return new TypeBuildSurveyTargetAudienceInput($this->context);
                 },
                 TypeBuildSurveyInput::class => function ($sm) {
                     return new TypeBuildSurveyInput($this->context);
