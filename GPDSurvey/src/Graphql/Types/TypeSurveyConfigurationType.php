@@ -9,11 +9,12 @@ use GraphQL\Type\Definition\EnumType;
 
 class TypeSurveyConfigurationType extends EnumType
 {
+    const NAME = "SurveyConfigurationType";
 
     public function __construct()
     {
         $config = [
-            'name' => 'SurveyConfigurationType',
+            'name' => static::NAME,
             'values' => [
                 ISurveyConfiguration::SURVEY_CONFIGURATION_TYPE_ANSWER_SCORE,
                 ISurveyConfiguration::SURVEY_CONFIGURATION_TYPE_CONDITION,

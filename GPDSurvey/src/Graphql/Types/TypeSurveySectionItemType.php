@@ -9,11 +9,11 @@ use GPDSurvey\Library\ISurveySectionItem;
 
 class TypeSurveySectionItemType extends EnumType
 {
-
+    const NAME = 'SurveySectionItemType';
     public function __construct()
     {
         $config = [
-            'name' => 'SurveySectionItemType',
+            'name' => static::NAME,
             'values' => [
                 ISurveySectionItem::SURVEY_QUESTION_ITEM_CONTENT,
                 ISurveySectionItem::SURVEY_QUESTION_ITEM_QUESTION,

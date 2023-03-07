@@ -18,12 +18,13 @@ class BuildSurveyQuestion
         }
         $entityManager = $context->getEntityManager();
         $input["content"] = BuildSurveyContent::build($context, $input["content"] ?? null);
-        $input["question"] = BuildSurveyConfiguration::build($context, $input["question"] ?? null);
         $input["presentation"] = BuildSurveyConfiguration::build($context, $input["presentation"] ?? null);
-        $input["conditions"] = BuildSurveyConfiguration::build($context, $input["conditions"] ?? null);
+        $inputQuestion = $input;
+        unset($inputQuestion["options"]);
         $question = new SurveyQuestion();
-        ArrayToEntity::apply($question, $input);
+        ArrayToEntity::apply($question, $inputQuestion);
         $entityManager->persist($question);
+        $entityManager->flush();
         $optionsInput = $input["options"] ?? [];
         $options = static::buildOptions($context, $optionsInput, $question);
         return $question;

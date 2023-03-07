@@ -18,7 +18,7 @@ class BuildSurveyConfiguration
         $configuration = new SurveyConfiguration();
         ArrayToEntity::apply($configuration, $input);
         $entityManager->persist($configuration);
-
+        $entityManager->flush();
         return $configuration;
     }
 }

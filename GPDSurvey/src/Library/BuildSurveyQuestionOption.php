@@ -21,7 +21,7 @@ class BuildSurveyQuestionOption
         $option = new SurveyQuestionOption();
         ArrayToEntity::apply($option, $input);
         $entityManager->persist($option);
-
+        $entityManager->flush();
         return $option;
     }
 }

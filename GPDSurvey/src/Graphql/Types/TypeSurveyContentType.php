@@ -10,10 +10,11 @@ use GraphQL\Type\Definition\EnumType;
 class TypeSurveyContentType extends EnumType
 {
 
+    const NAME = "SurveyContentType";
     public function __construct()
     {
         $config = [
-            'name' => 'SurveyContentType',
+            'name' => static::NAME,
             'values' => [
                 ISurveyContent::SURVEY_CONTENT_TYPE_DIVIDER,
                 ISurveyContent::SURVEY_CONTENT_TYPE_HTML,

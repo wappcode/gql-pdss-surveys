@@ -22,7 +22,7 @@ class BuildSurveyTargetAudience
         $targetAudience = new SurveyTargetAudience();
         ArrayToEntity::apply($targetAudience, $input);
         $entityManager->persist($targetAudience);
-
+        $entityManager->flush();
         return $targetAudience;
     }
 }

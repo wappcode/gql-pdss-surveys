@@ -69,6 +69,12 @@ class SurveySectionItem  extends AbstractEntityModelStringId
     private $hidden;
 
 
+    public function __construct()
+    {
+        parent::__construct();
+        $this->hidden = false;
+    }
+
     /**
      * Get the value of type
      * @API\Field(type="GPDSurvey\Graphql\Types\TypeSurveySectionItemType")

@@ -34,10 +34,10 @@ class TypeBuildSurveySectionItemInput extends InputObjectType
                     'type' => Type::nonNull(Type::int())
                 ],
                 'conditions' => [
-                    'type' => Type::listOf($types->getInput(SurveyConfiguration::class))
+                    'type' => $types->getInput(SurveyConfiguration::class)
                 ],
                 'question' => [
-                    'type' => Type::listOf($serviceManager->get(TypeBuildSurveyQuestionInput::class))
+                    'type' => $serviceManager->get(TypeBuildSurveyQuestionInput::class)
                 ],
                 'content' => [
                     'type' => $serviceManager->get(TypeBuildSurveyContentInput::class)

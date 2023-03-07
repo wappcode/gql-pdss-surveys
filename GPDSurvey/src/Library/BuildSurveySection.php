@@ -5,12 +5,11 @@ namespace GPDSurvey\Library;
 use GPDCore\Graphql\ArrayToEntity;
 use GPDCore\Library\IContextService;
 use GPDSurvey\Entities\SurveySection;
-use GPDSurvey\Entities\SurveyTargetAudience;
 
 class BuildSurveySection
 {
 
-    public static function build(IContextService $context, ?array $input): ?SurveyTargetAudience
+    public static function build(IContextService $context, ?array $input): ?SurveySection
     {
         if (empty($input) || !is_array($input)) {
             return null;
@@ -20,8 +19,12 @@ class BuildSurveySection
         $input["presentation"] = BuildSurveyConfiguration::build($context, $input["presentation"] ?? null);
         $section = new SurveySection();
 
-        ArrayToEntity::apply($section, $input);
+        $sectionInput = $input;
+        unset($sectionInput["items"]);
+
+        ArrayToEntity::apply($section, $sectionInput);
         $entityManager->persist($section);
+        $entityManager->flush();
         $itemsInput = $input["items"] ?? [];
         $items = static::buildItems($context, $itemsInput, $section);
         return $section;

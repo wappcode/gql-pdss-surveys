@@ -10,10 +10,11 @@ use GraphQL\Type\Definition\EnumType;
 class TypeSurveyQuestionType extends EnumType
 {
 
+    const NAME = 'SurveyQuestionType';
     public function __construct()
     {
         $config = [
-            'name' => 'SurveyQuestionType',
+            'name' => static::NAME,
             'values' => [
                 ISurveyQuestion::SURVEY_QUESTION_TYPE_CHECKBOX_LIST,
                 ISurveyQuestion::SURVEY_QUESTION_TYPE_DATE,

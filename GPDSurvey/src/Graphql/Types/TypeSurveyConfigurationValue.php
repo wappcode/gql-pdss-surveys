@@ -6,6 +6,7 @@ namespace GPDSurvey\Graphql\Types;
 
 use Exception;
 use GraphQL\Error\Error;
+use GraphQL\Utils\Utils;
 use GraphQL\Type\Definition\ScalarType;
 use GraphQL\Language\AST\StringValueNode;
 
@@ -25,13 +26,13 @@ final class TypeSurveyConfigurationValue extends ScalarType
             throw new Error('Query error: Can only parse strings got: ' . $valueNode->kind, $valueNode);
         }
 
-        return $valueNode->value;
+        return $this->parseValue($valueNode->value);
     }
 
     public function parseValue($value, array $variables = null)
     {
         if (!is_string($value)) {
-            return null;
+            throw new \UnexpectedValueException('Cannot represent value as an object: ' . Utils::printSafe($value));
         }
         try {
             $json = json_decode($value, true);

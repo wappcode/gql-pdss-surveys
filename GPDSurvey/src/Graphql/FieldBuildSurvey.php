@@ -38,8 +38,8 @@ class FieldBuildSurvey
                 if (!($survey instanceof Survey)) {
                     throw new GQLException("Invalid request", 400);
                 }
-                $result = GeneralDoctrineUtilities::getArrayEntityById($entityManager, Survey::class, $survey->getId(), Survey::RELATIONS_MANY_TO_ONE);
                 $entityManager->commit();
+                $result = GeneralDoctrineUtilities::getArrayEntityById($entityManager, Survey::class, $survey->getId(), Survey::RELATIONS_MANY_TO_ONE);
                 return $result;
             } catch (Exception $e) {
                 $entityManager->rollback();

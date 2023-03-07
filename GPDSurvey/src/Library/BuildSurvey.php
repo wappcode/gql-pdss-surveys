@@ -23,13 +23,15 @@ class BuildSurvey
         $survey = new Survey();
         ArrayToEntity::apply($survey, $surveyInput);
         $entityManager->persist($survey);
+        $entityManager->flush();
         $targetAudienceInput = $input["targetAudience"] ?? null;
         if (is_array($targetAudienceInput) && !empty($targetAudienceInput)) {
             $targetAudienceInput["survey"] = $survey;
         }
-        $targetAudience = BuildSurveyTargetAudience::build($context, $input);
+        $targetAudience = BuildSurveyTargetAudience::build($context, $targetAudienceInput);
         $sectionsInput = $input["sections"] ?? [];
         $sections = static::buildSections($context, $sectionsInput, $survey);
+
 
         return $survey;
     }

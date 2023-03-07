@@ -121,6 +121,7 @@ class SurveyQuestion  extends AbstractEntityModelStringId
         parent::__construct();
         $this->options = new ArrayCollection();
         $this->score = 1;
+        $this->other = false;
     }
 
     /**

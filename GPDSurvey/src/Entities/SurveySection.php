@@ -74,6 +74,7 @@ class SurveySection  extends AbstractEntityModelStringId
     {
         parent::__construct();
         $this->items = new ArrayCollection();
+        $this->hidden = false;
     }
 
     /**

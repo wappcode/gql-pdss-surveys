@@ -17,10 +17,10 @@ class BuildSurveyContent
         }
         $entityManager = $context->getEntityManager();
         $content = new SurveyContent();
-        $input["presentation"] = BuildSurveyConfiguration::build($context, $input["presentation"]);
+        $input["presentation"] = BuildSurveyConfiguration::build($context, $input["presentation"] ?? null);
         ArrayToEntity::apply($content, $input);
         $entityManager->persist($content);
-
+        $entityManager->flush();
         return $content;
     }
 }
