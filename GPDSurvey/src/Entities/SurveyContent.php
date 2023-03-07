@@ -18,10 +18,7 @@ use GraphQL\Doctrine\Annotation as API;
 class SurveyContent  extends AbstractEntityModel
 {
     const RELATIONS_MANY_TO_ONE = ['presentation'];
-    const SURVEY_CONTENT_TYPE_HTML = 'HTML';
-    const SURVEY_CONTENT_TYPE_VIDEO = 'VIDEO';
-    const SURVEY_CONTENT_TYPE_IMAGE = 'IMAGE';
-    const SURVEY_CONTENT_TYPE_DIVIDER = 'DIVIDER';
+
 
     /**
      * @ORM\Column(type="string", name="type", nullable=false) 

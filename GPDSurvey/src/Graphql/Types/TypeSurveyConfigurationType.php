@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace GPDSurvey\Graphql\Types;
 
+use GPDSurvey\Library\ISurveyConfiguration;
 use GraphQL\Type\Definition\EnumType;
-use GPDSurvey\Entities\SurveyConfiguration;
 
 class TypeSurveyConfigurationType extends EnumType
 {
@@ -15,10 +15,10 @@ class TypeSurveyConfigurationType extends EnumType
         $config = [
             'name' => 'SurveyConfigurationType',
             'values' => [
-                SurveyConfiguration::SURVEY_CONFIGURATION_TYPE_ANSWER_SCORE,
-                SurveyConfiguration::SURVEY_CONFIGURATION_TYPE_CONDITION,
-                SurveyConfiguration::SURVEY_CONFIGURATION_TYPE_PRESENTATION,
-                SurveyConfiguration::SURVEY_CONFIGURATION_TYPE_VALIDATORS,
+                ISurveyConfiguration::SURVEY_CONFIGURATION_TYPE_ANSWER_SCORE,
+                ISurveyConfiguration::SURVEY_CONFIGURATION_TYPE_CONDITION,
+                ISurveyConfiguration::SURVEY_CONFIGURATION_TYPE_PRESENTATION,
+                ISurveyConfiguration::SURVEY_CONFIGURATION_TYPE_VALIDATORS,
             ],
         ];
 

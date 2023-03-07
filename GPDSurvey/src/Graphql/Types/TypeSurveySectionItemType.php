@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace GPDSurvey\Graphql\Types;
 
 use GraphQL\Type\Definition\EnumType;
-use GPDSurvey\Entities\SurveySectionItem;
+use GPDSurvey\Library\ISurveySectionItem;
 
 class TypeSurveySectionItemType extends EnumType
 {
@@ -15,8 +15,8 @@ class TypeSurveySectionItemType extends EnumType
         $config = [
             'name' => 'SurveySectionItemType',
             'values' => [
-                SurveySectionItem::SURVEY_QUESTION_ITEM_CONTENT,
-                SurveySectionItem::SURVEY_QUESTION_ITEM_QUESTION,
+                ISurveySectionItem::SURVEY_QUESTION_ITEM_CONTENT,
+                ISurveySectionItem::SURVEY_QUESTION_ITEM_QUESTION,
             ],
         ];
 

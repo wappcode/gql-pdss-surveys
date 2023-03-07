@@ -20,8 +20,7 @@ use GPDCore\Entities\AbstractEntityModelStringId;
 class SurveySectionItem  extends AbstractEntityModelStringId
 {
     const RELATIONS_MANY_TO_ONE = ['conditions', 'section', 'question', 'content'];
-    const SURVEY_QUESTION_ITEM_QUESTION = 'QUESTION';
-    const SURVEY_QUESTION_ITEM_CONTENT = 'CONTENT';
+
     /**
      * @ORM\Column(type="string", name="type", nullable=false) 
      * @var string

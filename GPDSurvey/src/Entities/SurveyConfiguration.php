@@ -22,10 +22,7 @@ class SurveyConfiguration  extends AbstractEntityModel
 {
     const RELATIONS_MANY_TO_ONE = [];
 
-    const SURVEY_CONFIGURATION_TYPE_VALIDATORS = 'VALIDATORS';
-    const SURVEY_CONFIGURATION_TYPE_PRESENTATION = 'PRESENTATION';
-    const SURVEY_CONFIGURATION_TYPE_CONDITION = 'CONDITION';
-    const SURVEY_CONFIGURATION_TYPE_ANSWER_SCORE = 'ANSWER_SCORE';
+
     /**
      * @ORM\Column(type="json", name="value", nullable=false) 
      * @var array

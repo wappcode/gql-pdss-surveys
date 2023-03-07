@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace GPDSurvey\Graphql\Types;
 
-use GPDSurvey\Entities\SurveyContent;
+use GPDSurvey\Library\ISurveyContent;
 use GraphQL\Type\Definition\EnumType;
 
 class TypeSurveyContentType extends EnumType
@@ -15,10 +15,10 @@ class TypeSurveyContentType extends EnumType
         $config = [
             'name' => 'SurveyContentType',
             'values' => [
-                SurveyContent::SURVEY_CONTENT_TYPE_DIVIDER,
-                SurveyContent::SURVEY_CONTENT_TYPE_HTML,
-                SurveyContent::SURVEY_CONTENT_TYPE_IMAGE,
-                SurveyContent::SURVEY_CONTENT_TYPE_VIDEO,
+                ISurveyContent::SURVEY_CONTENT_TYPE_DIVIDER,
+                ISurveyContent::SURVEY_CONTENT_TYPE_HTML,
+                ISurveyContent::SURVEY_CONTENT_TYPE_IMAGE,
+                ISurveyContent::SURVEY_CONTENT_TYPE_VIDEO,
             ],
         ];
 

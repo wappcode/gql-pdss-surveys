@@ -9,7 +9,7 @@ use GPDSurvey\Entities\SurveyConfiguration;
 class BuildSurveyConfiguration
 {
 
-    public static function build(IContextService $context, array $input): ?SurveyConfiguration
+    public static function build(IContextService $context, ?array $input): ?SurveyConfiguration
     {
         if (empty($input) || !is_array($input)) {
             return null;
