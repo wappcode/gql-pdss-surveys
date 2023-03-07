@@ -7,7 +7,7 @@ namespace GPDSurvey\Graphql\Types;
 use GPDSurvey\Library\ISurveyQuestion;
 use GraphQL\Type\Definition\EnumType;
 
-class TypeISurveyQuestionType extends EnumType
+class TypeSurveyQuestionType extends EnumType
 {
 
     public function __construct()
