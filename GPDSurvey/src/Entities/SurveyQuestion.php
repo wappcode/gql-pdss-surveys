@@ -18,7 +18,7 @@ use GraphQL\Doctrine\Annotation as API;
  * },
  * uniqueConstraints ={
  * @ORM\UniqueConstraint(name="question_survey_code", 
- *            columns={"code", "survey_id"})
+ *            columns={"survey_id","code"})
  * }
  * )
  * 
