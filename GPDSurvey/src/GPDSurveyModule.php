@@ -17,6 +17,8 @@ use GPDSurvey\Graphql\Types\TypeSurveyEdge;
 use GPDSurvey\Entities\SurveyQuestionOption;
 use GPDSurvey\Entities\SurveyTargetAudience;
 use GPDSurvey\Graphql\FieldCreateAnswerSession;
+use GPDSurvey\Graphql\FieldFindAnswerSessionByOwnerCode;
+use GPDSurvey\Graphql\FieldFindAnswerSessionByUsernameAndPassword;
 use GPDSurvey\Graphql\FieldUpdateAnswerSession;
 use GPDSurvey\Graphql\ResolversSurveyAnswer;
 use GPDSurvey\Graphql\ResolversSurveyContent;
@@ -158,6 +160,8 @@ class GPDSurveyModule extends AbstractModule
             'surveySectionItem' => GPDFieldFactory::buildFieldItem($this->context, SurveySectionItem::class, SurveySectionItem::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
             'surveyAnswerSessionConnection' => GPDFieldFactory::buildFieldConnection($this->context, $surveyAnswerSessionConnection, SurveyAnswerSession::class, SurveyAnswerSession::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
             'surveyAnswerSession' => GPDFieldFactory::buildFieldItem($this->context, SurveyAnswerSession::class, SurveyAnswerSession::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
+            'findSurveyAnswerSessionByUsernameAndPassword' => FieldFindAnswerSessionByUsernameAndPassword::get($this->context, $proxy = null),
+            'findSurveyAnswerSessionByOwnerCode' => FieldFindAnswerSessionByOwnerCode::get($this->context, $proxy = null),
         ];
     }
     function getMutationFields(): array
