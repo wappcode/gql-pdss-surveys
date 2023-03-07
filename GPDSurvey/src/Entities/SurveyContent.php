@@ -2,8 +2,9 @@
 
 namespace GPDSurvey\Entities;
 
-use GPDCore\Entities\AbstractEntityModel;
 use Doctrine\ORM\Mapping as ORM;
+use GPDCore\Entities\AbstractEntityModel;
+use GraphQL\Doctrine\Annotation as API;
 
 /**
  * Doctrine Entity For Survey
@@ -41,7 +42,7 @@ class SurveyContent  extends AbstractEntityModel
 
     /**
      * Get the value of type
-     *
+     * @API\Field(type="GPDSurvey\Graphql\Types\TypeSurveyContentType")
      * @return  string
      */
     public function getType()
@@ -52,6 +53,7 @@ class SurveyContent  extends AbstractEntityModel
     /**
      * Set the value of type
      *
+     * @API\Input(type="GPDSurvey\Graphql\Types\TypeSurveyContentType")
      * @param  string  $type
      *
      * @return  self

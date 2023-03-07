@@ -28,16 +28,15 @@ class SurveyQuestion  extends AbstractEntityModelStringId
 
     const RELATIONS_MANY_TO_ONE = ['survey', 'answerScore', 'content', 'presentation', 'validators'];
     const SURVEY_QUESTION_TYPE_SHORT_TEXT = 'SHORT_TEXT';
-    const SURVEY_QUESTION_TYPE_ONELINE_TEXT = 'ONELINE_TEXT';
+    const SURVEY_QUESTION_TYPE_ONE_LINE_TEXT = 'ONE_LINE_TEXT';
     const SURVEY_QUESTION_TYPE_RADIO_LIST = 'RADIO_LIST';
+    const SURVEY_QUESTION_TYPE_NUMBER_LIST = 'NUMBER_LIST';
     const SURVEY_QUESTION_TYPE_CHECKBOX_LIST = 'CHECKBOX_LIST';
     const SURVEY_QUESTION_TYPE_EMAIL = 'EMAIL';
     const SURVEY_QUESTION_TYPE_PHONE = 'PHONE';
     const SURVEY_QUESTION_TYPE_NUMBER = 'NUMBER';
-    const SURVEY_QUESTION_TYPE_TSHIRT = 'TSHIRT';
     const SURVEY_QUESTION_TYPE_IMAGE = 'IMAGE';
     const SURVEY_QUESTION_TYPE_FILE = 'FILE';
-    const SURVEY_QUESTION_TYPE_CURP = 'CURP';
     const SURVEY_QUESTION_TYPE_DATE = 'DATE';
     const SURVEY_QUESTION_TYPE_DATE_RANGE = 'DATE_RANGE';
     const SURVEY_QUESTION_TYPE_DATETIME = 'DATETIME';
@@ -186,7 +185,7 @@ class SurveyQuestion  extends AbstractEntityModelStringId
 
     /**
      * Get the value of type
-     *
+     * @API\Field(type="GPDSurvey\Graphql\Types\TypeSurveyQuestionType")
      * @return  string
      */
     public function getType()
@@ -197,6 +196,7 @@ class SurveyQuestion  extends AbstractEntityModelStringId
     /**
      * Set the value of type
      *
+     * @API\Input(type="GPDSurvey\Graphql\Types\TypeSurveyQuestionType")
      * @param  string  $type
      *
      * @return  self
@@ -249,7 +249,7 @@ class SurveyQuestion  extends AbstractEntityModelStringId
      *
      * @return  self
      */
-    public function setOther(bool $other)
+    public function setOther(bool $other = false)
     {
         $this->other = $other;
 

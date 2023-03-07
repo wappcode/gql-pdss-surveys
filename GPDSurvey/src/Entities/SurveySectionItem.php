@@ -4,6 +4,7 @@ namespace GPDSurvey\Entities;
 
 use GPDSurvey\Entities\SurveyContent;
 use Doctrine\ORM\Mapping as ORM;
+use GraphQL\Doctrine\Annotation as API;
 use GPDCore\Entities\AbstractEntityModelStringId;
 
 /**
@@ -71,7 +72,7 @@ class SurveySectionItem  extends AbstractEntityModelStringId
 
     /**
      * Get the value of type
-     *
+     * @API\Field(type="GPDSurvey\Graphql\Types\TypeSurveySectionItemType")
      * @return  string
      */
     public function getType()
@@ -82,6 +83,7 @@ class SurveySectionItem  extends AbstractEntityModelStringId
     /**
      * Set the value of type
      *
+     * @API\Input(type="GPDSurvey\Graphql\Types\TypeSurveySectionItemType")
      * @param  string  $type
      *
      * @return  self
@@ -229,7 +231,7 @@ class SurveySectionItem  extends AbstractEntityModelStringId
      *
      * @return  self
      */
-    public function setHidden(bool $hidden)
+    public function setHidden(bool $hidden = false)
     {
         $this->hidden = $hidden;
 

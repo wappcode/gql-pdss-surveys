@@ -10,44 +10,55 @@ use GPDSurvey\Entities\SurveyContent;
 use GPDSurvey\Entities\SurveySection;
 use GPDSurvey\Entities\SurveyQuestion;
 use GPDSurvey\Graphql\ResolversSurvey;
+use GPDSurvey\Graphql\FieldBuildSurvey;
 use GPDSurvey\Entities\SurveySectionItem;
 use GPDSurvey\Entities\SurveyAnswerSession;
 use GPDSurvey\Entities\SurveyConfiguration;
 use GPDSurvey\Graphql\Types\TypeSurveyEdge;
 use GPDSurvey\Entities\SurveyQuestionOption;
 use GPDSurvey\Entities\SurveyTargetAudience;
-use GPDSurvey\Graphql\FieldCreateAnswerSession;
-use GPDSurvey\Graphql\FieldFindAnswerSessionByOwnerCode;
-use GPDSurvey\Graphql\FieldFindAnswerSessionByUsernameAndPassword;
-use GPDSurvey\Graphql\FieldUpdateAnswerSession;
 use GPDSurvey\Graphql\ResolversSurveyAnswer;
 use GPDSurvey\Graphql\ResolversSurveyContent;
 use GPDSurvey\Graphql\ResolversSurveySection;
 use GPDSurvey\Graphql\ResolversSurveyQuestion;
+use GPDSurvey\Graphql\FieldCreateAnswerSession;
+use GPDSurvey\Graphql\FieldUpdateAnswerSession;
 use GPDSurvey\Graphql\ResolversSurveySectionItem;
+use GPDSurvey\Graphql\Types\TypeBuildSurveyInput;
 use GPDSurvey\Graphql\Types\TypeSurveyAnswerEdge;
 use GPDSurvey\Graphql\Types\TypeSurveyConnection;
 use GPDSurvey\Graphql\Types\TypeSurveyContentEdge;
+use GPDSurvey\Graphql\Types\TypeSurveyContentType;
 use GPDSurvey\Graphql\Types\TypeSurveySectionEdge;
 use GPDSurvey\Graphql\ResolversSurveyAnswerSession;
 use GPDSurvey\Graphql\Types\TypeSurveyQuestionEdge;
+use GPDSurvey\Graphql\Types\TypeSurveyQuestionType;
 use GPDSurvey\Graphql\ResolversSurveyTargetAudience;
 use GPDSurvey\Graphql\Types\TypeSurveySectionItemEdge;
+use GPDSurvey\Graphql\Types\TypeSurveySectionItemType;
 use GPDSurvey\Graphql\Types\TypeSurveyAnswerConnection;
+use GPDSurvey\Graphql\FieldFindAnswerSessionByOwnerCode;
+use GPDSurvey\Graphql\Types\TypeBuildSurveyContentInput;
+use GPDSurvey\Graphql\Types\TypeBuildSurveySectionInput;
 use GPDSurvey\Graphql\Types\TypeSurveyAnswerSessionEdge;
 use GPDSurvey\Graphql\Types\TypeSurveyConfigurationEdge;
+use GPDSurvey\Graphql\Types\TypeSurveyConfigurationType;
 use GPDSurvey\Graphql\Types\TypeSurveyContentConnection;
 use GPDSurvey\Graphql\Types\TypeSurveySectionConnection;
+use GPDSurvey\Graphql\Types\TypeBuildSurveyQuestionInput;
 use GPDSurvey\Graphql\Types\TypeSurveyConfigurationValue;
 use GPDSurvey\Graphql\Types\TypeSurveyQuestionConnection;
 use GPDSurvey\Graphql\Types\TypeSurveyQuestionOptionEdge;
 use GPDSurvey\Graphql\Types\TypeSurveyTargetAudienceEdge;
 use GPDSurvey\Graphql\Types\TypeSurveyAnswerQuestionInput;
+use GPDSurvey\Graphql\Types\TypeBuildSurveySectionItemInput;
 use GPDSurvey\Graphql\Types\TypeSurveySectionItemConnection;
 use GPDSurvey\Graphql\Types\TypeSurveyAnswerSessionConnection;
 use GPDSurvey\Graphql\Types\TypeSurveyConfigurationConnection;
+use GPDSurvey\Graphql\Types\TypeBuildSurveyQuestionOptionInput;
 use GPDSurvey\Graphql\Types\TypeSurveyQuestionOptionConnection;
 use GPDSurvey\Graphql\Types\TypeSurveyTargetAudienceConnection;
+use GPDSurvey\Graphql\FieldFindAnswerSessionByUsernameAndPassword;
 
 class GPDSurveyModule extends AbstractModule
 {
@@ -69,6 +80,11 @@ class GPDSurveyModule extends AbstractModule
             'invokables' => [
                 TypeSurveyConfigurationValue::class => TypeSurveyConfigurationValue::class,
                 TypeSurveyAnswerQuestionInput::class => TypeSurveyAnswerQuestionInput::class,
+                TypeBuildSurveyInput::class => TypeBuildSurveyInput::class,
+                TypeSurveySectionItemType::class => TypeSurveySectionItemType::class,
+                TypeSurveyQuestionType::class => TypeSurveyQuestionType::class,
+                TypeSurveyConfigurationType::class => TypeSurveyConfigurationType::class,
+                TypeSurveyContentType::class => TypeSurveyContentType::class,
             ],
             'factories' => [
                 TypeSurveyEdge::class => TypeSurveyEdge::getFactory($this->context, Survey::class),
@@ -91,6 +107,24 @@ class GPDSurveyModule extends AbstractModule
                 TypeSurveySectionItemConnection::class => TypeSurveySectionItemConnection::getFactory($this->context, TypeSurveySectionItemEdge::class),
                 TypeSurveyAnswerSessionEdge::class => TypeSurveyAnswerSessionEdge::getFactory($this->context, SurveyAnswerSession::class),
                 TypeSurveyAnswerSessionConnection::class => TypeSurveyAnswerSessionConnection::getFactory($this->context, TypeSurveyAnswerSessionEdge::class),
+                TypeBuildSurveyContentInput::class => function ($sm) {
+                    return new TypeBuildSurveyContentInput($this->context);
+                },
+                TypeBuildSurveyQuestionOptionInput::class => function ($sm) {
+                    return new TypeBuildSurveyQuestionOptionInput($this->context);
+                },
+                TypeBuildSurveyQuestionInput::class => function ($sm) {
+                    return new TypeBuildSurveyQuestionInput($this->context);
+                },
+                TypeBuildSurveySectionItemInput::class => function ($sm) {
+                    return new TypeBuildSurveySectionItemInput($this->context);
+                },
+                TypeBuildSurveySectionInput::class => function ($sm) {
+                    return new TypeBuildSurveySectionInput($this->context);
+                },
+                TypeBuildSurveyInput::class => function ($sm) {
+                    return new TypeBuildSurveyInput($this->context);
+                },
             ]
         ];
     }
@@ -167,6 +201,7 @@ class GPDSurveyModule extends AbstractModule
     function getMutationFields(): array
     {
         return [
+            'buildSurvey' => FieldBuildSurvey::get($this->context, $proxy = null),
             'createSurvey' => GPDFieldFactory::buildFieldCreate($this->context, Survey::class, Survey::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
             'updateSurvey' => GPDFieldFactory::buildFieldUpdate($this->context, Survey::class, Survey::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
             'deleteSurvey' => GPDFieldFactory::buildFieldDelete($this->context, Survey::class, Survey::RELATIONS_MANY_TO_ONE, $this->defaultProxy),

@@ -65,7 +65,7 @@ class SurveyConfiguration  extends AbstractEntityModel
 
     /**
      * Get the value of type
-     *
+     * @API\Field(type="GPDSurvey\Graphql\Types\TypeSurveyConfigurationType")
      * @return  string
      */
     public function getType()
@@ -76,6 +76,7 @@ class SurveyConfiguration  extends AbstractEntityModel
     /**
      * Set the value of type
      *
+     * @API\Input(type="GPDSurvey\Graphql\Types\TypeSurveyConfigurationType")
      * @param  string  $type
      *
      * @return  self
