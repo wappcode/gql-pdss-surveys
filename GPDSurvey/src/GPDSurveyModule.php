@@ -16,6 +16,8 @@ use GPDSurvey\Entities\SurveyConfiguration;
 use GPDSurvey\Graphql\Types\TypeSurveyEdge;
 use GPDSurvey\Entities\SurveyQuestionOption;
 use GPDSurvey\Entities\SurveyTargetAudience;
+use GPDSurvey\Graphql\FieldCreateAnswerSession;
+use GPDSurvey\Graphql\FieldUpdateAnswerSession;
 use GPDSurvey\Graphql\ResolversSurveyAnswer;
 use GPDSurvey\Graphql\ResolversSurveyContent;
 use GPDSurvey\Graphql\ResolversSurveySection;
@@ -188,8 +190,8 @@ class GPDSurveyModule extends AbstractModule
             'createSurveySectionItem' => GPDFieldFactory::buildFieldCreate($this->context, SurveySectionItem::class, SurveySectionItem::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
             'updateSurveySectionItem' => GPDFieldFactory::buildFieldUpdate($this->context, SurveySectionItem::class, SurveySectionItem::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
             'deleteSurveySectionItem' => GPDFieldFactory::buildFieldDelete($this->context, SurveySectionItem::class, SurveySectionItem::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
-            'createSurveyAnswerSession' => GPDFieldFactory::buildFieldCreate($this->context, SurveyAnswerSession::class, SurveyAnswerSession::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
-            'updateSurveyAnswerSession' => GPDFieldFactory::buildFieldUpdate($this->context, SurveyAnswerSession::class, SurveyAnswerSession::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
+            'createSurveyAnswerSession' => FieldCreateAnswerSession::get($this->context, $proxy = null),
+            'updateSurveyAnswerSession' => FieldUpdateAnswerSession::get($this->context, $proxy = null),
             'deleteSurveyAnswerSession' => GPDFieldFactory::buildFieldDelete($this->context, SurveyAnswerSession::class, SurveyAnswerSession::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
         ];
     }

@@ -13,7 +13,9 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity()
  * @ORM\Table(name="gpd_survey_answer_session", indexes={
  * @ORM\Index(name="user_created_idx",columns={"created"}),
- * @ORM\Index(name="user_updated_idx",columns={"updated"})
+ * @ORM\Index(name="user_updated_idx",columns={"updated"}),
+ * }, uniqueConstraints={
+ * @ORM\UniqueConstraint(name="owner_code", columns={"target_audience_id","owner_code"})
  * })
  * 
  */
@@ -195,8 +197,6 @@ class SurveyAnswerSession  extends AbstractEntityModelStringId
     }
 
     /**
-     * Set the value of score
-     *
      * @param  float  $score
      *
      * @return  self
@@ -209,7 +209,7 @@ class SurveyAnswerSession  extends AbstractEntityModelStringId
     }
 
     /**
-     * Get the value of scorePercent
+     * 
      *
      * @return  ?float
      */
@@ -219,7 +219,6 @@ class SurveyAnswerSession  extends AbstractEntityModelStringId
     }
 
     /**
-     * Set the value of scorePercent
      *
      * @param  float  $scorePercent
      *
@@ -270,6 +269,7 @@ class SurveyAnswerSession  extends AbstractEntityModelStringId
     /**
      * Set the value of targetAudience
      *
+     * @API\Input(type="id")
      * @param  SurveyTargetAudience  $targetAudience
      *
      * @return  self
@@ -294,6 +294,7 @@ class SurveyAnswerSession  extends AbstractEntityModelStringId
     /**
      * Set the value of survey
      *
+     * @API\Exclude()
      * @param  Survey  $survey
      *
      * @return  self
