@@ -6,6 +6,7 @@ namespace GPDSurvey\Graphql\Types;
 
 use GraphQL\Type\Definition\Type;
 use GPDCore\Library\IContextService;
+use GPDSurvey\Entities\SurveyConfiguration;
 use GraphQL\Type\Definition\InputObjectType;
 use GPDSurvey\Graphql\Types\TypeBuildSurveyContentInput;
 
@@ -20,6 +21,7 @@ class TypeBuildSurveySectionInput extends InputObjectType
     {
         $this->context = $context;
         $serviceManager = $this->context->getServiceManager();
+        $types = $this->context->getTypes();
         $config = [
             'name' => static::NAME,
             'fields' => [
@@ -28,6 +30,9 @@ class TypeBuildSurveySectionInput extends InputObjectType
                 ],
                 'content' => [
                     'type' => $serviceManager->get(TypeBuildSurveyContentInput::class),
+                ],
+                'presentation' => [
+                    'type' => $types->getInput(SurveyConfiguration::class),
                 ],
                 'order' => [
                     'type' => Type::int()
