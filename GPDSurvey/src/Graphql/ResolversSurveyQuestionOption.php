@@ -7,10 +7,8 @@ namespace GPDSurvey\Graphql;
 use GPDCore\Library\EntityBuffer;
 use GPDSurvey\Entities\SurveyContent;
 use GPDCore\Library\ResolverFactory;
-use GPDSurvey\Graphql\BufferSurveyContent;
 use GPDSurvey\Entities\SurveyConfiguration;
-use GPDSurvey\Graphql\BufferSurveyQuestion;
-use GPDSurvey\Graphql\BufferSurveyConfiguration;
+use GPDSurvey\Entities\SurveyQuestion;
 
 
 class ResolversSurveyQuestionOption
@@ -30,7 +28,8 @@ class ResolversSurveyQuestionOption
     }
     public static function getQuestionResolver(?callable $proxy): callable
     {
-        $resolver = ResolverFactory::createEntityResolver(BufferSurveyQuestion::getInstance(), 'question');
+        $entityBuffer = new EntityBuffer(SurveyQuestion::class, SurveyQuestion::RELATIONS_MANY_TO_ONE);
+        $resolver = ResolverFactory::createEntityResolver($entityBuffer, 'question');
         return is_callable($proxy) ? $proxy($resolver) : $resolver;
     }
 }

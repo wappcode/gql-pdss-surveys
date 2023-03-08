@@ -9,6 +9,7 @@ use GPDCore\Library\EntityBuffer;
 use GPDSurvey\Entities\SurveyContent;
 use GPDSurvey\Entities\SurveySection;
 use GPDCore\Library\ResolverFactory;
+use GPDSurvey\Entities\Survey;
 use GPDSurvey\Entities\SurveySectionItem;
 use GPDSurvey\Graphql\BufferSurveyContent;
 use GPDSurvey\Entities\SurveyConfiguration;
@@ -19,7 +20,8 @@ class ResolversSurveySection
 
     public static function getSurveyResolver(?callable $proxy): callable
     {
-        $resolver = ResolverFactory::createEntityResolver(BufferSurvey::getInstance(), 'survey');
+        $entityBuffer = new EntityBuffer(Survey::class, Survey::RELATIONS_MANY_TO_ONE);
+        $resolver = ResolverFactory::createEntityResolver($entityBuffer, 'survey');
         return is_callable($proxy) ? $proxy($resolver) : $resolver;
     }
     public static function getContentResolver(?callable $proxy): callable

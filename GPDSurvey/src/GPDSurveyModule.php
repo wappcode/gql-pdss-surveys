@@ -60,6 +60,7 @@ use GPDSurvey\Graphql\Types\TypeBuildSurveyTargetAudienceInput;
 use GPDSurvey\Graphql\Types\TypeSurveyQuestionOptionConnection;
 use GPDSurvey\Graphql\Types\TypeSurveyTargetAudienceConnection;
 use GPDSurvey\Graphql\FieldFindAnswerSessionByUsernameAndPassword;
+use GPDSurvey\Graphql\ResolversSurveyQuestionOption;
 
 class GPDSurveyModule extends AbstractModule
 {
@@ -198,6 +199,9 @@ class GPDSurveyModule extends AbstractModule
             'SurveyTargetAudience::presentation' => ResolversSurveyTargetAudience::getPresentationResolver(null),
             'SurveyTargetAudience::welcome' => ResolversSurveyTargetAudience::getWelcomeResolver(null),
             'SurveyTargetAudience::farewell' => ResolversSurveyTargetAudience::getFarewellResolver(null),
+            'SurveyQuestionOption::content' => ResolversSurveyQuestionOption::getContentResolver(null),
+            'SurveyQuestionOption::presentation' => ResolversSurveyQuestionOption::getPresentationResolver(null),
+            'SurveyQuestionOption::question' => ResolversSurveyQuestionOption::getQuestionResolver(null),
 
         ];
     }
