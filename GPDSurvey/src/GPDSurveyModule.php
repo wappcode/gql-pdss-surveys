@@ -173,7 +173,7 @@ class GPDSurveyModule extends AbstractModule
         return [
             'Survey::questions' => ResolversSurvey::getQuestionResolver(null),
             'Survey::sections' => ResolversSurvey::getSectionResolver(null),
-            'Survey::targetAudiences' => ResolversSurvey::getSectionResolver(null),
+            'Survey::targetAudiences' => ResolversSurvey::getTargetAudienceResolver(null),
             'SurveyAnswer::question' => ResolversSurveyAnswer::getQuestionResolver(null),
             'SurveyAnswer::session' => ResolversSurveyAnswer::getSessionResolver(null),
             'SurveyAnswerSession::survey' => ResolversSurveyAnswerSession::getSurveyResolver(null),
