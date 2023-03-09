@@ -38,6 +38,8 @@ class SurveyAnswerSession  extends AbstractEntityModelStringId
      */
     private $password;
     /**
+     * Extern reference to the owner 
+     * 
      * @ORM\Column(type="string", length=500, name="owner_code", nullable=true) 
      * @var string
      */
@@ -163,7 +165,7 @@ class SurveyAnswerSession  extends AbstractEntityModelStringId
     }
 
     /**
-     * Get the value of ownerCode
+     * Get the extern reference to the owner 
      *
      * @return  ?string
      */
@@ -173,7 +175,7 @@ class SurveyAnswerSession  extends AbstractEntityModelStringId
     }
 
     /**
-     * Set the value of ownerCode
+     * Set the extern reference to the owner 
      *
      * @param  string  $ownerCode
      *
