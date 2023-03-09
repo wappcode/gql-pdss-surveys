@@ -41,7 +41,7 @@ class SurveyAnswerSession  extends AbstractEntityModelStringId
      * Extern reference to the owner 
      * 
      * @ORM\Column(type="string", length=500, name="owner_code", nullable=true) 
-     * @var string
+     * @var ?string
      */
     private $ownerCode;
     /**
