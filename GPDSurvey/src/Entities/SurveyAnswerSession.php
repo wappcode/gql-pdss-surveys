@@ -24,17 +24,17 @@ class SurveyAnswerSession  extends AbstractEntityModelStringId
     const RELATIONS_MANY_TO_ONE = ['targetAudience', 'survey'];
     /**
      * @ORM\Column(type="string", length=500, name="name", nullable=true) 
-     * @var string
+     * @var ?string
      */
     private $name;
     /**
      * @ORM\Column(type="string", length=500, name="username", nullable=true) 
-     * @var string
+     * @var =string
      */
     private $username;
     /**
      * @ORM\Column(type="string", length=500, name="password", nullable=true) 
-     * @var string
+     * @var ?string
      */
     private $password;
     /**
@@ -47,7 +47,7 @@ class SurveyAnswerSession  extends AbstractEntityModelStringId
     /**
      *
      * @ORM\Column(type="decimal", name="score", precision=10, scale=4, nullable=true)
-     * @var float
+     * @var ?float
      */
     private $score;
     /**
@@ -59,7 +59,7 @@ class SurveyAnswerSession  extends AbstractEntityModelStringId
     /**
      *
      * @ORM\Column(type="decimal", name="score_percent", precision=8, scale=4, nullable=true)
-     * @var float
+     * @var ?float
      */
     private $scorePercent;
     /**
@@ -104,7 +104,7 @@ class SurveyAnswerSession  extends AbstractEntityModelStringId
     /**
      * Set the value of name
      *
-     * @param  string  $name
+     * @param  ?string  $name
      *
      * @return  self
      */
@@ -128,7 +128,7 @@ class SurveyAnswerSession  extends AbstractEntityModelStringId
     /**
      * Set the value of username
      *
-     * @param  string  $username
+     * @param  ?string  $username
      *
      * @return  self
      */
@@ -153,7 +153,7 @@ class SurveyAnswerSession  extends AbstractEntityModelStringId
     /**
      * Set the value of password
      *
-     * @param  string  $password
+     * @param  ?string  $password
      *
      * @return  self
      */
@@ -177,7 +177,7 @@ class SurveyAnswerSession  extends AbstractEntityModelStringId
     /**
      * Set the extern reference to the owner 
      *
-     * @param  string  $ownerCode
+     * @param  ?string  $ownerCode
      *
      * @return  self
      */
@@ -199,7 +199,7 @@ class SurveyAnswerSession  extends AbstractEntityModelStringId
     }
 
     /**
-     * @param  float  $score
+     * @param  ?float  $score
      *
      * @return  self
      */
@@ -222,7 +222,7 @@ class SurveyAnswerSession  extends AbstractEntityModelStringId
 
     /**
      *
-     * @param  float  $scorePercent
+     * @param  ?float  $scorePercent
      *
      * @return  self
      */
