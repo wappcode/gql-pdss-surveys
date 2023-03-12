@@ -31,7 +31,7 @@ class FieldCreateAnswerSession
         return function ($root, $args, IContextService $context, $info) {
             $entityManager = $context->getEntityManager();
             $input = $args["input"];
-            $answerInput = $input["answers"];
+            $answerInput = $input["answers"] ?? [];
             $targetAudienceId = $input["targetAudience"];
             $answerSessionInput = $input;
             unset($answerInput["answers"]);

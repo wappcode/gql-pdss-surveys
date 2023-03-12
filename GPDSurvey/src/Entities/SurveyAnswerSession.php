@@ -325,7 +325,7 @@ class SurveyAnswerSession  extends AbstractEntityModelStringId
      *
      * @return  self
      */
-    public function setCompleted(bool $completed)
+    public function setCompleted(bool $completed = false)
     {
         $this->completed = $completed;
 
