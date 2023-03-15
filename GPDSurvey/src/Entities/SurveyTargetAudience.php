@@ -253,7 +253,7 @@ class SurveyTargetAudience  extends AbstractEntityModelStringId
     /**
      * Set the value of presentation
      *
-     * @param  SurveyConfiguration  $presentation
+     * @param  ?SurveyConfiguration  $presentation
      *
      * @return  self
      */
