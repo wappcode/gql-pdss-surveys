@@ -129,7 +129,7 @@ class GPDSurveyModule extends AbstractModule
                 },
                 TypeBuildSurveyInput::class => function ($sm) {
                     return new TypeBuildSurveyInput($this->context);
-                },
+                }
             ],
             'aliases' => [
                 TypeSurveyConfigurationValue::NAME => TypeSurveyConfigurationValue::class,

@@ -355,7 +355,7 @@ class SurveyQuestion  extends AbstractEntityModelStringId
 
     /**
      *
-     * @param  SurveyConfiguration  $answerScore  
+     * @param  ?SurveyConfiguration  $answerScore  
      *
      * @return  self
      */
@@ -424,7 +424,7 @@ class SurveyQuestion  extends AbstractEntityModelStringId
     /**
      * Set the value of validators
      *
-     * @param  SurveyConfiguration  $validators
+     * @param  ?SurveyConfiguration  $validators
      *
      * @return  self
      */

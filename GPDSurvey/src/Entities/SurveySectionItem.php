@@ -137,7 +137,7 @@ class SurveySectionItem  extends AbstractEntityModelStringId
     /**
      * Set the value of conditions
      *
-     * @param  SurveyConfiguration  $conditions
+     * @param  ?SurveyConfiguration  $conditions
      *
      * @return  self
      */
@@ -161,7 +161,7 @@ class SurveySectionItem  extends AbstractEntityModelStringId
     /**
      * Set the value of question
      *
-     * @param  SurveyQuestion  $question
+     * @param  ?SurveyQuestion  $question
      *
      * @return  self
      */
@@ -185,7 +185,7 @@ class SurveySectionItem  extends AbstractEntityModelStringId
     /**
      * Set the value of content
      *
-     * @param  SurveyContent  $content
+     * @param  ?SurveyContent  $content
      *
      * @return  self
      */

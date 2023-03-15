@@ -99,7 +99,7 @@ class SurveyContent  extends AbstractEntityModel
     /**
      * Set the value of presentation
      *
-     * @param  SurveyConfiguration  $presentation
+     * @param  ?SurveyConfiguration  $presentation
      *
      * @return  self
      */

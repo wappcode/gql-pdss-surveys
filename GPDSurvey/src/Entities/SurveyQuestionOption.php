@@ -143,7 +143,7 @@ class SurveyQuestionOption  extends AbstractEntityModel
     /**
      * Set the value of content
      *
-     * @param  SurveyContent  $content
+     * @param  ?SurveyContent  $content
      *
      * @return  self
      */
@@ -167,7 +167,7 @@ class SurveyQuestionOption  extends AbstractEntityModel
     /**
      * Set the value of presentation
      *
-     * @param  SurveyConfiguration  $presentation
+     * @param  ?SurveyConfiguration  $presentation
      *
      * @return  self
      */
