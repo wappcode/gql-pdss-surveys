@@ -9,6 +9,7 @@ use GPDSurvey\Entities\Survey;
 use GPDCore\Library\IContextService;
 use GPDSurvey\Graphql\Types\TypeBuildSurveyInput;
 use GPDSurvey\Library\BuildSurvey;
+use GraphQL\Type\Definition\Type;
 
 class FieldBuildSurvey
 {
@@ -21,7 +22,7 @@ class FieldBuildSurvey
         return [
             'type' => $types->getOutput(Survey::class),
             'args' => [
-                'input' => $serviceManager->get(TypeBuildSurveyInput::class)
+                'input' =>  Type::nonNull($serviceManager->get(TypeBuildSurveyInput::class))
             ],
             'resolve' => $proxyResolve
         ];
