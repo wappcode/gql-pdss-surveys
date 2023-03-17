@@ -45,7 +45,6 @@ class FieldFindAnswerSessionByOwnerCode
         $qb = $entityManager->createQueryBuilder()->from(SurveyAnswerSession::class, 'answerSession')->select("answerSession");
         $qb->andWhere('answerSession.targetAudience = :targetAudienceId')
             ->andWhere('answerSession.ownerCode like :ownwerCode')
-            ->andWhere('answerSession.password like :password')
             ->setParameter(':targetAudienceId', $targetAudienceId)
             ->setParameter(':ownwerCode', $ownwerCode);
         $answerSession = $qb->getQuery()->getOneOrNullResult();
