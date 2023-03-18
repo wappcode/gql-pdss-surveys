@@ -3,6 +3,7 @@
 namespace GPDSurvey\Entities;
 
 use DateTime;
+use DateTimeImmutable;
 use DateTimeInterface;
 use GPDSurvey\Entities\Survey;
 use Doctrine\ORM\Mapping as ORM;
@@ -116,7 +117,8 @@ class SurveyTargetAudience  extends AbstractEntityModelStringId
      */
     public function setStarts(?DateTimeInterface $starts)
     {
-        $this->starts = $starts;
+        $immutable = new DateTimeImmutable($starts->format('c'));
+        $this->starts = $immutable;
 
         return $this;
     }
@@ -140,7 +142,8 @@ class SurveyTargetAudience  extends AbstractEntityModelStringId
      */
     public function setEnds(?DateTimeInterface $ends)
     {
-        $this->ends = $ends;
+        $immutable = new DateTimeImmutable($ends->format('c'));
+        $this->ends = $immutable;
 
         return $this;
     }

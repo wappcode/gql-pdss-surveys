@@ -1,5 +1,5 @@
 {
-    "version": "1.0.7",
+    "version": "1.0.8",
     "name": "wappcode/gql-pdss-surveys",
     "description": "Modulo para administar cuestionarios",
     "type": "library",
