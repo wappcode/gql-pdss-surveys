@@ -2,13 +2,14 @@
 
 namespace GPDSurvey\Entities;
 
-use DateTimeImmutable;
+use DateTime;
+use DateTimeInterface;
 use GPDSurvey\Entities\Survey;
+use Doctrine\ORM\Mapping as ORM;
 use GPDSurvey\Entities\SurveyContent;
+use GraphQL\Doctrine\Annotation as API;
 use GPDSurvey\Entities\SurveyConfiguration;
 use GPDCore\Entities\AbstractEntityModelStringId;
-use Doctrine\ORM\Mapping as ORM;
-use GraphQL\Doctrine\Annotation as API;
 
 /**
  * Doctrine Entity For SurveyTargetAudience
@@ -28,12 +29,12 @@ class SurveyTargetAudience  extends AbstractEntityModelStringId
      */
     private $title;
     /**
-     * @var DateTimeImmutable
+     * @var DateTimeInterface
      * @ORM\Column(type="datetimetz_immutable", name="starts", nullable=true)
      */
     private $starts;
     /**
-     * @var DateTimeImmutable
+     * @var DateTimeInterface
      * @ORM\Column(type="datetimetz_immutable", name="ends", nullable=true)
      */
     private $ends;
@@ -99,7 +100,7 @@ class SurveyTargetAudience  extends AbstractEntityModelStringId
     /**
      * Get the value of starts
      * @API\Field(type="?DateTime")
-     * @return  ?DateTimeImmutable
+     * @return  ?DateTime
      */
     public function getStarts()
     {
@@ -109,11 +110,11 @@ class SurveyTargetAudience  extends AbstractEntityModelStringId
     /**
      * Set the value of starts
      * @API\Input(type="?DateTime")
-     * @param  DateTimeImmutable  $starts
+     * @param  DateTime  $starts
      *
      * @return  self
      */
-    public function setStarts(?DateTimeImmutable $starts)
+    public function setStarts(?DateTimeInterface $starts)
     {
         $this->starts = $starts;
 
@@ -123,7 +124,7 @@ class SurveyTargetAudience  extends AbstractEntityModelStringId
     /**
      * Get the value of ends
      * @API\Field(type="?DateTime")
-     * @return  ?DateTimeImmutable
+     * @return  ?DateTime
      */
     public function getEnds()
     {
@@ -133,11 +134,11 @@ class SurveyTargetAudience  extends AbstractEntityModelStringId
     /**
      * Set the value of ends
      * @API\Input(type="?DateTime")
-     * @param  DateTimeImmutable  $ends
+     * @param  DateTime  $ends
      *
      * @return  self
      */
-    public function setEnds(?DateTimeImmutable $ends)
+    public function setEnds(?DateTimeInterface $ends)
     {
         $this->ends = $ends;
 
