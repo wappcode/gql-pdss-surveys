@@ -3,7 +3,7 @@ return [
     "driver" => [
         'user'     =>   'root',
         'password' =>   'dbpassword',
-        'dbname'   =>   'gqlpdss_survey',
+        'dbname'   =>   'toyotado_surveysdb',
         'driver'   =>   'pdo_mysql',
         'host'   =>     '127.0.0.1',
         'charset' =>    'utf8mb4'
