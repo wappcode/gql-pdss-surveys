@@ -1,0 +1,40 @@
+version: '3.7'
+services: 
+  gqlpdsssurvey-mysql:
+    container_name: gqlpdsssurvey-mysql8
+    image: mysql:8.0.28
+    command: --default-authentication-plugin=mysql_native_password
+    restart: "no"
+    environment:
+      MYSQL_ROOT_PASSWORD: ${GQLPDSSSURVEY_DBPASSWORD:-dbpassword}
+    ports:
+      - "${GQLPDSSSURVEY_MYSQL_PORT:-3308}:3306"
+    platform: linux/x86_64
+    volumes:
+      - ~/opt/dockerMysql8.0.28:/var/lib/mysql
+    healthcheck:
+            test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+            timeout: 5s
+            retries: 60
+  gqlpdsssurvey-php:
+    depends_on:
+      gqlpdsssurvey-mysql:
+        condition: service_healthy
+    container_name: gqlpdsssurvey-php7.4
+    image: jesusabarcag/php-dev:php7.4
+    volumes: 
+      - ..:/var/www/html
+      - ./sites-enabled:/etc/apache2/sites-enabled
+      - ./xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+      - ./commands:/home/commands
+    ports: 
+      - "${GQLPDSSSURVEY_APP_PORT:-8080}:8080"
+    entrypoint: sh -c "/home/commands/run.sh"
+    restart: "no"
+    platform: linux/x86_64
+    environment:
+      - GQLPDSSSURVEY_APP_PORT=${GQLPDSSSURVEY_APP_PORT:-8080}
+      - GQLPDSSSURVEY_DBUSER=${GQLPDSSSURVEY_DBUSER:-root}
+      - GQLPDSSSURVEY_DBPASSWORD=${GQLPDSSSURVEY_DBPASSWORD:-dbpassword}
+      - GQLPDSSSURVEY_DBNAME=${GQLPDSSSURVEY_DBNAME:-gqlpdss_surveydb}
+      - GQLPDSSSURVEY_DBHOST=gqlpdsssurvey-mysql
