@@ -6,6 +6,7 @@ use GPDCore\Entities\AbstractEntityModel;
 use GPDSurvey\Entities\SurveyContent;
 use GPDSurvey\Entities\SurveyQuestion;
 use Doctrine\ORM\Mapping as ORM;
+use GraphQL\Doctrine\Annotation as API;
 
 /**
  * Doctrine Entity For SurveyQuestionOption
