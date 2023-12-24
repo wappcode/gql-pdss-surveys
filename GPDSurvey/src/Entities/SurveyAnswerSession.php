@@ -29,7 +29,7 @@ class SurveyAnswerSession  extends AbstractEntityModelStringId
     private $name;
     /**
      * @ORM\Column(type="string", length=500, name="username", nullable=true) 
-     * @var =string
+     * @var ?string
      */
     private $username;
     /**

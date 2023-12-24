@@ -4,6 +4,7 @@ namespace GPDSurvey\Entities;
 
 use Doctrine\ORM\Mapping as ORM;
 use GPDCore\Entities\AbstractEntityModel;
+use GraphQL\Doctrine\Annotation as API;
 
 /**
  * Doctrine Entity For SurveyAnswer
@@ -24,8 +25,8 @@ class SurveyAnswer  extends AbstractEntityModel
 {
     const RELATIONS_MANY_TO_ONE = ['question', 'session'];
     /**
-     * @ORM\Column(type="text", name="value", nullable=true) 
-     * @var string
+     * @ORM\Column(type="json", name="value", nullable=true) 
+     * @var mixed
      */
     private $value;
 
@@ -58,8 +59,8 @@ class SurveyAnswer  extends AbstractEntityModel
 
     /**
      * Get the value of value
-     *
-     * @return  ?string
+     * @API\Field(type="?JSONData")
+     * @return  ?mixed
      */
     public function getValue()
     {
@@ -68,12 +69,12 @@ class SurveyAnswer  extends AbstractEntityModel
 
     /**
      * Set the value of value
-     *
+     * @API\Input(type="?JSONData")
      * @param  string  $value
      *
      * @return  self
      */
-    public function setValue(?string $value)
+    public function setValue($value)
     {
         $this->value = $value;
 
