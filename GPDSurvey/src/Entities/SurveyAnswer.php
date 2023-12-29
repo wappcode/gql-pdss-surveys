@@ -26,7 +26,7 @@ class SurveyAnswer  extends AbstractEntityModel
     const RELATIONS_MANY_TO_ONE = ['question', 'session'];
     /**
      * @ORM\Column(type="string", name="answer_value", nullable=true) 
-     * @var mixed
+     * @var ?string
      */
     private $value;
 

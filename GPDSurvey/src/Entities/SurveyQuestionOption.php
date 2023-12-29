@@ -22,7 +22,7 @@ class SurveyQuestionOption  extends AbstractEntityModel
     const RELATIONS_MANY_TO_ONE = ['content', 'presentation', 'question'];
     /**
      * @ORM\Column(type="string", length="5000", name="option_value", nullable=false) 
-     * @var mixed
+     * @var string
      */
     private $value;
     /**
@@ -72,7 +72,7 @@ class SurveyQuestionOption  extends AbstractEntityModel
     /**
      * Set the value of value
      * 
-     * @param  mixed  $value
+     * @param  string  $value
      *
      * @return  self
      */
