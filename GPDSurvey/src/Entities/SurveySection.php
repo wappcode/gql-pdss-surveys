@@ -55,7 +55,7 @@ class SurveySection  extends AbstractEntityModelStringId
 
     /**
      *
-     * @ORM\OneToOne(targetEntity="\GPDSurvey\Entities\SurveyConfiguration")
+     * @ORM\ManyToOne(targetEntity="\GPDSurvey\Entities\SurveyConfiguration")
      * @ORM\JoinColumn(name="presentation_id", referencedColumnName="id", nullable=true)
      * @var SurveyConfiguration
      * 

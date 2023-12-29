@@ -77,7 +77,7 @@ class SurveyQuestion  extends AbstractEntityModelStringId
     private $content;
     /**
      *
-     * @ORM\OneToOne(targetEntity="\GPDSurvey\Entities\SurveyConfiguration")
+     * @ORM\ManyToOne(targetEntity="\GPDSurvey\Entities\SurveyConfiguration")
      * @ORM\JoinColumn(name="presentation_id", referencedColumnName="id", nullable=true)
      * @var SurveyConfiguration
      * 
@@ -85,7 +85,7 @@ class SurveyQuestion  extends AbstractEntityModelStringId
     private $presentation;
     /**
      *
-     * @ORM\OneToOne(targetEntity="\GPDSurvey\Entities\SurveyConfiguration")
+     * @ORM\ManyToOne(targetEntity="\GPDSurvey\Entities\SurveyConfiguration")
      * @ORM\JoinColumn(name="validators_id", referencedColumnName="id", nullable=true)
      * @var SurveyConfiguration
      * 
