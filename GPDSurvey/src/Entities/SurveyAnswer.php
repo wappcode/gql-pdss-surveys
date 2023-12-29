@@ -25,7 +25,7 @@ class SurveyAnswer  extends AbstractEntityModel
 {
     const RELATIONS_MANY_TO_ONE = ['question', 'session'];
     /**
-     * @ORM\Column(type="json", name="value", nullable=true) 
+     * @ORM\Column(type="string", name="answer_value", nullable=true) 
      * @var mixed
      */
     private $value;
@@ -59,8 +59,7 @@ class SurveyAnswer  extends AbstractEntityModel
 
     /**
      * Get the value of value
-     * @API\Field(type="?JSONData")
-     * @return  ?mixed
+     * @return  ?string
      */
     public function getValue()
     {
@@ -69,12 +68,11 @@ class SurveyAnswer  extends AbstractEntityModel
 
     /**
      * Set the value of value
-     * @API\Input(type="?JSONData")
      * @param  string  $value
      *
      * @return  self
      */
-    public function setValue($value)
+    public function setValue(?string $value)
     {
         $this->value = $value;
 

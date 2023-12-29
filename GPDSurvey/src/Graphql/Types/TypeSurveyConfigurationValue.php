@@ -15,6 +15,7 @@ final class TypeSurveyConfigurationValue extends ScalarType
     const NAME = 'SurveyConfigurationValue';
     public function __construct(array $config = [])
     {
+        $config["description"] = "JSON String ";
         parent::__construct($config);
         $this->name = static::NAME;
     }

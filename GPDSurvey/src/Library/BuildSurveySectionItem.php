@@ -24,7 +24,7 @@ class BuildSurveySectionItem
         $input["presentation"] = BuildSurveyConfiguration::build($context, $input["presentation"] ?? null);
         $input["conditions"] = BuildSurveyConfiguration::build($context, $input["conditions"] ?? null);
         $targetAudience = new SurveySectionItem();
-        ArrayToEntity::apply($targetAudience, $input);
+        ArrayToEntity::setValues($entityManager, $targetAudience, $input);
         $entityManager->persist($targetAudience);
         $entityManager->flush();
         return $targetAudience;

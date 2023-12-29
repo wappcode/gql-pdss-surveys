@@ -33,7 +33,7 @@ class SurveyAnswerSession  extends AbstractEntityModelStringId
      */
     private $username;
     /**
-     * @ORM\Column(type="string", length=500, name="password", nullable=true) 
+     * @ORM\Column(type="string", length=500, name="session_password", nullable=true) 
      * @var ?string
      */
     private $password;

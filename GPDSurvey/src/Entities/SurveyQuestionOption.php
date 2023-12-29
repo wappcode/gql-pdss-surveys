@@ -21,7 +21,7 @@ class SurveyQuestionOption  extends AbstractEntityModel
 {
     const RELATIONS_MANY_TO_ONE = ['content', 'presentation', 'question'];
     /**
-     * @ORM\Column(type="json", length="5000", name="value", nullable=false) 
+     * @ORM\Column(type="string", length="5000", name="option_value", nullable=false) 
      * @var mixed
      */
     private $value;
@@ -61,9 +61,8 @@ class SurveyQuestionOption  extends AbstractEntityModel
 
     /**
      * Get the value of value
-     * @API\Field(type="?JSONData")
      * 
-     * @return  mixed
+     * @return  string
      */
     public function getValue()
     {
@@ -72,12 +71,12 @@ class SurveyQuestionOption  extends AbstractEntityModel
 
     /**
      * Set the value of value
-     * @API\Input(type="?JSONData")
+     * 
      * @param  mixed  $value
      *
      * @return  self
      */
-    public function setValue($value)
+    public function setValue(string $value)
     {
         $this->value = $value;
 

@@ -21,7 +21,7 @@ class SurveyContent  extends AbstractEntityModel
 
 
     /**
-     * @ORM\Column(type="string", name="type", nullable=false) 
+     * @ORM\Column(type="string", name="config_type", nullable=false) 
      * @var string
      */
     private $type;
@@ -39,7 +39,6 @@ class SurveyContent  extends AbstractEntityModel
 
     /**
      * Get the value of type
-     * @API\Field(type="GPDSurvey\Graphql\Types\TypeSurveyContentType")
      * @return  string
      */
     public function getType()
@@ -49,8 +48,9 @@ class SurveyContent  extends AbstractEntityModel
 
     /**
      * Set the value of type
-     *
-     * @API\Input(type="GPDSurvey\Graphql\Types\TypeSurveyContentType")
+     * 
+     * Combine ANY type with Presentation for custom
+     * 
      * @param  string  $type
      *
      * @return  self

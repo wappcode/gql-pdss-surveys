@@ -21,7 +21,7 @@ class BuildSurvey
             "title" => $input["title"]
         ];
         $survey = new Survey();
-        ArrayToEntity::apply($survey, $surveyInput);
+        ArrayToEntity::setValues($entityManager, $survey, $surveyInput);
         $entityManager->persist($survey);
         $entityManager->flush();
         $targetAudienceInput = $input["targetAudience"] ?? null;

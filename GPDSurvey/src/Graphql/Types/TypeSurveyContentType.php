@@ -20,6 +20,8 @@ class TypeSurveyContentType extends EnumType
                 ISurveyContent::SURVEY_CONTENT_TYPE_HTML,
                 ISurveyContent::SURVEY_CONTENT_TYPE_IMAGE,
                 ISurveyContent::SURVEY_CONTENT_TYPE_VIDEO,
+                ISurveyContent::SURVEY_CONTENT_TYPE_AUDIO,
+                ISurveyContent::SURVEY_CONTENT_TYPE_ANY,
             ],
         ];
 

@@ -22,7 +22,7 @@ class BuildSurveySection
         $sectionInput = $input;
         unset($sectionInput["items"]);
 
-        ArrayToEntity::apply($section, $sectionInput);
+        ArrayToEntity::setValues($entityManager, $section, $sectionInput);
         $entityManager->persist($section);
         $entityManager->flush();
         $itemsInput = $input["items"] ?? [];

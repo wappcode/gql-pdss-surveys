@@ -41,7 +41,7 @@ class SurveyQuestion  extends AbstractEntityModelStringId
      */
     private $code;
     /**
-     * @ORM\Column(type="string", name="type", nullable=false) 
+     * @ORM\Column(type="string", name="question_type", nullable=false) 
      * @var string
      */
     private $type;
@@ -58,7 +58,7 @@ class SurveyQuestion  extends AbstractEntityModelStringId
 
     /**
      * 
-     * @ORM\Column(type="string", name="hint", nullable=true) 
+     * @ORM\Column(type="string", name="question_hint", nullable=true) 
      * @var string
      */
     private $hint;
@@ -174,7 +174,6 @@ class SurveyQuestion  extends AbstractEntityModelStringId
 
     /**
      * Get the value of type
-     * @API\Field(type="GPDSurvey\Graphql\Types\TypeSurveyQuestionType")
      * @return  string
      */
     public function getType()
@@ -184,8 +183,20 @@ class SurveyQuestion  extends AbstractEntityModelStringId
 
     /**
      * Set the value of type
+     * CHECKBOX_LIST
+     * DATE
+     * DATE_RANGE
+     * DATETIME
+     * EMAIL
+     * FILE
+     * IMAGE
+     * NUMBER
+     * NUMBER_LIST
+     * ONE_LINE_TEXT
+     * PHONE
+     * RADIO_LIST
+     * SHORT_TEXT
      *
-     * @API\Input(type="GPDSurvey\Graphql\Types\TypeSurveyQuestionType")
      * @param  string  $type
      *
      * @return  self

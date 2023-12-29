@@ -22,7 +22,7 @@ class SurveySectionItem  extends AbstractEntityModelStringId
     const RELATIONS_MANY_TO_ONE = ['conditions', 'section', 'question', 'content'];
 
     /**
-     * @ORM\Column(type="string", name="type", nullable=false) 
+     * @ORM\Column(type="string", name="item_type", nullable=false) 
      * @var string
      */
     private $type;

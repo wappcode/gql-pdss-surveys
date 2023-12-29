@@ -16,7 +16,7 @@ class BuildSurveyConfiguration
         }
         $entityManager = $context->getEntityManager();
         $configuration = new SurveyConfiguration();
-        ArrayToEntity::apply($configuration, $input);
+        ArrayToEntity::setValues($entityManager, $configuration, $input);
         $entityManager->persist($configuration);
         $entityManager->flush();
         return $configuration;

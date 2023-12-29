@@ -24,12 +24,12 @@ class SurveyConfiguration  extends AbstractEntityModel
 
 
     /**
-     * @ORM\Column(type="json", name="value", nullable=false) 
+     * @ORM\Column(type="json", name="config_value", nullable=false) 
      * @var array
      */
     private $value;
     /**
-     * @ORM\Column(type="string", name="type", nullable=false) 
+     * @ORM\Column(type="string", name="config_type", nullable=false) 
      * @var string
      */
     private $type;
