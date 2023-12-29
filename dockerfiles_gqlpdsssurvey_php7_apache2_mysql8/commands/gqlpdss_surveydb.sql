@@ -8,7 +8,10 @@ INSERT INTO `gpd_survey_section_item` VALUES ('brb95af5deb6e8ce2c53e43d94f46dd71
 INSERT INTO `gpd_survey_target_audience` VALUES ('usm35873f5f3c09e48683b564143d52f18b',1,2,'gqt03d4086ab23209f12247449ec693aa05',NULL,'Audience','2023-12-28 00:47:47','2024-01-28 00:47:47',NULL,'2023-12-28 18:40:32','2023-12-28 18:40:32');
 INSERT INTO gqlpdss_surveydb.gpd_survey_answer_session
 (id, target_audience_id, survey_id, name, username, session_password, owner_code, score, completed, score_percent, created, updated)
-VALUES('pmie907eeb7a84d9c3cbd9bd7dd34042723', 'usm35873f5f3c09e48683b564143d52f18b', 'gqt03d4086ab23209f12247449ec693aa05', null,null,null, 'dds20a25cfde285773a34990c9c18ce8539', null, 0, null, NOW(), NOW());
+VALUES
+('pmie907eeb7a84d9c3cbd9bd7dd34042723', 'usm35873f5f3c09e48683b564143d52f18b', 'gqt03d4086ab23209f12247449ec693aa05', null,null,null, 'dds20a25cfde285773a34990c9c18ce8539', null, 0, null, NOW(), NOW()),
+('plib6eb3496130471f547f1ec55ed99127f', 'usm35873f5f3c09e48683b564143d52f18b', 'gqt03d4086ab23209f12247449ec693aa05', "pancho","p.lopez","demo", 'irh4cf96cbcb0e54d9aa7e4473da4e94374', null, 0, null, NOW(), NOW()),
+('rzmef18da8646350569045dbaa886ba4f17', 'usm35873f5f3c09e48683b564143d52f18b', 'gqt03d4086ab23209f12247449ec693aa05', "","","", 'zlh3eba28fc014bfd4a86cc00b2ed492a3b', null, 0, null, NOW(), NOW());
 
 INSERT INTO gqlpdss_surveydb.gpd_survey_answer
 (id, question_id, session_id, answer_value, score, score_percent, created, updated)

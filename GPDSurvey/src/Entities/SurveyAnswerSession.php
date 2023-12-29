@@ -15,7 +15,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Index(name="user_created_idx",columns={"created"}),
  * @ORM\Index(name="user_updated_idx",columns={"updated"}),
  * }, uniqueConstraints={
- * @ORM\UniqueConstraint(name="owner_code", columns={"target_audience_id","owner_code"})
+ * @ORM\UniqueConstraint(name="owner_code", columns={"target_audience_id","owner_code"}),
+ * @ORM\UniqueConstraint(name="username", columns={"target_audience_id","username"})
  * })
  * 
  */

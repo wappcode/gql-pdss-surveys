@@ -3,6 +3,7 @@
 namespace GPDSurvey\Graphql;
 
 use GPDCore\Library\GeneralDoctrineUtilities;
+use GPDCore\Library\GQLException;
 use GPDCore\Library\IContextService;
 use GPDSurvey\Entities\SurveyAnswerSession;
 use GraphQL\Type\Definition\Type;
@@ -32,6 +33,9 @@ class FieldFindAnswerSessionByUsernameAndPassword
             $targetAudienceId = $args["targetAudience"];
             $username = $args["username"];
             $password = $args["password"];
+            if (empty($username) || empty($password)) {
+                return null;
+            }
             $entityManager = $context->getEntityManager();
             $answerSession = static::findAnswerSession($context, $targetAudienceId, $username, $password);
             if (!($answerSession instanceof SurveyAnswerSession)) {
