@@ -41,13 +41,13 @@ class SurveyTargetAudience  extends AbstractEntityModelStringId
     private $ends;
 
     /**
-     * @var SurveyContent
+     * @var ?SurveyContent
      * @ORM\ManyToOne(targetEntity="\GPDSurvey\Entities\SurveyContent")
      * @ORM\JoinColumn(name="welcome_content_id",referencedColumnName="id", nullable=true)
      */
     private $welcome;
     /**
-     * @var SurveyContent
+     * @var ?SurveyContent
      * @ORM\ManyToOne(targetEntity="\GPDSurvey\Entities\SurveyContent")
      * @ORM\JoinColumn(name="farewell_content_id",referencedColumnName="id", nullable=true)
      */
@@ -69,7 +69,7 @@ class SurveyTargetAudience  extends AbstractEntityModelStringId
      *
      * @ORM\ManyToOne(targetEntity="\GPDSurvey\Entities\SurveyConfiguration")
      * @ORM\JoinColumn(name="presentation_id", referencedColumnName="id", nullable=true)
-     * @var SurveyConfiguration
+     * @var ?SurveyConfiguration
      * 
      */
     private $presentation;
@@ -161,7 +161,7 @@ class SurveyTargetAudience  extends AbstractEntityModelStringId
     /**
      * Set the value of welcome
      *
-     * @param  SurveyContent  $welcome
+     * @param  ?SurveyContent  $welcome
      *
      * @return  self
      */
@@ -185,7 +185,7 @@ class SurveyTargetAudience  extends AbstractEntityModelStringId
     /**
      * Set the value of farewell
      *
-     * @param  SurveyContent  $farewell
+     * @param  ?SurveyContent  $farewell
      *
      * @return  self
      */
@@ -209,7 +209,7 @@ class SurveyTargetAudience  extends AbstractEntityModelStringId
     /**
      * Set the value of attempts
      *
-     * @param  int  $attempts
+     * @param  ?int  $attempts
      *
      * @return  self
      */

@@ -187,7 +187,7 @@ class SurveySection  extends AbstractEntityModelStringId
      *
      * @return  self
      */
-    public function setHidden(bool $hidden = false)
+    public function setHidden(bool $hidden)
     {
         $this->hidden = $hidden;
 

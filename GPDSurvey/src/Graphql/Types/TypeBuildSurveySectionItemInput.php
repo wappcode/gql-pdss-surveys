@@ -43,7 +43,7 @@ class TypeBuildSurveySectionItemInput extends InputObjectType
                     'type' => $serviceManager->get(TypeBuildSurveyContentInput::class)
                 ],
                 'hidden' => [
-                    'type' => Type::boolean()
+                    'type' => Type::nonNull(Type::boolean())
                 ],
             ]
         ];

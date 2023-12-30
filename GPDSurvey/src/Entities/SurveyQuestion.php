@@ -72,14 +72,14 @@ class SurveyQuestion  extends AbstractEntityModelStringId
      *
      * @ORM\ManyToOne(targetEntity="\GPDSurvey\Entities\SurveyContent")
      * @ORM\JoinColumn(name="content_id", referencedColumnName="id", nullable=true)
-     * @var SurveyContent
+     * @var ?SurveyContent
      */
     private $content;
     /**
      *
      * @ORM\ManyToOne(targetEntity="\GPDSurvey\Entities\SurveyConfiguration")
      * @ORM\JoinColumn(name="presentation_id", referencedColumnName="id", nullable=true)
-     * @var SurveyConfiguration
+     * @var ?SurveyConfiguration
      * 
      */
     private $presentation;
@@ -87,7 +87,7 @@ class SurveyQuestion  extends AbstractEntityModelStringId
      *
      * @ORM\ManyToOne(targetEntity="\GPDSurvey\Entities\SurveyConfiguration")
      * @ORM\JoinColumn(name="validators_id", referencedColumnName="id", nullable=true)
-     * @var SurveyConfiguration
+     * @var ?SurveyConfiguration
      * 
      */
     private $validators;
@@ -97,7 +97,7 @@ class SurveyQuestion  extends AbstractEntityModelStringId
      * 
      * @ORM\OneToOne(targetEntity="\GPDSurvey\Entities\SurveyConfiguration")
      * @ORM\JoinColumn(name="answer_score_id", referencedColumnName="id", nullable=true)
-     * @var SurveyConfiguration
+     * @var ?SurveyConfiguration
      */
     private $answerScore;
     /**
@@ -105,7 +105,8 @@ class SurveyQuestion  extends AbstractEntityModelStringId
      * Se establece como valor predeterminado 1 para poder calcular el puntaje máximo de la encuesta.
      * También puede servir para asignar puntaje de forma manual mediante un formulario para cada respuesta.
      * 
-     * @ORM\Column(type="decimal", precision=10, scale=4, nullable=false, options={"default":1})
+     * @ORM\Column(type="decimal", precision=10, scale=4, nullable=true)
+     * @var ?float
      */
     private $score;
     /**
@@ -271,7 +272,7 @@ class SurveyQuestion  extends AbstractEntityModelStringId
     /**
      * Set the value of hint
      *
-     * @param  string  $hint
+     * @param  ?string  $hint
      *
      * @return  self
      */
@@ -320,7 +321,7 @@ class SurveyQuestion  extends AbstractEntityModelStringId
     /**
      * Set the value of content
      *
-     * @param  SurveyContent  $content
+     * @param  ?SurveyContent  $content
      *
      * @return  self
      */
@@ -344,7 +345,7 @@ class SurveyQuestion  extends AbstractEntityModelStringId
     /**
      * Set the value of presentation
      *
-     * @param  SurveyConfiguration  $presentation
+     * @param  ?SurveyConfiguration  $presentation
      *
      * @return  self
      */
@@ -379,7 +380,7 @@ class SurveyQuestion  extends AbstractEntityModelStringId
 
     /**
      * Get the value of score
-     * @return float
+     * @return ?float
      */
     public function getScore()
     {
@@ -391,7 +392,7 @@ class SurveyQuestion  extends AbstractEntityModelStringId
      *
      * @return  self
      */
-    public function setScore(float $score)
+    public function setScore(?float $score)
     {
         $this->score = $score;
 

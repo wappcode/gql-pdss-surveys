@@ -33,7 +33,7 @@ class TypeBuildSurveyQuestionInput extends InputObjectType
                     'type' => Type::nonNull(Type::string()),
                 ],
                 'type' => [
-                    'type' => Type::nonNull($serviceManager->get(TypeSurveyQuestionType::class)),
+                    'type' => Type::nonNull(Type::string()),
                 ],
                 'required' => [
                     'type' => Type::nonNull(Type::boolean()),
