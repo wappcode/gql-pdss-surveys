@@ -73,7 +73,8 @@ class SurveyTargetAudience  extends AbstractEntityModelStringId
      * 
      */
     private $presentation;
-
+    //TODO: agregar configuración para inputs y builders
+    //TODO agregar seguridad para consultas de targetAudience no debe retornar información si tiene asignado un password
     /**
      * @ORM\Column(type="string",length=255,nullable=true,name="audience_password")
      *
