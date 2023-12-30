@@ -26,6 +26,9 @@ class TypeBuildSurveyInput extends InputObjectType
                 ],
                 'targetAudience' => [
                     'type' => $serviceManager->get(TypeBuildSurveyTargetAudienceInput::class)
+                ],
+                'active' => [
+                    'type' => Type::nonNull(Type::boolean())
                 ]
 
             ]

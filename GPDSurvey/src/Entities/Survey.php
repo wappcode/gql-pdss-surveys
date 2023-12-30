@@ -44,12 +44,20 @@ class Survey  extends AbstractEntityModelStringId
      */
     private $sections;
 
+    /**
+     * @ORM\Column(name="active",type="boolean",nullable=false,options={"default":0})
+     *
+     * @var bool
+     */
+    private $active;
+
     public function __construct()
     {
         parent::__construct();
         $this->targetAudiences = new ArrayCollection();
         $this->questions = new ArrayCollection();
         $this->sections = new ArrayCollection();
+        $this->active = true;
     }
 
 
@@ -147,6 +155,30 @@ class Survey  extends AbstractEntityModelStringId
     public function setSections(Collection $sections)
     {
         $this->sections = $sections;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of active
+     *
+     * @return  bool
+     */
+    public function getActive()
+    {
+        return $this->active;
+    }
+
+    /**
+     * Set the value of active
+     *
+     * @param  bool  $active
+     *
+     * @return  self
+     */
+    public function setActive(bool $active)
+    {
+        $this->active = $active;
 
         return $this;
     }

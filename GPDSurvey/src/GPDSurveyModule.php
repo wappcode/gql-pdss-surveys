@@ -22,6 +22,7 @@ use GPDSurvey\Graphql\ResolversSurveyContent;
 use GPDSurvey\Graphql\ResolversSurveySection;
 use GPDSurvey\Graphql\ResolversSurveyQuestion;
 use GPDSurvey\Graphql\FieldCreateAnswerSession;
+use GPDSurvey\Graphql\FieldDeleteSurvey;
 use GPDSurvey\Graphql\FieldUpdateAnswerSession;
 use GPDSurvey\Graphql\ResolversSurveySectionItem;
 use GPDSurvey\Graphql\Types\TypeBuildSurveyInput;
@@ -205,6 +206,7 @@ class GPDSurveyModule extends AbstractModule
 
         ];
     }
+    //TODO: Cambiar el nombre de los campos de query agregando el prefijo get
     function getQueryFields(): array
     {
         $surveyConnection = $this->context->getServiceManager()->get(TypeSurveyConnection::class);
@@ -248,7 +250,7 @@ class GPDSurveyModule extends AbstractModule
             'buildSurvey' => FieldBuildSurvey::get($this->context, $this->defaultProxy),
             'createSurvey' => GPDFieldFactory::buildFieldCreate($this->context, Survey::class, Survey::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
             'updateSurvey' => GPDFieldFactory::buildFieldUpdate($this->context, Survey::class, Survey::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
-            'deleteSurvey' => GPDFieldFactory::buildFieldDelete($this->context, Survey::class, Survey::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
+            'deleteSurvey' => FieldDeleteSurvey::get($this->context, $this->defaultProxy),
             'createSurveyTargetAudience' => GPDFieldFactory::buildFieldCreate($this->context, SurveyTargetAudience::class, SurveyTargetAudience::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
             'updateSurveyTargetAudience' => GPDFieldFactory::buildFieldUpdate($this->context, SurveyTargetAudience::class, SurveyTargetAudience::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
             'deleteSurveyTargetAudience' => GPDFieldFactory::buildFieldDelete($this->context, SurveyTargetAudience::class, SurveyTargetAudience::RELATIONS_MANY_TO_ONE, $this->defaultProxy),

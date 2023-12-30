@@ -2798,12 +2798,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/wappcode/gql-pdss-lib.git",
-                "reference": "3e45809038dca249c8bd86725e550fcb4d9c4774"
+                "reference": "10ba68210073462aad9f2cfb49a2f1a7a1711d08"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/wappcode/gql-pdss-lib/zipball/3e45809038dca249c8bd86725e550fcb4d9c4774",
-                "reference": "3e45809038dca249c8bd86725e550fcb4d9c4774",
+                "url": "https://api.github.com/repos/wappcode/gql-pdss-lib/zipball/10ba68210073462aad9f2cfb49a2f1a7a1711d08",
+                "reference": "10ba68210073462aad9f2cfb49a2f1a7a1711d08",
                 "shasum": ""
             },
             "require": {
@@ -2844,7 +2844,7 @@
                 "issues": "https://github.com/wappcode/gql-pdss-lib/issues",
                 "source": "https://github.com/wappcode/gql-pdss-lib/tree/master"
             },
-            "time": "2023-12-28T16:53:25+00:00"
+            "time": "2023-12-30T05:05:59+00:00"
         },
         {
             "name": "wappcode/pdss-utilities",

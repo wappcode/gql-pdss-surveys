@@ -75,6 +75,13 @@ class SurveyTargetAudience  extends AbstractEntityModelStringId
     private $presentation;
 
     /**
+     * @ORM\Column(type="string",length=255,nullable=true,name="audience_password")
+     *
+     * @var ?string
+     */
+    private $password;
+
+    /**
      * Get the value of title
      *
      * @return  string
@@ -264,6 +271,29 @@ class SurveyTargetAudience  extends AbstractEntityModelStringId
     public function setPresentation(?SurveyConfiguration $presentation)
     {
         $this->presentation = $presentation;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of password
+     * @API\Exclude
+     * @return  ?string
+     */
+    public function getPassword()
+    {
+        return $this->password;
+    }
+
+    /**
+     * Set the value of password
+     * @param  ?string  $password
+     *
+     * @return  self
+     */
+    public function setPassword(?string $password)
+    {
+        $this->password = $password;
 
         return $this;
     }

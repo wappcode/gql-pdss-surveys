@@ -18,7 +18,8 @@ class BuildSurvey
         }
         $entityManager = $context->getEntityManager();
         $surveyInput = [
-            "title" => $input["title"]
+            "title" => $input["title"],
+            "active" => $input["active"]
         ];
         $survey = new Survey();
         ArrayToEntity::setValues($entityManager, $survey, $surveyInput);
