@@ -61,8 +61,6 @@ class SurveySectionItem  extends AbstractEntityModelStringId
      */
     private $section;
     /**
-     * Este valor no se registra dentro del valor presentation porque se utiliza para determinar que preguntas obligatorias no se han contestado
-     * 
      * @ORM\Column(type="boolean", name="hidden", nullable=false, options={"default":0}) 
      * @var bool
      */
@@ -220,7 +218,7 @@ class SurveySectionItem  extends AbstractEntityModelStringId
         return $this;
     }
     /**
-     * Get este valor no se registra dentro del valor presentation porque se utiliza para determinar que preguntas obligatorias no se han contestado
+     * Get hidden
      *
      * @return  bool
      */
@@ -230,9 +228,9 @@ class SurveySectionItem  extends AbstractEntityModelStringId
     }
 
     /**
-     * Set este valor no se registra dentro del valor presentation porque se utiliza para determinar que preguntas obligatorias no se han contestado
+     * Set hidden
      *
-     * @param  bool  $hidden  Este valor no se registra dentro del valor presentation porque se utiliza para determinar que preguntas obligatorias no se han contestado
+     * @param  bool  $hidden  hidden
      *
      * @return  self
      */

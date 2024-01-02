@@ -2,22 +2,20 @@
 
 namespace GPDSurvey\Graphql;
 
-use DeleteSurvey;
+use DeleteSurveyTargetAudience;
 use Exception;
-use GPDSurvey\Entities\Survey;
 use GraphQL\Type\Definition\Type;
-use GPDCore\Library\EntityUtilities;
 use GPDCore\Library\GQLException;
 use GPDCore\Library\IContextService;
 
-class FieldDeleteSurvey
+class FieldDeleteSurveyTargetAudience
 {
     public static function get(IContextService $context, ?callable $proxy)
     {
         $resolver = static::createReslove();
         $proxyResolver = is_callable($proxy) ? $proxy($resolver) : $resolver;
         return [
-            'description' => "Elimna la encuesta. No se pueden eliminar encuestas activas. No se pueden eliminar encuestas que tengan preguntas con respuestas",
+            'description' => "Elimna el registro de audiencia. No se pueden eliminar registros con respuestas relacionadas",
             'type' => Type::nonNull(Type::boolean()),
             'args' => [
                 'id' => Type::nonNull(Type::id()),
@@ -35,7 +33,7 @@ class FieldDeleteSurvey
             }
             $entityManager->beginTransaction();
             try {
-                DeleteSurvey::delete($context, $id);
+                DeleteSurveyTargetAudience::delete($context, $id);
                 $entityManager->commit();
                 return true;
             } catch (Exception $e) {

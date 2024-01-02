@@ -11,6 +11,7 @@ use GPDSurvey\Entities\SurveySection;
 use GPDSurvey\Entities\SurveyQuestion;
 use GPDSurvey\Graphql\ResolversSurvey;
 use GPDSurvey\Graphql\FieldBuildSurvey;
+use GPDSurvey\Graphql\FieldDeleteSurvey;
 use GPDSurvey\Entities\SurveySectionItem;
 use GPDSurvey\Entities\SurveyAnswerSession;
 use GPDSurvey\Entities\SurveyConfiguration;
@@ -22,8 +23,10 @@ use GPDSurvey\Graphql\ResolversSurveyContent;
 use GPDSurvey\Graphql\ResolversSurveySection;
 use GPDSurvey\Graphql\ResolversSurveyQuestion;
 use GPDSurvey\Graphql\FieldCreateAnswerSession;
-use GPDSurvey\Graphql\FieldDeleteSurvey;
+use GPDSurvey\Graphql\FieldDeleteSurveyContent;
+use GPDSurvey\Graphql\FieldDeleteSurveySection;
 use GPDSurvey\Graphql\FieldUpdateAnswerSession;
+use GPDSurvey\Graphql\FieldDeleteSurveyQuestion;
 use GPDSurvey\Graphql\ResolversSurveySectionItem;
 use GPDSurvey\Graphql\Types\TypeBuildSurveyInput;
 use GPDSurvey\Graphql\Types\TypeSurveyAnswerEdge;
@@ -31,10 +34,15 @@ use GPDSurvey\Graphql\Types\TypeSurveyConnection;
 use GPDSurvey\Graphql\Types\TypeSurveyContentEdge;
 use GPDSurvey\Graphql\Types\TypeSurveyContentType;
 use GPDSurvey\Graphql\Types\TypeSurveySectionEdge;
+use GPDSurvey\Graphql\FieldDeleteSurveySectionItem;
 use GPDSurvey\Graphql\ResolversSurveyAnswerSession;
 use GPDSurvey\Graphql\Types\TypeSurveyQuestionEdge;
 use GPDSurvey\Graphql\Types\TypeSurveyQuestionType;
+use GPDSurvey\Graphql\ResolversSurveyQuestionOption;
 use GPDSurvey\Graphql\ResolversSurveyTargetAudience;
+use GPDSurvey\Graphql\FieldDeleteSurveyAnswerSession;
+use GPDSurvey\Graphql\FieldDeleteSurveyQuestionOption;
+use GPDSurvey\Graphql\FieldDeleteSurveyTargetAudience;
 use GPDSurvey\Graphql\Types\TypeSurveySectionItemEdge;
 use GPDSurvey\Graphql\Types\TypeSurveySectionItemType;
 use GPDSurvey\Graphql\Types\TypeSurveyAnswerConnection;
@@ -61,7 +69,6 @@ use GPDSurvey\Graphql\Types\TypeBuildSurveyTargetAudienceInput;
 use GPDSurvey\Graphql\Types\TypeSurveyQuestionOptionConnection;
 use GPDSurvey\Graphql\Types\TypeSurveyTargetAudienceConnection;
 use GPDSurvey\Graphql\FieldFindAnswerSessionByUsernameAndPassword;
-use GPDSurvey\Graphql\ResolversSurveyQuestionOption;
 
 class GPDSurveyModule extends AbstractModule
 {
@@ -253,7 +260,7 @@ class GPDSurveyModule extends AbstractModule
             'deleteSurvey' => FieldDeleteSurvey::get($this->context, $this->defaultProxy),
             'createSurveyTargetAudience' => GPDFieldFactory::buildFieldCreate($this->context, SurveyTargetAudience::class, SurveyTargetAudience::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
             'updateSurveyTargetAudience' => GPDFieldFactory::buildFieldUpdate($this->context, SurveyTargetAudience::class, SurveyTargetAudience::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
-            'deleteSurveyTargetAudience' => GPDFieldFactory::buildFieldDelete($this->context, SurveyTargetAudience::class, SurveyTargetAudience::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
+            'deleteSurveyTargetAudience' => FieldDeleteSurveyTargetAudience::get($this->context, $this->defaultProxy),
             'createSurveyAnswer' => GPDFieldFactory::buildFieldCreate($this->context, SurveyAnswer::class, SurveyAnswer::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
             'updateSurveyAnswer' => GPDFieldFactory::buildFieldUpdate($this->context, SurveyAnswer::class, SurveyAnswer::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
             'deleteSurveyAnswer' => GPDFieldFactory::buildFieldDelete($this->context, SurveyAnswer::class, SurveyAnswer::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
@@ -262,22 +269,22 @@ class GPDSurveyModule extends AbstractModule
             'deleteSurveyConfiguration' => GPDFieldFactory::buildFieldDelete($this->context, SurveyConfiguration::class, SurveyConfiguration::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
             'createSurveyContent' => GPDFieldFactory::buildFieldCreate($this->context, SurveyContent::class, SurveyContent::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
             'updateSurveyContent' => GPDFieldFactory::buildFieldUpdate($this->context, SurveyContent::class, SurveyContent::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
-            'deleteSurveyContent' => GPDFieldFactory::buildFieldDelete($this->context, SurveyContent::class, SurveyContent::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
+            'deleteSurveyContent' => FieldDeleteSurveyContent::get($this->context, $this->defaultProxy),
             'createSurveyQuestion' => GPDFieldFactory::buildFieldCreate($this->context, SurveyQuestion::class, SurveyQuestion::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
             'updateSurveyQuestion' => GPDFieldFactory::buildFieldUpdate($this->context, SurveyQuestion::class, SurveyQuestion::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
-            'deleteSurveyQuestion' => GPDFieldFactory::buildFieldDelete($this->context, SurveyQuestion::class, SurveyQuestion::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
+            'deleteSurveyQuestion' => FieldDeleteSurveyQuestion::get($this->context,  $this->defaultProxy),
             'createSurveyQuestionOption' => GPDFieldFactory::buildFieldCreate($this->context, SurveyQuestionOption::class, SurveyQuestionOption::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
             'updateSurveyQuestionOption' => GPDFieldFactory::buildFieldUpdate($this->context, SurveyQuestionOption::class, SurveyQuestionOption::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
-            'deleteSurveyQuestionOption' => GPDFieldFactory::buildFieldDelete($this->context, SurveyQuestionOption::class, SurveyQuestionOption::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
+            'deleteSurveyQuestionOption' => FieldDeleteSurveyQuestionOption::get($this->context, $this->defaultProxy),
             'createSurveySection' => GPDFieldFactory::buildFieldCreate($this->context, SurveySection::class, SurveySection::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
             'updateSurveySection' => GPDFieldFactory::buildFieldUpdate($this->context, SurveySection::class, SurveySection::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
-            'deleteSurveySection' => GPDFieldFactory::buildFieldDelete($this->context, SurveySection::class, SurveySection::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
+            'deleteSurveySection' => FieldDeleteSurveySection::get($this->context,  $this->defaultProxy),
             'createSurveySectionItem' => GPDFieldFactory::buildFieldCreate($this->context, SurveySectionItem::class, SurveySectionItem::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
             'updateSurveySectionItem' => GPDFieldFactory::buildFieldUpdate($this->context, SurveySectionItem::class, SurveySectionItem::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
-            'deleteSurveySectionItem' => GPDFieldFactory::buildFieldDelete($this->context, SurveySectionItem::class, SurveySectionItem::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
+            'deleteSurveySectionItem' => FieldDeleteSurveySectionItem::get($this->context,  $this->defaultProxy),
             'createSurveyAnswerSession' => FieldCreateAnswerSession::get($this->context, $proxy = null),
             'updateSurveyAnswerSession' => FieldUpdateAnswerSession::get($this->context, $proxy = null),
-            'deleteSurveyAnswerSession' => GPDFieldFactory::buildFieldDelete($this->context, SurveyAnswerSession::class, SurveyAnswerSession::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
+            'deleteSurveyAnswerSession' => FieldDeleteSurveyAnswerSession::get($this->context, $this->defaultProxy),
         ];
     }
 }
