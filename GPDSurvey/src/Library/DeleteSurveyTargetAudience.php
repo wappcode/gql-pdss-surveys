@@ -1,14 +1,14 @@
 <?php
 
+namespace GPDSurvey\Library;
+
+use Exception;
 use Doctrine\ORM\EntityManager;
 use GPDCore\Library\GQLException;
 use GPDCore\Library\IContextService;
+use GPDSurvey\Entities\SurveyContent;
 use GPDSurvey\Entities\SurveyAnswerSession;
 use GPDSurvey\Entities\SurveyConfiguration;
-use GPDSurvey\Entities\SurveyContent;
-use GPDSurvey\Entities\SurveySection;
-use GPDSurvey\Entities\SurveyQuestion;
-use GPDSurvey\Entities\SurveySectionItem;
 use GPDSurvey\Entities\SurveyTargetAudience;
 
 final class DeleteSurveyTargetAudience
@@ -42,7 +42,7 @@ final class DeleteSurveyTargetAudience
 
     private function process(string $id): void
     {
-        $exceptionInvalidEntity = throw new GQLException("Survey target audience doesn't exit");
+        $exceptionInvalidEntity =  new GQLException("Survey target audience doesn't exit");
         if (empty($id)) {
             throw $exceptionInvalidEntity;
         }

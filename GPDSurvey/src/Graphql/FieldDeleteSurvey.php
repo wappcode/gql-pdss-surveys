@@ -2,12 +2,10 @@
 
 namespace GPDSurvey\Graphql;
 
-use DeleteSurvey;
 use Exception;
-use GPDSurvey\Entities\Survey;
-use GraphQL\Type\Definition\Type;
-use GPDCore\Library\EntityUtilities;
 use GPDCore\Library\GQLException;
+use GraphQL\Type\Definition\Type;
+use GPDSurvey\Library\DeleteSurvey;
 use GPDCore\Library\IContextService;
 
 class FieldDeleteSurvey

@@ -2,11 +2,11 @@
 
 namespace GPDSurvey\Graphql;
 
-use DeleteSurveyTargetAudience;
 use Exception;
-use GraphQL\Type\Definition\Type;
 use GPDCore\Library\GQLException;
+use GraphQL\Type\Definition\Type;
 use GPDCore\Library\IContextService;
+use GPDSurvey\Library\DeleteSurveyTargetAudience;
 
 class FieldDeleteSurveyTargetAudience
 {

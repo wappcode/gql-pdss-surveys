@@ -1,11 +1,11 @@
 <?php
 
+namespace GPDSurvey\Library;
+
 use Doctrine\ORM\EntityManager;
 use GPDCore\Library\GQLException;
 use GPDCore\Library\IContextService;
-use GPDSurvey\Entities\SurveyQuestion;
 use GPDSurvey\Entities\SurveyQuestionOption;
-use Symfony\Component\Console\Question\Question;
 
 final class DeleteSurveyQuestionOption
 {
@@ -36,7 +36,7 @@ final class DeleteSurveyQuestionOption
 
     private function process(int $id): void
     {
-        $exceptionInvalidOption = throw new GQLException("Question option doesn't exit");
+        $exceptionInvalidOption =  new GQLException("Question option doesn't exit");
         if (empty($id)) {
             throw $exceptionInvalidOption;
         }

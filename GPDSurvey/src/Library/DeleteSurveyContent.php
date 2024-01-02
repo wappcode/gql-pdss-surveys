@@ -1,9 +1,12 @@
 <?php
 
+namespace GPDSurvey\Library;
+
+use Exception;
 use Doctrine\ORM\EntityManager;
 use GPDCore\Library\IContextService;
-use GPDSurvey\Entities\SurveyConfiguration;
 use GPDSurvey\Entities\SurveyContent;
+use GPDSurvey\Entities\SurveyConfiguration;
 
 final class DeleteSurveyContent
 {

@@ -1,5 +1,8 @@
 <?php
 
+namespace GPDSurvey\Library;
+
+use Exception;
 use Doctrine\ORM\EntityManager;
 use GPDCore\Library\GQLException;
 use GPDCore\Library\IContextService;
@@ -37,7 +40,7 @@ final class DeleteSurveyAnswerSession
 
     private function process(string $id): void
     {
-        $exceptionInvalidEntity = throw new GQLException("Answer session doesn't exit");
+        $exceptionInvalidEntity =  new GQLException("Answer session doesn't exit");
         if (empty($id)) {
             throw $exceptionInvalidEntity;
         }

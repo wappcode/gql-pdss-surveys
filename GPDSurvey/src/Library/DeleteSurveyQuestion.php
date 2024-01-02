@@ -1,12 +1,14 @@
 <?php
 
+namespace GPDSurvey\Library;
+
+use Exception;
 use Doctrine\ORM\EntityManager;
 use GPDCore\Library\GQLException;
 use GPDCore\Library\IContextService;
 use GPDSurvey\Entities\SurveyContent;
 use GPDSurvey\Entities\SurveyQuestion;
 use GPDSurvey\Entities\SurveyConfiguration;
-use Symfony\Component\Console\Question\Question;
 
 final class DeleteSurveyQuestion
 {
@@ -33,11 +35,12 @@ final class DeleteSurveyQuestion
     private function __construct(IContextService $context)
     {
         $this->context = $context;
+        $this->entityManager = $this->context->getEntityManager();
     }
 
     private function process(string $id): void
     {
-        $exceptionInvalidEntity = throw new GQLException("Question doesn't exit");
+        $exceptionInvalidEntity =  new GQLException("Question doesn't exit");
         if (empty($id)) {
             throw $exceptionInvalidEntity;
         }

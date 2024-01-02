@@ -3,10 +3,10 @@
 namespace GPDSurvey\Graphql;
 
 use Exception;
-use DeleteSurveyAnswerSession;
 use GPDCore\Library\GQLException;
 use GraphQL\Type\Definition\Type;
 use GPDCore\Library\IContextService;
+use GPDSurvey\Library\DeleteSurveyAnswerSession;
 
 class FieldDeleteSurveyAnswerSession
 {
