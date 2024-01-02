@@ -42,6 +42,9 @@ class TypeBuildSurveyTargetAudienceInput extends InputObjectType
                 'presentation' => [
                     'type' => $types->getInput(SurveyConfiguration::class),
                 ],
+                'password' => [
+                    'type' => Type::string()
+                ]
             ]
         ];
 
