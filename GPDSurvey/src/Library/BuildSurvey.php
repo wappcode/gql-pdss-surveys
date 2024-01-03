@@ -4,6 +4,7 @@ namespace GPDSurvey\Library;
 
 use Exception;
 use GPDCore\Graphql\ArrayToEntity;
+use GPDCore\Library\GQLException;
 use GPDCore\Library\IContextService;
 use GPDSurvey\Entities\Survey;
 use GPDSurvey\Entities\SurveyTargetAudience;
@@ -21,9 +22,16 @@ class BuildSurvey
             "title" => $input["title"],
             "active" => $input["active"]
         ];
-        $survey = new Survey();
+        $id = $input["id"] ?? null;
+        // Si se pasa el parámetro id se actualiza la encuesta en ves de crear una nueva
+        $survey = empty($id) ? new Survey() : $entityManager->find(Survey::class, $id);
+        if (!($survey instanceof Survey)) {
+            throw new GQLException("Invalid survey ID");
+        }
         ArrayToEntity::setValues($entityManager, $survey, $surveyInput);
-        $entityManager->persist($survey);
+        if (empty($id)) {
+            $entityManager->persist($survey);
+        }
         $entityManager->flush();
         $targetAudienceInput = $input["targetAudience"] ?? null;
         if (is_array($targetAudienceInput) && !empty($targetAudienceInput)) {

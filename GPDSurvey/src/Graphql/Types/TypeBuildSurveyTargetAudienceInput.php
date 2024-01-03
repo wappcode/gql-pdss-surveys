@@ -44,6 +44,9 @@ class TypeBuildSurveyTargetAudienceInput extends InputObjectType
                 ],
                 'password' => [
                     'type' => Type::string()
+                ],
+                'survey' => [
+                    'type' => Type::id()
                 ]
             ]
         ];

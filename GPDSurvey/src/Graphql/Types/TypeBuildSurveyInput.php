@@ -18,6 +18,10 @@ class TypeBuildSurveyInput extends InputObjectType
         $config = [
             'name' => static::NAME,
             'fields' => [
+                'id' => [
+                    'type' => Type::id(),
+                    'description' => "Si se asigna un id actualiza la encuesta relacionada con ese id"
+                ],
                 'title' => [
                     'type' => Type::nonNull(Type::string()),
                 ],
