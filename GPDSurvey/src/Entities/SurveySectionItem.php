@@ -9,6 +9,8 @@ use GPDCore\Entities\AbstractEntityModelStringId;
 
 /**
  * Doctrine Entity For SurveySectionItem
+ * No se agregar indice único relacionado con el orden podria ocacionar conflictos en el procesos build
+ * 
  * @ORM\Entity()
  * @ORM\Table(name="gpd_survey_section_item", indexes={
  * @ORM\Index(name="user_created_idx",columns={"created"}),

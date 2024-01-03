@@ -21,6 +21,10 @@ class TypeBuildSurveyTargetAudienceInput extends InputObjectType
         $config = [
             'name' => static::NAME,
             'fields' => [
+                'id' => [
+                    'type' => Type::id(),
+                    'description' => "Si se asigna un id actualiza el registro relacionado con ese id"
+                ],
                 'title' => [
                     'type' => Type::nonNull(Type::string()),
                 ],
@@ -47,7 +51,8 @@ class TypeBuildSurveyTargetAudienceInput extends InputObjectType
                 ],
                 'survey' => [
                     'type' => Type::id()
-                ]
+                ],
+
             ]
         ];
 

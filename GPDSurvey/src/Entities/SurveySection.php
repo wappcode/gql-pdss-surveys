@@ -11,6 +11,8 @@ use GraphQL\Doctrine\Annotation as API;
 
 /**
  * Doctrine Entity For SurveySection
+ * No se agregar indice único relacionado con el orden podria ocacionar conflictos en el procesos build
+ * 
  * @ORM\Entity()
  * @ORM\Table(name="gpd_survey_section", indexes={
  * @ORM\Index(name="user_created_idx",columns={"created"}),
