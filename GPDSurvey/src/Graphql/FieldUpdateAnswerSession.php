@@ -36,7 +36,7 @@ class FieldUpdateAnswerSession
             $id = $args["id"];
             $input = $args["input"];
             unset($input["ownerCode"], $input["targetAudience"]); // se quita del input ownerCode y targetAudience porque estos valores núnca deben cambiar
-            $answerInput = $input["answers"];
+            $answerInput = $input["answers"] ?? [];
             $answerSessionInput = $input;
             unset($answerInput["answers"]);
             $answerSession = $entityManager->find(SurveyAnswerSession::class, $id);

@@ -116,7 +116,7 @@ class SurveyAnswer  extends AbstractEntityModel
     /**
      * Set the value of score
      *
-     * @param  float  $score
+     * @param  ?float  $score
      *
      * @return  self
      */
@@ -140,7 +140,7 @@ class SurveyAnswer  extends AbstractEntityModel
     /**
      * Set the value of scorePercent
      *
-     * @param  float  $scorePercent
+     * @param  ?float  $scorePercent
      *
      * @return  self
      */

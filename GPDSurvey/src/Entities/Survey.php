@@ -44,6 +44,7 @@ class Survey  extends AbstractEntityModelStringId
      */
     private $sections;
 
+    //TODO: Configurar para que no se puedan agregar respuestas en una encuesta activa
     /**
      * @ORM\Column(name="active",type="boolean",nullable=false,options={"default":0})
      *
