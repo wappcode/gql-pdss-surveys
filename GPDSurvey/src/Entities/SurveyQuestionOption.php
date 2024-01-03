@@ -13,7 +13,10 @@ use GraphQL\Doctrine\Annotation as API;
  * @ORM\Entity()
  * @ORM\Table(name="gpd_survey_question_option", indexes={
  * @ORM\Index(name="user_created_idx",columns={"created"}),
- * @ORM\Index(name="user_updated_idx",columns={"updated"})
+ * @ORM\Index(name="user_updated_idx",columns={"updated"}),
+ * uniqueConstraints={
+ * @ORM\UniqueConstraint(name="opt_value", columns={"question_id","option_value"}),
+ * }
  * })
  * 
  */
