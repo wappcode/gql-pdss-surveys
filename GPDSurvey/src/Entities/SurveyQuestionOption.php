@@ -9,14 +9,13 @@ use Doctrine\ORM\Mapping as ORM;
 use GraphQL\Doctrine\Annotation as API;
 
 /**
+ * No se agrega indice unico a question_id y option_value porque se tiene que reducir el length de la columna value a 255
+ * 
  * Doctrine Entity For SurveyQuestionOption
  * @ORM\Entity()
  * @ORM\Table(name="gpd_survey_question_option", indexes={
  * @ORM\Index(name="user_created_idx",columns={"created"}),
- * @ORM\Index(name="user_updated_idx",columns={"updated"}),
- * uniqueConstraints={
- * @ORM\UniqueConstraint(name="opt_value", columns={"question_id","option_value"}),
- * }
+ * @ORM\Index(name="user_updated_idx",columns={"updated"})
  * })
  * 
  */

@@ -32,6 +32,7 @@ final class DeleteSurveyQuestionOption
     private function __construct(IContextService $context)
     {
         $this->context = $context;
+        $this->entityManager = $this->context->getEntityManager();
     }
 
     private function process(int $id): void
@@ -42,7 +43,8 @@ final class DeleteSurveyQuestionOption
         }
         $qb = $this->entityManager->createQueryBuilder()->from(SurveyQuestionOption::class, 'option')
             ->leftJoin("option.content", "content")
-            ->leftJoin("option.presentantion", "presentation");
+            ->leftJoin("option.presentation", "presentation")
+            ->select(["partial option.{id}", "partial content.{id}", "partial presentation.{id}"]);
         $option = $qb->andWhere("option.id = :id")
             ->setParameter(':id', $id)
             ->getQuery()->getOneOrNullResult();
