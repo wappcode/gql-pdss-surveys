@@ -46,6 +46,9 @@ class BuildSurveySectionItem
             $input["content"] = BuildSurveyContent::build($context, $input["content"] ?? null);
             $questionInput = $input["question"] ?? null;
             static::removeObsoleteQuestion($context, $surveySectionItem, $questionInput["id"] ?? null);
+            if (!empty($questionInput) && $input["section"] instanceof SurveySection) {
+                $questionInput["survey"] = $input["section"]->getSurvey();
+            }
             $input["question"] = BuildSurveyQuestion::build($context, $questionInput);
             $input["conditions"] = BuildSurveyConfiguration::build($context, $input["conditions"] ?? null);
             ArrayToEntity::setValues($entityManager, $surveySectionItem, $input);

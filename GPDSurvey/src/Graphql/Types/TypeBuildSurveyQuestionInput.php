@@ -26,7 +26,7 @@ class TypeBuildSurveyQuestionInput extends InputObjectType
         $config = [
             'name' => static::NAME,
             'fields' => [
-                ['id'] => [
+                'id' => [
                     'type' => Type::id(),
                 ],
                 'title' => [

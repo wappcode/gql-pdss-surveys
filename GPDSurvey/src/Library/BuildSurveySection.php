@@ -102,7 +102,7 @@ class BuildSurveySection
     public static function getCurrentItemsIds(SurveySection $section): array
     {
         $items = array_map(function (SurveySectionItem $item) {
-            $item->getId();
+            return $item->getId();
         }, $section->getItems()->toArray());
         return $items;
     }
@@ -110,7 +110,7 @@ class BuildSurveySection
     public static function getInputItemsIds(array $itemsInput): array
     {
         $ids = array_map(function ($item) {
-            $item["id"] ?? null;
+            return $item["id"] ?? null;
         }, $itemsInput);
         $ids = array_filter($ids, function ($id) {
             return !empty($id);

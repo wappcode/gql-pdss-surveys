@@ -25,6 +25,9 @@ class TypeBuildSurveySectionInput extends InputObjectType
         $config = [
             'name' => static::NAME,
             'fields' => [
+                'id' => [
+                    'type' => Type::id()
+                ],
                 'title' => [
                     'type' => Type::nonNull(Type::string()),
                 ],
@@ -42,6 +45,9 @@ class TypeBuildSurveySectionInput extends InputObjectType
                 ],
                 'items' => [
                     'type' => Type::listOf($serviceManager->get(TypeBuildSurveySectionItemInput::class))
+                ],
+                'survey' => [
+                    'type' => Type::id()
                 ]
 
             ]

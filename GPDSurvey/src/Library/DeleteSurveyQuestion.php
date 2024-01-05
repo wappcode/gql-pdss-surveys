@@ -66,6 +66,8 @@ final class DeleteSurveyQuestion
             foreach ($options as $option) {
                 DeleteSurveyQuestionOption::delete($this->context, $option->getId());
             }
+            $this->entityManager->remove($question);
+            $this->entityManager->flush();
             $presentation = $question->getPresentation();
             if ($presentation instanceof SurveyConfiguration) {
                 DeleteSurveyConfiguration::delete($this->context, $presentation->getId());
@@ -74,8 +76,7 @@ final class DeleteSurveyQuestion
             if ($content instanceof SurveyContent) {
                 DeleteSurveyContent::delete($this->context, $content->getId());
             }
-            $this->entityManager->remove($question);
-            $this->entityManager->flush();
+
             $this->entityManager->commit();
         } catch (Exception $e) {
             $this->entityManager->rollback();

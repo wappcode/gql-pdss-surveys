@@ -28,17 +28,15 @@ final class DeleteSurveyContent
 
     /**
      * Elimna un registro SurveyContent
-     * El lanzar la excepción ene caso de error es opcional
      *
      * @param IContextService $context
      * @param integer $id
-     * @param boolean $trowException Determina si se lanza o no una excepción en caso de error
      * @return void
      */
-    public static function delete(IContextService $context, int $id, bool $trowException = false): void
+    public static function delete(IContextService $context, int $id): void
     {
         $instance = new DeleteSurveyContent($context);
-        $instance->process($id, $trowException);
+        $instance->process($id);
     }
 
     private function __construct(IContextService $context)
@@ -47,7 +45,7 @@ final class DeleteSurveyContent
         $this->entityManager = $context->getEntityManager();
     }
 
-    private function process(int $id, bool $trowException): void
+    private function process(int $id): void
     {
         try {
             $qb = $this->entityManager->createQueryBuilder()->from(SurveyContent::class, 'content')
@@ -68,10 +66,8 @@ final class DeleteSurveyContent
                 DeleteSurveyConfiguration::delete($this->context, $presentation->getId());
             }
         } catch (Exception $e) {
-            // si hay error lanza la excepción solo si se configuro para hacerlo
-            if ($trowException) {
-                throw $e;
-            }
+            // Debe lanzar excepción porque despues del error se cierra entintityManager y no se pueden hacer más consultas
+            throw $e;
         }
     }
 }

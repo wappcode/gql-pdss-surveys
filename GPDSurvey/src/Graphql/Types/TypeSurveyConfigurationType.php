@@ -19,7 +19,7 @@ class TypeSurveyConfigurationType extends EnumType
                 ISurveyConfiguration::SURVEY_CONFIGURATION_TYPE_ANSWER_SCORE,
                 ISurveyConfiguration::SURVEY_CONFIGURATION_TYPE_CONDITION,
                 ISurveyConfiguration::SURVEY_CONFIGURATION_TYPE_PRESENTATION,
-                ISurveyConfiguration::SURVEY_CONFIGURATION_TYPE_VALIDATORS,
+                ISurveyConfiguration::SURVEY_CONFIGURATION_TYPE_VALIDATOR,
             ],
         ];
 
