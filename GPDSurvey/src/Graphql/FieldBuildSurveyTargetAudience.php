@@ -9,7 +9,8 @@ use GPDSurvey\Entities\Survey;
 use GPDCore\Library\IContextService;
 use GPDSurvey\Entities\SurveyTargetAudience;
 use GPDSurvey\Graphql\Types\TypeBuildSurveyTargetAudienceInput;
-use GPDSurvey\Library\BuildSurvey;
+use GPDSurvey\Library\BuildSurveyConfiguration;
+use GPDSurvey\Library\BuildSurveyContent;
 use GPDSurvey\Library\BuildSurveyTargetAudience;
 use GraphQL\Type\Definition\Type;
 
@@ -22,7 +23,8 @@ class FieldBuildSurveyTargetAudience
         $resolve = static::createReslove();
         $proxyResolve = is_callable($proxy) ? $proxy($resolve) : $resolve;
         return [
-            'type' => $types->getOutput(Survey::class),
+            'type' => $types->getOutput(SurveyTargetAudience::class),
+            'description' => "Construye un registro SurveyTargetAudience puede actualizar un registro  si se asigna un id válido. La actualización no es parcial elimina los elementos del registro previo que no esten en el input",
             'args' => [
                 'input' =>  Type::nonNull($serviceManager->get(TypeBuildSurveyTargetAudienceInput::class))
             ],

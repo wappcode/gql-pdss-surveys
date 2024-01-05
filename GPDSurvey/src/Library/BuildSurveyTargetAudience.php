@@ -23,6 +23,7 @@ class BuildSurveyTargetAudience
         $entityManager = $context->getEntityManager();
         $input["welcome"] = BuildSurveyContent::build($context, $input["welcome"] ?? null);
         $input["farewell"] = BuildSurveyContent::build($context, $input["farewell"] ?? null);
+        $input["presentation"] = BuildSurveyConfiguration::build($context, $input["presentation"] ?? null);
 
         if (empty($input["survey"])) {
             throw new GQLException("Survey is required");
