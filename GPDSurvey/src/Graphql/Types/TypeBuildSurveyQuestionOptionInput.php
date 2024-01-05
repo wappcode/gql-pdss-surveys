@@ -26,6 +26,9 @@ class TypeBuildSurveyQuestionOptionInput extends InputObjectType
         $config = [
             'name' => static::NAME,
             'fields' => [
+                'id' => [
+                    'type' => Type::id()
+                ],
                 'title' => [
                     'type' => Type::nonNull(Type::string()),
                 ],
@@ -41,6 +44,9 @@ class TypeBuildSurveyQuestionOptionInput extends InputObjectType
                 'presentation' => [
                     'type' => $types->getInput(SurveyConfiguration::class)
                 ],
+                'question' => [
+                    'type' => Type::id()
+                ]
             ]
         ];
 

@@ -27,6 +27,9 @@ class TypeBuildSurveySectionItemInput extends InputObjectType
         $config = [
             'name' => static::NAME,
             'fields' => [
+                'id' => [
+                    'type' => Type::id()
+                ],
                 'type' => [
                     'type' => Type::nonNull($serviceManager->get(TypeSurveySectionItemType::class))
                 ],
@@ -45,6 +48,9 @@ class TypeBuildSurveySectionItemInput extends InputObjectType
                 'hidden' => [
                     'type' => Type::nonNull(Type::boolean())
                 ],
+                'section' => [
+                    'type' => Type::id()
+                ]
             ]
         ];
 

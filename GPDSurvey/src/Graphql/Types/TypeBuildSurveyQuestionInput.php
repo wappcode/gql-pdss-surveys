@@ -26,6 +26,9 @@ class TypeBuildSurveyQuestionInput extends InputObjectType
         $config = [
             'name' => static::NAME,
             'fields' => [
+                ['id'] => [
+                    'type' => Type::id(),
+                ],
                 'title' => [
                     'type' => Type::nonNull(Type::string()),
                 ],
@@ -62,6 +65,9 @@ class TypeBuildSurveyQuestionInput extends InputObjectType
                 'score' => [
                     'type' =>  Type::float()
                 ],
+                'survey' => [
+                    'type' => Type::id(),
+                ]
 
 
             ]

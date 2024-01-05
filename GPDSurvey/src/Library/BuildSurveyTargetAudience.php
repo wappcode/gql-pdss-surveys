@@ -56,7 +56,7 @@ class BuildSurveyTargetAudience
             ->leftJoin("audience.welcome", "welcome")
             ->leftJoin("audience.farewell", "farewell")
             ->leftJoin("audience.presentation", "presentation")
-            ->select(["audience", "welcome", "farewell", "presentation"]);
+            ->select(["audience", "partial welcome.{id}", "partial farewell.{id}", "partial presentation.{id}"]);
         $survey = $qb->andWhere("audience.id = :id")
             ->setParameter(":id", $id)
             ->getQuery()->getOneOrNullResult();
