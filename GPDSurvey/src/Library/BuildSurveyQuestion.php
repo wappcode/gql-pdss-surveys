@@ -9,10 +9,8 @@ use GPDCore\Graphql\ArrayToEntity;
 use GPDCore\Library\IContextService;
 use GPDSurvey\Entities\SurveyContent;
 use GPDSurvey\Entities\SurveyQuestion;
-use GPDSurvey\Entities\SurveySectionItem;
 use GPDSurvey\Entities\SurveyConfiguration;
 use GPDSurvey\Entities\SurveyQuestionOption;
-use GPDSurvey\Entities\SurveyTargetAudience;
 
 class BuildSurveyQuestion
 {
@@ -82,7 +80,7 @@ class BuildSurveyQuestion
             ->leftJoin("question.answerScore", "answerScore")
             ->leftJoin("question.validators", "validators")
             ->leftJoin("question.options", "options")
-            ->select(["question", "partial content.{id}", "partial presentation.{id}", "partial answerScore.{id}", "partial validators.id", "partial options.{id}"]);
+            ->select(["question", "partial content.{id}", "partial presentation.{id}", "partial answerScore.{id}", "partial validators.{id}", "partial options.{id}"]);
         $question = $qb->andWhere("question.id = :id")->setParameter(":id", $id)->getQuery()->getOneOrNullResult();
         return $question;
     }

@@ -10,7 +10,6 @@ use GPDSurvey\Entities\SurveyContent;
 use GPDSurvey\Entities\SurveyQuestion;
 use GPDSurvey\Entities\SurveyConfiguration;
 use GPDSurvey\Entities\SurveyQuestionOption;
-use GPDSurvey\Entities\SurveyTargetAudience;
 
 class BuildSurveyQuestionOption
 {

@@ -7,11 +7,11 @@ use GPDCore\Library\GQLException;
 use GraphQL\Type\Definition\Type;
 use GPDCore\Library\IContextService;
 use GPDCore\Library\GeneralDoctrineUtilities;
-use GPDSurvey\Entities\SurveySectionItem;
-use GPDSurvey\Graphql\Types\TypeBuildSurveySectionItemInput;
-use GPDSurvey\Library\BuildSurveySectionItem;
+use GPDSurvey\Entities\SurveyQuestion;
+use GPDSurvey\Graphql\Types\TypeBuildSurveyQuestionInput;
+use GPDSurvey\Library\BuildSurveyQuestion;
 
-class FieldBuildSurveySectionItem
+class FieldBuildSurveyQuestion
 {
     public static function get(IContextService $context, ?callable $proxy)
     {
@@ -20,13 +20,13 @@ class FieldBuildSurveySectionItem
         $resolve = static::createReslove();
         $proxyResolve = is_callable($proxy) ? $proxy($resolve) : $resolve;
         return [
-            'type' => $types->getOutput(SurveySectionItem::class),
-            'description' => "Construye un registro SurveySectionItem puede actualizar un registro  si se asigna un id válido. 
+            'type' => $types->getOutput(SurveyQuestion::class),
+            'description' => "Construye un registro SurveyQuestion puede actualizar un registro  si se asigna un id válido. 
             La actualización no es parcial elimina los elementos del registro previo que no esten en el input.
             ",
 
             'args' => [
-                'input' =>  Type::nonNull($serviceManager->get(TypeBuildSurveySectionItemInput::class))
+                'input' =>  Type::nonNull($serviceManager->get(TypeBuildSurveyQuestionInput::class))
             ],
             'resolve' => $proxyResolve
         ];
@@ -39,12 +39,12 @@ class FieldBuildSurveySectionItem
             $entityManager = $context->getEntityManager();
             $entityManager->beginTransaction();
             try {
-                $item = BuildSurveySectionItem::build($context, $input);
-                if (!($item instanceof SurveySectionItem)) {
+                $question = BuildSurveyQuestion::build($context, $input);
+                if (!($question instanceof SurveyQuestion)) {
                     throw new GQLException("Invalid request", 400);
                 }
                 $entityManager->commit();
-                $result = GeneralDoctrineUtilities::getArrayEntityById($entityManager, SurveySectionItem::class, $item->getId());
+                $result = GeneralDoctrineUtilities::getArrayEntityById($entityManager, SurveyQuestion::class, $question->getId());
                 return $result;
             } catch (Exception $e) {
                 $entityManager->rollback();
