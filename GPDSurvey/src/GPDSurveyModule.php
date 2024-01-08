@@ -19,6 +19,7 @@ use GPDSurvey\Graphql\Types\TypeSurveyEdge;
 use GPDSurvey\Entities\SurveyQuestionOption;
 use GPDSurvey\Entities\SurveyTargetAudience;
 use GPDSurvey\Graphql\FieldBuildSurveySection;
+use GPDSurvey\Graphql\FieldBuildSurveySectionItem;
 use GPDSurvey\Graphql\FieldBuildSurveyTargetAudience;
 use GPDSurvey\Graphql\ResolversSurveyAnswer;
 use GPDSurvey\Graphql\ResolversSurveyContent;
@@ -283,6 +284,7 @@ class GPDSurveyModule extends AbstractModule
             'createSurveySection' => GPDFieldFactory::buildFieldCreate($this->context, SurveySection::class, SurveySection::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
             'updateSurveySection' => GPDFieldFactory::buildFieldUpdate($this->context, SurveySection::class, SurveySection::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
             'deleteSurveySection' => FieldDeleteSurveySection::get($this->context,  $this->defaultProxy),
+            'buildSurveySectionItem' => FieldBuildSurveySectionItem::get($this->context, $this->defaultProxy),
             'createSurveySectionItem' => GPDFieldFactory::buildFieldCreate($this->context, SurveySectionItem::class, SurveySectionItem::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
             'updateSurveySectionItem' => GPDFieldFactory::buildFieldUpdate($this->context, SurveySectionItem::class, SurveySectionItem::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
             'deleteSurveySectionItem' => FieldDeleteSurveySectionItem::get($this->context,  $this->defaultProxy),

@@ -70,7 +70,7 @@ class BuildSurveySectionItem
             ->leftJoin('item.question', 'question')
             ->leftJoin('item.content', 'content')
             ->leftJoin('item.conditions', 'conditions')
-            ->select(["item", "partial question.{id}", "partial content.{id}", "partial conditions.{conditions}"]);
+            ->select(["item", "partial question.{id}", "partial content.{id}", "partial conditions.{id}"]);
         $item = $qb->andWhere("item.id = :id")->setParameter(":id", $id)->getQuery()->getOneOrNullResult();
         return $item;
     }
@@ -95,7 +95,10 @@ class BuildSurveySectionItem
 
     private static function removeObsoleteQuestion(IContextService $context, SurveySectionItem $item, ?string $questionId)
     {
+        $entityManager = $context->getEntityManager();
         $question = $item->getQuestion();
+        $item->setQuestion(null);
+        $entityManager->flush();
         if (!($question instanceof SurveyQuestion)) {
             return;
         }
