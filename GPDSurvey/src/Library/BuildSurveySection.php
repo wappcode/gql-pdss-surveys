@@ -25,6 +25,9 @@ class BuildSurveySection
         $input["content"] = BuildSurveyContent::build($context, $input["content"] ?? null);
         $input["presentation"] = BuildSurveyConfiguration::build($context, $input["presentation"] ?? null);
 
+        if (empty($input["items"])) {
+            throw new GQLException("Section items are required");
+        }
         $section = new SurveySection();
         $entityManager->beginTransaction();
         try {

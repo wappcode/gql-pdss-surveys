@@ -21,7 +21,8 @@ class FieldBuildSurvey
         $proxyResolve = is_callable($proxy) ? $proxy($resolve) : $resolve;
         return [
             'type' => $types->getOutput(Survey::class),
-            'description' => "Construye una encuesta (Survey) puede actualizar un registro  si se asigna un id válido. La actualización no es parcial elimina los elementos del registro previo que no esten en el input",
+            'description' => "Construye una encuesta (Survey) puede actualizar un registro  si se asigna un id válido. 
+            La actualización no es parcial elimina los elementos del registro previo que no esten en el input con excepción de Target Audiences",
             'args' => [
                 'input' =>  Type::nonNull($serviceManager->get(TypeBuildSurveyInput::class))
             ],

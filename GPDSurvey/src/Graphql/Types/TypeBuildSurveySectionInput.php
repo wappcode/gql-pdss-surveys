@@ -44,7 +44,7 @@ class TypeBuildSurveySectionInput extends InputObjectType
                     'type' => Type::nonNull(Type::boolean())
                 ],
                 'items' => [
-                    'type' => Type::listOf($serviceManager->get(TypeBuildSurveySectionItemInput::class))
+                    'type' => Type::nonNull(Type::listOf($serviceManager->get(TypeBuildSurveySectionItemInput::class)))
                 ],
                 'survey' => [
                     'type' => Type::id()

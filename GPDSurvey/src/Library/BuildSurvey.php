@@ -24,6 +24,9 @@ class BuildSurvey
             "active" => $input["active"]
         ];
         $id = $input["id"] ?? null;
+        if (empty($input["sections"])) {
+            throw new GQLException("Sections are required");
+        }
         // Si se pasa el parámetro id se actualiza la encuesta en ves de crear una nueva
         $survey = empty($id) ? new Survey() : $entityManager->find(Survey::class, $id);
         if (!($survey instanceof Survey)) {
