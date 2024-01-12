@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "aeae677ae823551d9b08f1adf36c0303",
+    "content-hash": "5238f041f8c3608dc91eb8a931fc3a49",
     "packages": [
         {
             "name": "composer/package-versions-deprecated",
@@ -2794,16 +2794,16 @@
         },
         {
             "name": "wappcode/gqlpdss",
-            "version": "dev-master",
+            "version": "3.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/wappcode/gql-pdss-lib.git",
-                "reference": "10ba68210073462aad9f2cfb49a2f1a7a1711d08"
+                "reference": "f68036514639444e45798fffcbaac1e76ef953dc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/wappcode/gql-pdss-lib/zipball/10ba68210073462aad9f2cfb49a2f1a7a1711d08",
-                "reference": "10ba68210073462aad9f2cfb49a2f1a7a1711d08",
+                "url": "https://api.github.com/repos/wappcode/gql-pdss-lib/zipball/f68036514639444e45798fffcbaac1e76ef953dc",
+                "reference": "f68036514639444e45798fffcbaac1e76ef953dc",
                 "shasum": ""
             },
             "require": {
@@ -2823,7 +2823,6 @@
                 "phpunit/phpunit": "^9.5",
                 "wappcode/graphql-basic-client": "^1"
             },
-            "default-branch": true,
             "type": "library",
             "autoload": {
                 "files": [
@@ -2842,9 +2841,9 @@
             "description": "Utilidades para crear una api GraphQL",
             "support": {
                 "issues": "https://github.com/wappcode/gql-pdss-lib/issues",
-                "source": "https://github.com/wappcode/gql-pdss-lib/tree/master"
+                "source": "https://github.com/wappcode/gql-pdss-lib/tree/3.0.0"
             },
-            "time": "2023-12-30T05:05:59+00:00"
+            "time": "2024-01-04T17:30:38+00:00"
         },
         {
             "name": "wappcode/pdss-utilities",
@@ -2957,9 +2956,7 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "wappcode/gqlpdss": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],

@@ -92,7 +92,7 @@ class SurveyQuestion  extends AbstractEntityModelStringId
      */
     private $validators;
     /**
-     *
+     * Objeto SurveyConfiguration que tiene los puntajes por respuesta
      * Si hay valor en este registro se considera que se debe calificar y asignar puntaje y porcentaje
      * 
      * @ORM\OneToOne(targetEntity="\GPDSurvey\Entities\SurveyConfiguration")
@@ -357,7 +357,7 @@ class SurveyQuestion  extends AbstractEntityModelStringId
     }
 
     /**
-     *
+     * Objeto SurveyConfiguration que tiene los puntajes por respuesta
      * @return  ?SurveyConfiguration
      */
     public function getAnswerScore()
@@ -366,7 +366,7 @@ class SurveyQuestion  extends AbstractEntityModelStringId
     }
 
     /**
-     *
+     * Establece el objeto SurveyConfiguration que tiene los puntajes por respuesta
      * @param  ?SurveyConfiguration  $answerScore  
      *
      * @return  self
