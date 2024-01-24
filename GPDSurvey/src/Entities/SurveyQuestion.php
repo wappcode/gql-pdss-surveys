@@ -26,7 +26,7 @@ use GraphQL\Doctrine\Annotation as API;
 class SurveyQuestion  extends AbstractEntityModelStringId
 {
 
-    const RELATIONS_MANY_TO_ONE = ['survey', 'answerScore', 'content', 'presentation', 'validators'];
+    const RELATIONS_MANY_TO_ONE = ['survey', 'answerScore', 'content', 'presentation', 'validators', 'hint'];
 
 
     /**
@@ -57,9 +57,10 @@ class SurveyQuestion  extends AbstractEntityModelStringId
     private $other;
 
     /**
-     * 
-     * @ORM\Column(type="string", name="question_hint", nullable=true) 
-     * @var string
+     *
+     * @ORM\ManyToOne(targetEntity="\GPDSurvey\Entities\SurveyContent")
+     * @ORM\JoinColumn(name="question_hint", referencedColumnName="id", nullable=true)
+     * @var ?SurveyContent
      */
     private $hint;
     /**
@@ -259,29 +260,7 @@ class SurveyQuestion  extends AbstractEntityModelStringId
 
 
 
-    /**
-     * Get the value of hint
-     *
-     * @return  ?string
-     */
-    public function getHint()
-    {
-        return $this->hint;
-    }
 
-    /**
-     * Set the value of hint
-     *
-     * @param  ?string  $hint
-     *
-     * @return  self
-     */
-    public function setHint(?string $hint)
-    {
-        $this->hint = $hint;
-
-        return $this;
-    }
 
     /**
      * Get the value of options
@@ -443,6 +422,30 @@ class SurveyQuestion  extends AbstractEntityModelStringId
     public function setValidators(?SurveyConfiguration $validators)
     {
         $this->validators = $validators;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of hint
+     *
+     * @return  ?SurveyContent
+     */
+    public function getHint()
+    {
+        return $this->hint;
+    }
+
+    /**
+     * Set the value of hint
+     *
+     * @param  ?SurveyContent  $hint
+     *
+     * @return  self
+     */
+    public function setHint(?SurveyContent $hint)
+    {
+        $this->hint = $hint;
 
         return $this;
     }

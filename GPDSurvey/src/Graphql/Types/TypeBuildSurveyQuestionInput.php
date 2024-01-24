@@ -45,7 +45,7 @@ class TypeBuildSurveyQuestionInput extends InputObjectType
                     'type' => Type::boolean(),
                 ],
                 'hint' => [
-                    'type' => Type::string(),
+                    'type' => $serviceManager->get(TypeBuildSurveyContentInput::class)
                 ],
                 'options' => [
                     'type' => Type::listOf($serviceManager->get(TypeBuildSurveyQuestionOptionInput::class))

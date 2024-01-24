@@ -40,6 +40,12 @@ class ResolversSurveyQuestion
         $resolver = ResolverFactory::createEntityResolver($entityBuffer, 'content');
         return is_callable($proxy) ? $proxy($resolver) : $resolver;
     }
+    public static function getHintResolver(?callable $proxy): callable
+    {
+        $entityBuffer = new EntityBuffer(SurveyContent::class, SurveyContent::RELATIONS_MANY_TO_ONE);
+        $resolver = ResolverFactory::createEntityResolver($entityBuffer, 'hint');
+        return is_callable($proxy) ? $proxy($resolver) : $resolver;
+    }
     public static function getPresentationResolver(?callable $proxy): callable
     {
         $presentationsBuffer = new EntityBuffer(SurveyConfiguration::class, SurveyConfiguration::RELATIONS_MANY_TO_ONE);

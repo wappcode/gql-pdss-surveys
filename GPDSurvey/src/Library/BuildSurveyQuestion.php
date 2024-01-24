@@ -42,6 +42,7 @@ class BuildSurveyQuestion
             $input["presentation"] = BuildSurveyConfiguration::build($context, $input["presentation"] ?? null);
             $input["validators"] = BuildSurveyConfiguration::build($context, $input["validators"] ?? null);
             $input["answerScore"] = BuildSurveyConfiguration::build($context, $input["answerScore"] ?? null);
+            $input["hint"] = BuildSurveyContent::build($context, $input["hint"] ?? null);
             $inputQuestion = $input;
             unset($inputQuestion["options"]);
             ArrayToEntity::setValues($entityManager, $question, $inputQuestion);
@@ -80,7 +81,8 @@ class BuildSurveyQuestion
             ->leftJoin("question.answerScore", "answerScore")
             ->leftJoin("question.validators", "validators")
             ->leftJoin("question.options", "options")
-            ->select(["question", "partial content.{id}", "partial presentation.{id}", "partial answerScore.{id}", "partial validators.{id}", "partial options.{id}"]);
+            ->leftJoin("question.hint", "hint")
+            ->select(["question", "partial content.{id}", "partial presentation.{id}", "partial answerScore.{id}", "partial validators.{id}", "partial options.{id}", "partial hint.{id}"]);
         $question = $qb->andWhere("question.id = :id")->setParameter(":id", $id)->getQuery()->getOneOrNullResult();
         return $question;
     }
@@ -92,8 +94,9 @@ class BuildSurveyQuestion
         $validators = $question->getValidators();
         $presentation = $question->getPresentation();
         $answerScore = $question->getAnswerScore();
+        $hint = $question->getHint();
 
-        $question->setValidators(null)->setAnswerScore(null)->setPresentation(null)->setContent(null);
+        $question->setValidators(null)->setAnswerScore(null)->setPresentation(null)->setContent(null)->setHint(null);
         $entityManager = $context->getEntityManager();
         $entityManager->flush();
 
@@ -108,6 +111,9 @@ class BuildSurveyQuestion
         }
         if ($answerScore instanceof SurveyConfiguration) {
             DeleteSurveyConfiguration::delete($context, $answerScore->getId());
+        }
+        if ($hint instanceof SurveyContent) {
+            DeleteSurveyContent::delete($context, $hint->getId());
         }
     }
 

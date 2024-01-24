@@ -196,6 +196,7 @@ class GPDSurveyModule extends AbstractModule
             'SurveyQuestion::options' => ResolversSurveyQuestion::getOptionsResolver(null),
             'SurveyQuestion::survey' => ResolversSurveyQuestion::getSurveyResolver(null),
             'SurveyQuestion::content' => ResolversSurveyQuestion::getContentResolver(null),
+            'SurveyQuestion::hint' => ResolversSurveyQuestion::getHintResolver(null),
             'SurveyQuestion::answerScore' => ResolversSurveyQuestion::getAnswerScoreResolver(null),
             'SurveyQuestion::presentation' => ResolversSurveyQuestion::getPresentationResolver(null),
             'SurveyQuestion::validators' => ResolversSurveyQuestion::getValidatorsResolver(null),

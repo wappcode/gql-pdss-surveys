@@ -17,6 +17,7 @@ class TypeSurveyContentType extends EnumType
             'name' => static::NAME,
             'values' => [
                 ISurveyContent::SURVEY_CONTENT_TYPE_DIVIDER,
+                ISurveyContent::SURVEY_CONTENT_TYPE_TEXT,
                 ISurveyContent::SURVEY_CONTENT_TYPE_HTML,
                 ISurveyContent::SURVEY_CONTENT_TYPE_IMAGE,
                 ISurveyContent::SURVEY_CONTENT_TYPE_VIDEO,
