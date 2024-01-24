@@ -27,7 +27,7 @@ class BuildSurveyQuestion
         if (!($input["survey"] instanceof Survey)) {
             throw new GQLException("Survey is required");
         }
-        $id = $input["id"];
+        $id = $input["id"] ?? null;
         $question = new SurveyQuestion();
         if (!empty($id)) {
             $question = static::getSurveyQuestion($context, $id);
@@ -121,7 +121,7 @@ class BuildSurveyQuestion
     private static function getInputOptionsIds(array $optionsInput)
     {
         $ids = array_map(function ($option) {
-            return $option["id"];
+            return $option["id"] ?? null;
         }, $optionsInput);
         $ids = array_filter($ids, function ($id) {
             return !empty($id);

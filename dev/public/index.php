@@ -11,6 +11,7 @@ require_once __DIR__ . "/../../vendor/autoload.php";
 $configFile = __DIR__ . "/../config/doctrine.local.php";
 $cacheDir = __DIR__ . "/../data/DoctrineORMModule";
 $enviroment = getenv("APP_ENV");
+error_reporting(E_ALL);
 $serviceManager = new ServiceManager();
 $context = new ContextService($serviceManager);
 $context->setDoctrineConfigFile($configFile);

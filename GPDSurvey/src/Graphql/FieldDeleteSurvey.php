@@ -23,7 +23,7 @@ class FieldDeleteSurvey
             'resolve' => $proxyResolver,
         ];
     }
-    protected function createReslove()
+    protected static function createReslove()
     {
         return function ($root, $args, IContextService $context, $info) {
             $entityManager = $context->getEntityManager();
