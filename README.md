@@ -24,7 +24,7 @@ Agregar path para entities
     // config/doctrine.local.php
 
     "entities"=>[
-        "GPDAuth\Entities" => __DIR__."/../vendor/wappcode/gqlpdss-surveys/GPDSurvey/src/Entities",
+        "GPDSurvey\Entities" => __DIR__."/../vendor/wappcode/gqlpdss-surveys/GPDSurvey/src/Entities",
         .....
     ]
 
