@@ -1,5 +1,5 @@
 {
-  "version": "3.0.2",
+  "version": "4.0.0",
   "name": "wappcode/gql-pdss-surveys",
   "description": "Modulo para administar cuestionarios",
   "type": "library",
@@ -11,7 +11,7 @@
   },
   "require": {
     "wappcode/flow-utilities": "^1.0",
-    "wappcode/gqlpdss": "^3.0.0"
+    "wappcode/gqlpdss": "^4.0.0"
   },
   "autoload-dev": {
     "psr-4": {
