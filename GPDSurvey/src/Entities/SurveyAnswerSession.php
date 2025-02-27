@@ -15,7 +15,6 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Index(name="user_created_idx",columns={"created"}),
  * @ORM\Index(name="user_updated_idx",columns={"updated"}),
  * }, uniqueConstraints={
- * @ORM\UniqueConstraint(name="owner_code", columns={"target_audience_id","owner_code"}),
  * @ORM\UniqueConstraint(name="username", columns={"target_audience_id","username"})
  * })
  * 
@@ -40,7 +39,7 @@ class SurveyAnswerSession  extends AbstractEntityModelStringId
     private $password;
     /**
      * Extern reference to the owner 
-     * 
+     * Can be many for the same Target Audience
      * @ORM\Column(type="string", length=500, name="owner_code", nullable=true) 
      * @var ?string
      */
