@@ -30,12 +30,12 @@ class SurveyScoreUtilities
             return 0;
         }
         $scores = $config["scores"];
-        $findScoreConfig = array_find($scores, function ($item) use ($answerValue) {
+        $findScoreConfig = array_filter($scores, function ($item) use ($answerValue) {
             if (empty($item["answer"])) {
                 return false;
             }
             return strtolower(trim($item["answer"]))  == strtolower(trim($answerValue));
-        });
+        })[0];
         if (empty($findScoreConfig)) {
             return 0;
         }
