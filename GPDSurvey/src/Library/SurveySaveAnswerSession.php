@@ -26,7 +26,7 @@ class SurveySaveAnswerSession
      * @param callable|null $answerScoreCalculator funcion para calcular el puntaje de una respuesta parametros SurveyQuestion y ?string (valor de la respuesta);
      * @return SurveyAnswerSession
      */
-    public static function createAnswerSession(IContextService $context, SurveyTargetAudience $targetAudience, array $answersInputs, array $answerSessionInput, ?callable $sessionScoreCalculator, ?callable $answerScoreCalculator): SurveyAnswerSession
+    public static function createAnswerSession(IContextService $context, SurveyTargetAudience $targetAudience, array $answersInputs, array $answerSessionInput, ?callable $sessionScoreCalculator = null, ?callable $answerScoreCalculator = null): SurveyAnswerSession
     {
 
         $entityManager = $context->getEntityManager();
@@ -46,7 +46,7 @@ class SurveySaveAnswerSession
         return $answerSession;
     }
 
-    public static function updateAnswerSession(IContextService $context, SurveyAnswerSession $answerSession, array $answersInputs, array $answerSessionInput, ?callable $sessionScoreCalculator, ?callable $answerScoreCalculator): SurveyAnswerSession
+    public static function updateAnswerSession(IContextService $context, SurveyAnswerSession $answerSession, array $answersInputs, array $answerSessionInput, ?callable $sessionScoreCalculator = null, ?callable $answerScoreCalculator = null): SurveyAnswerSession
     {
         $entityManager = $context->getEntityManager();
         $targetAudience = $answerSession->getTargetAudience();
