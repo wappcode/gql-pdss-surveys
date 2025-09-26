@@ -6,12 +6,12 @@ use DateTime;
 use DateTimeImmutable;
 use DateTimeInterface;
 use Doctrine\ORM\EntityManager;
-use DoctrineProxies\__CG__\GPDSurvey\Entities\SurveyQuestion;
 use Exception;
 use GPDCore\Library\GQLException;
 use GPDCore\Library\IContextService;
 use GPDSurvey\Entities\SurveyAnswer;
 use GPDSurvey\Entities\SurveyAnswerSession;
+use GPDSurvey\Entities\SurveyQuestion;
 
 class SurveySaveAnswers
 {
