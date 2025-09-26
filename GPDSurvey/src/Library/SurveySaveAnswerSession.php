@@ -100,7 +100,8 @@ class SurveySaveAnswerSession
     /**
      * Recupera una funcion que retorna un array tipo tuple con los valores de socre y scorePercent [?float,?float]
      * Por defecto solo se calcula el score cuando ha completado el cuestionario esto porque para este cálculo se utilizan el total de respuestas
-     * para el cálculo global en caso de que esté incompleto porque el numero de respuestas puede ser diferente a las esperadas.
+     * para el cálculo global en caso de que esté incompleto porque el numero de respuestas puede ser diferente a las esperadas debido
+     * a que puede haber preguntas condicionadas, ocultas o no asignadas a un item de sección.
      * 
      * Si hay error en éste cálculo no afecta los demás procesos de guardado.
      * @param IContextService $context
