@@ -55,7 +55,7 @@ class SurveyScoreUtilities
     public static function calculateAnswerScorePercent(SurveyQuestion $question, ?float $score): ?float
     {
         $questionScore = $question->getScore();
-        if (empty($questionScore) || $score == null) {
+        if (empty($questionScore) || $score === null) {
             return null;
         }
         if (empty($score)) {
@@ -75,7 +75,7 @@ class SurveyScoreUtilities
     {
 
         $answerWitScores = array_filter($answers, function (SurveyAnswer $answer) {
-            return $answer->getScore() != null;
+            return $answer->getScore() !== null;
         });
         if (empty($answerWitScores)) {
             return null;
@@ -98,7 +98,7 @@ class SurveyScoreUtilities
     {
 
         $answerWitScores = array_filter($answers, function (SurveyAnswer $answer) {
-            return $answer->getScore() != null;
+            return $answer->getScore() !== null;
         });
         if (empty($answerWitScores)) {
             return null;
