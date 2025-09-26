@@ -6,6 +6,8 @@ use DateTime;
 use DateTimeImmutable;
 use DateTimeInterface;
 use Doctrine\ORM\EntityManager;
+use DoctrineProxies\__CG__\GPDSurvey\Entities\SurveyQuestion;
+use Exception;
 use GPDCore\Library\GQLException;
 use GPDCore\Library\IContextService;
 use GPDSurvey\Entities\SurveyAnswer;
@@ -24,14 +26,15 @@ class SurveySaveAnswers
      * @param DateTimeImmutable|null $ends
      * @return array $answer SurveyAnswer[]
      */
-    public static function save(IContextService $context, SurveyAnswerSession $session, array $answersInputs, array $questions, ?DateTimeImmutable $starts, ?DateTimeImmutable $ends)
+    public static function save(IContextService $context, SurveyAnswerSession $session, array $answersInputs, array $questions, ?DateTimeImmutable $starts, ?DateTimeImmutable $ends, ?callable $answerScoreCalculator)
     {
+
         static::validateDate($starts, $ends);
         $answers = $session->getAnswers()->toArray();
         $entityManager = $context->getEntityManager();
         $result = [];
         foreach ($answersInputs as $key => $answerInput) {
-            $answer = static::saveAnswer($entityManager, $answerInput, $answers, $session, $questions);
+            $answer = static::saveAnswer($entityManager, $answerInput, $answers, $session, $questions, $answerScoreCalculator);
             $result[] = $answer;
         }
         $entityManager->flush();
@@ -51,32 +54,37 @@ class SurveySaveAnswers
 
 
     /**
-     *
+     * Recupara los datos de puntaje y de puntaje en porcentaje en un array con ese orden [puntaje, puntajePercent]
      * @param array $questions
      * @param string $answer [questionId=>string, value=>string]
-     * @return void
+     * @return [?float,?float]
      */
-    protected static function calculateScore(array $questions, array $answerInput)
+    protected static function calculateScoreValues(array $questions, array $answerInput, ?callable $answerScoreCalculator)
     {
+        if (!is_callable($answerScoreCalculator)) {
+            $answerScoreCalculator = static::getDefaultScoreCalculator();
+        }
         $questionId = $answerInput["questionId"];
         $question = $questions[$questionId] ?? null;
         $answerValue = $answerInput["value"];
-        return SurveyScoreUtilities::calculateAnswerScoreValues($question, $answerValue);
+        $score = $answerScoreCalculator($question, $answerValue);
+        $scorePercent = SurveyScoreUtilities::calculateAnswerScorePercent($question, $score);
+        return [$score, $scorePercent];
     }
 
 
-    protected static function saveAnswer(EntityManager $entityManager, array $answerInput, array $answers, SurveyAnswerSession $answerSession, $questions): SurveyAnswer
+    protected static function saveAnswer(EntityManager $entityManager, array $answerInput, array $answers, SurveyAnswerSession $answerSession, $questions, ?callable $answerScoreCalculator): SurveyAnswer
     {
         // Se usa Doctrine en lugar de sql para que sea compatible con diferentes bases de datos
 
 
-        $scoreValue = static::calculateScore($questions, $answerInput);
         $answer = static::findAnswer($answers, $answerInput);
         if (!($answer instanceof SurveyAnswer)) {
-            $answer = static::createAnswer($entityManager, $answerInput, $questions, $answerSession);
+            $answer = static::createAnswer($entityManager, $answerInput, $questions, $answerSession, $answerScoreCalculator);
         } else {
-            $answer = static::updateAnswer($answer, $answerInput, $questions);
+            $answer = static::updateAnswer($answer, $answerInput, $questions, $answerScoreCalculator);
         }
+
         return $answer;
     }
 
@@ -92,32 +100,46 @@ class SurveySaveAnswers
         return $result;
     }
 
-    protected static function createAnswer(EntityManager $entityManager, array $answerInput, array $questions, SurveyAnswerSession $answerSession): SurveyAnswer
+    protected static function createAnswer(EntityManager $entityManager, array $answerInput, array $questions, SurveyAnswerSession $answerSession, ?callable $answerScoreCalculator): SurveyAnswer
     {
         $questionId = $answerInput["questionId"];
         $question = $questions[$questionId];
-        $scoreValue = static::calculateScore($questions, $answerInput);
+        $scoreValues = static::calculateScoreValues($questions, $answerInput, $answerScoreCalculator);
         $answer = new SurveyAnswer();
         $answer
             ->setSession($answerSession)
             ->setQuestion($question)
-            ->setScore($scoreValue[0])
-            ->setScorePercent($scoreValue[1])
+            ->setScore($scoreValues[0])
+            ->setScorePercent($scoreValues[1])
             ->setValue($answerInput["value"]);
         $entityManager->persist($answer);
         return $answer;
     }
 
-    protected static function updateAnswer(SurveyAnswer $answer, array $answerInput, array $questions): SurveyAnswer
+    protected static function updateAnswer(SurveyAnswer $answer, array $answerInput, array $questions, ?callable $answerScoreCalculator): SurveyAnswer
     {
-        $scoreValue = static::calculateScore($questions, $answerInput);
+        $scoreValues = static::calculateScoreValues($questions, $answerInput, $answerScoreCalculator);
         $currentDate = new DateTimeImmutable();
         $answer
             ->setValue($answerInput["value"])
-            ->setScore($scoreValue[0])
-            ->setScorePercent($scoreValue[1])
+            ->setScore($scoreValues[0])
+            ->setScorePercent($scoreValues[1])
             ->setUpdated($currentDate);
 
         return $answer;
+    }
+
+    /** 
+     * Como valor predeterminado si hay un error al calcular el puntaje no impide que se registre la respuesta.
+     */
+    protected static function getDefaultScoreCalculator()
+    {
+        return function (SurveyQuestion $question, $answerValue) {
+            try {
+                return  SurveyScoreUtilities::calculateAnswerScore($question, $answerValue);
+            } catch (Exception $e) {
+                return null;
+            }
+        };
     }
 }
