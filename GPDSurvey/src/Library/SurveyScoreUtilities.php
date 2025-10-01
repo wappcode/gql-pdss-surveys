@@ -37,7 +37,7 @@ class SurveyScoreUtilities
             }
             return strtolower(trim($item["answer"]))  == strtolower(trim($answerValue));
         });
-        $findScoreConfig = array_values($$findScoresConfig)[0];
+        $findScoreConfig = array_values($findScoresConfig)[0];
         if (empty($findScoreConfig)) {
             return 0;
         }
