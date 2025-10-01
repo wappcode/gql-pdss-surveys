@@ -4,6 +4,7 @@ namespace GPDSurvey\Library;
 
 use GPDSurvey\Entities\Survey;
 use GPDSurvey\Entities\SurveyAnswer;
+use GPDSurvey\Entities\SurveyConfiguration;
 use GPDSurvey\Entities\SurveyQuestion;
 
 class SurveyScoreUtilities
@@ -21,8 +22,12 @@ class SurveyScoreUtilities
      */
     public static function calculateAnswerScore(SurveyQuestion $question, ?string $answerValue): ?float
     {
-        $config = $question->getAnswerScore()->getValue();
         // Si no se han asignado puntajes retorna null
+        $answerScore = $question->getAnswerScore();
+        if (!($answerScore instanceof SurveyConfiguration)) {
+            return null;
+        }
+        $config = $answerScore->getValue();
         if (empty($config) || empty($config["scores"])) {
             return null;
         }
