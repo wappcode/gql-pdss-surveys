@@ -30,12 +30,14 @@ class SurveyScoreUtilities
             return 0;
         }
         $scores = $config["scores"];
-        $findScoreConfig = array_filter($scores, function ($item) use ($answerValue) {
+        //TODO: Implementar calculo de puntajes para opciones multiples definir como se van a guardar las opciones multiples por ejemplo array
+        $findScoresConfig = array_filter($scores, function ($item) use ($answerValue) {
             if (empty($item["answer"])) {
                 return false;
             }
             return strtolower(trim($item["answer"]))  == strtolower(trim($answerValue));
-        })[0];
+        });
+        $findScoreConfig = array_values($$findScoresConfig)[0];
         if (empty($findScoreConfig)) {
             return 0;
         }
