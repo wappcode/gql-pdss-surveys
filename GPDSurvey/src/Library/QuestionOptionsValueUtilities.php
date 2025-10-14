@@ -21,7 +21,7 @@ class QuestionOptionsValueUtilities
         if (empty($answer)) {
             return $answer;
         }
-        $type = $question["type"] ?? $question["question_type"];
+        $type = $question["type"] ?? $question["question_type"] ?? '';
         $formatedAnswer = $answer;
         switch ($type) {
             case ISurveyQuestion::SURVEY_QUESTION_TYPE_CHECKBOX_LIST:
