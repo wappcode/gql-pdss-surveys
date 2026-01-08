@@ -74,7 +74,7 @@ class SurveyScoreUtilities
     }
     /**
      * Calcula el puntaje de la session
-     *
+     * Solo aplica para cuestionarios completos y que no tienen preguntas ocultas o con condiciones
      * @param array $answers SurveyAnswer
      * @return [$score, $scorePercent]
      */
@@ -97,6 +97,7 @@ class SurveyScoreUtilities
     }
     /**
      * Calcula el puntaje de la session
+     * Solo aplica para cuestionarios completos y que no tienen preguntas ocultas o con condiciones
      *
      * @param array $answers SurveyAnswer
      * @return [$score, $scorePercent]
@@ -110,7 +111,7 @@ class SurveyScoreUtilities
         if (empty($answerWitScores)) {
             return null;
         }
-        $totalScores = count($answerWitScores);
+        $totalScores = array_reduce($answerWitScores,function(float $acc,SurveyAnswer $answer){ return $acc+ $answer->getScorePercent();},0);
         $scores = array_map(function (SurveyAnswer $answer) {
             return $answer->getScorePercent();
         }, $answerWitScores);
