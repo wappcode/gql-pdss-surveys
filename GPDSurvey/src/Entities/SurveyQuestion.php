@@ -11,18 +11,14 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Doctrine Entity For SurveyQuestion
- * @ORM\Entity()
- * @ORM\Table(name="gpd_survey_question", indexes={
- * @ORM\Index(name="user_created_idx",columns={"created"}),
- * @ORM\Index(name="user_updated_idx",columns={"updated"})
- * },
- * uniqueConstraints ={
- * @ORM\UniqueConstraint(name="question_survey_code", 
- *            columns={"survey_id","code"})
- * }
- * )
- * 
  */
+#[ORM\Entity]
+#[ORM\Table(name: 'gpd_survey_question', indexes: [
+    new ORM\Index(name: 'user_created_idx', columns: ['created']),
+    new ORM\Index(name: 'user_updated_idx', columns: ['updated']),
+], uniqueConstraints: [
+    new ORM\UniqueConstraint(name: 'question_survey_code', columns: ['survey_id', 'code']),
+])]
 class SurveyQuestion  extends AbstractEntityModelUlid
 {
 
@@ -30,92 +26,92 @@ class SurveyQuestion  extends AbstractEntityModelUlid
 
 
     /**
-     * @ORM\Column(type="string", length=5000, name="title", nullable=false) 
      * @var string
      */
+    #[ORM\Column(type: 'string', length: 5000, name: 'title', nullable: false)]
     private $title;
 
     /**
-     * @ORM\Column(type="string", name="code", nullable=false) 
      * @var string
      */
+    #[ORM\Column(type: 'string', name: 'code', nullable: false)]
     private $code;
     /**
-     * @ORM\Column(type="string", name="question_type", nullable=false) 
      * @var string
      */
+    #[ORM\Column(type: 'string', name: 'question_type', nullable: false)]
     private $type;
     /**
-     * @ORM\Column(type="boolean", name="required", nullable=false, options={"default":1}) 
      * @var bool
      */
+    #[ORM\Column(type: 'boolean', name: 'required', nullable: false, options: ['default' => 1])]
     private $required;
     /**
-     * @ORM\Column(type="boolean", name="other", nullable=false, options={"default":0}) 
      * @var bool
      */
+    #[ORM\Column(type: 'boolean', name: 'other', nullable: false, options: ['default' => 0])]
     private $other;
 
     /**
      *
-     * @ORM\ManyToOne(targetEntity="\GPDSurvey\Entities\SurveyContent")
-     * @ORM\JoinColumn(name="question_hint", referencedColumnName="id", nullable=true)
      * @var ?SurveyContent
      */
+    #[ORM\ManyToOne(targetEntity: SurveyContent::class)]
+    #[ORM\JoinColumn(name: 'question_hint', referencedColumnName: 'id', nullable: true)]
     private $hint;
     /**
      *
-     * @ORM\OneToMany(targetEntity="\GPDSurvey\Entities\SurveyQuestionOption", mappedBy="question")
      * @var Collection
      */
+    #[ORM\OneToMany(targetEntity: SurveyQuestionOption::class, mappedBy: 'question')]
     private $options;
     /**
      *
-     * @ORM\ManyToOne(targetEntity="\GPDSurvey\Entities\SurveyContent")
-     * @ORM\JoinColumn(name="content_id", referencedColumnName="id", nullable=true)
      * @var ?SurveyContent
      */
+    #[ORM\ManyToOne(targetEntity: SurveyContent::class)]
+    #[ORM\JoinColumn(name: 'content_id', referencedColumnName: 'id', nullable: true)]
     private $content;
     /**
      *
-     * @ORM\ManyToOne(targetEntity="\GPDSurvey\Entities\SurveyConfiguration")
-     * @ORM\JoinColumn(name="presentation_id", referencedColumnName="id", nullable=true)
      * @var ?SurveyConfiguration
      * 
      */
+    #[ORM\ManyToOne(targetEntity: SurveyConfiguration::class)]
+    #[ORM\JoinColumn(name: 'presentation_id', referencedColumnName: 'id', nullable: true)]
     private $presentation;
     /**
      *
-     * @ORM\ManyToOne(targetEntity="\GPDSurvey\Entities\SurveyConfiguration")
-     * @ORM\JoinColumn(name="validators_id", referencedColumnName="id", nullable=true)
      * @var ?SurveyConfiguration
      * 
      */
+    #[ORM\ManyToOne(targetEntity: SurveyConfiguration::class)]
+    #[ORM\JoinColumn(name: 'validators_id', referencedColumnName: 'id', nullable: true)]
     private $validators;
     /**
      * Objeto SurveyConfiguration que tiene los puntajes por respuesta
      * Si hay valor en este registro se considera que se debe calificar y asignar puntaje y porcentaje
      * 
-     * @ORM\OneToOne(targetEntity="\GPDSurvey\Entities\SurveyConfiguration")
-     * @ORM\JoinColumn(name="answer_score_id", referencedColumnName="id", nullable=true)
      * @var ?SurveyConfiguration
      */
+    #[ORM\OneToOne(targetEntity: SurveyConfiguration::class)]
+    #[ORM\JoinColumn(name: 'answer_score_id', referencedColumnName: 'id', nullable: true)]
     private $answerScore;
     /**
      *
      * Se establece como valor predeterminado 1 para poder calcular el puntaje máximo de la encuesta.
      * También puede servir para asignar puntaje de forma manual mediante un formulario para cada respuesta.
      * 
-     * @ORM\Column(type="decimal", precision=10, scale=4, nullable=true)
      * @var ?float
      */
+    #[ORM\Column(type: 'decimal', precision: 10, scale: 4, nullable: true)]
     private $score;
     /**
      *
-     * @ORM\ManyToOne(targetEntity="\GPDSurvey\Entities\Survey", inversedBy="questions")
-     * @ORM\JoinColumn(name="survey_id", referencedColumnName="id", nullable=false)
      * @var Survey
      */
+    #[ORM\ManyToOne(targetEntity: Survey::class, inversedBy: 'questions')]
+    #[ORM\JoinColumn(name: 'survey_id', referencedColumnName: 'id', nullable: false)]
     private $survey;
 
     public function __construct()

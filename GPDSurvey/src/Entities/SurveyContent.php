@@ -8,33 +8,32 @@ use PDSSUtilities\AbstractEntityModel;
 
 /**
  * Doctrine Entity For Survey
- * @ORM\Entity()
- * @ORM\Table(name="gpd_survey_content", indexes={
- * @ORM\Index(name="user_created_idx",columns={"created"}),
- * @ORM\Index(name="user_updated_idx",columns={"updated"})
- * })
- * 
  */
+#[ORM\Entity]
+#[ORM\Table(name: 'gpd_survey_content', indexes: [
+    new ORM\Index(name: 'user_created_idx', columns: ['created']),
+    new ORM\Index(name: 'user_updated_idx', columns: ['updated']),
+])]
 class SurveyContent  extends AbstractEntityModel
 {
     const RELATIONS_MANY_TO_ONE = ['presentation'];
 
 
     /**
-     * @ORM\Column(type="string", name="config_type", nullable=false) 
      * @var string
      */
+    #[ORM\Column(type: 'string', name: 'config_type', nullable: false)]
     private $type;
     /**
-     * @ORM\Column(type="text", name="body", nullable=true) 
      * @var string
      */
+    #[ORM\Column(type: 'text', name: 'body', nullable: true)]
     private $body;
     /**
-     * @ORM\ManyToOne(targetEntity="\GPDSurvey\Entities\SurveyConfiguration")
-     * @ORM\JoinColumn(name="presentation_id", referencedColumnName="id", nullable=true)
      * @var SurveyConfiguration
      */
+    #[ORM\ManyToOne(targetEntity: SurveyConfiguration::class)]
+    #[ORM\JoinColumn(name: 'presentation_id', referencedColumnName: 'id', nullable: true)]
     private $presentation;
 
     /**

@@ -8,53 +8,47 @@ use PDSSUtilities\AbstractEntityModel;
 
 /**
  * Doctrine Entity For SurveyAnswer
- * @ORM\Entity()
- * @ORM\Table(name="gpd_survey_answer", indexes={
- * @ORM\Index(name="user_created_idx",columns={"created"}),
- * @ORM\Index(name="user_updated_idx",columns={"updated"})
- * },
- * uniqueConstraints ={
- * @ORM\UniqueConstraint(name="answer_session_question", 
- * columns={"session_id", "question_id"})
- * }
- * 
- * )
- * 
  */
+#[ORM\Entity]
+#[ORM\Table(name: 'gpd_survey_answer', indexes: [
+    new ORM\Index(name: 'user_created_idx', columns: ['created']),
+    new ORM\Index(name: 'user_updated_idx', columns: ['updated']),
+], uniqueConstraints: [
+    new ORM\UniqueConstraint(name: 'answer_session_question', columns: ['session_id', 'question_id']),
+])]
 class SurveyAnswer  extends AbstractEntityModel
 {
     const RELATIONS_MANY_TO_ONE = ['question', 'session'];
     /**
-     * @ORM\Column(type="text", name="answer_value", nullable=true) 
      * @var ?string
      */
+    #[ORM\Column(type: 'text', name: 'answer_value', nullable: true)]
     private $value;
 
     /**
-     * @ORM\ManyToOne(targetEntity="\GPDSurvey\Entities\SurveyQuestion")
-     * @ORM\JoinColumn(name="question_id", referencedColumnName="id", nullable=false)
      * @var SurveyQuestion
      */
+    #[ORM\ManyToOne(targetEntity: SurveyQuestion::class)]
+    #[ORM\JoinColumn(name: 'question_id', referencedColumnName: 'id', nullable: false)]
     private $question;
     /**
      *
-     * @ORM\Column(type="decimal",name="score",  precision=10, scale=4, nullable=true)
      * @var float
      */
+    #[ORM\Column(type: 'decimal', name: 'score', precision: 10, scale: 4, nullable: true)]
     private $score;
     /**
      *
-     * @ORM\Column(type="decimal", name="score_percent", precision=8, scale=4, nullable=true)
      * @var float
      */
+    #[ORM\Column(type: 'decimal', name: 'score_percent', precision: 8, scale: 4, nullable: true)]
     private $scorePercent;
 
     /**
-     * @ORM\ManyToOne(targetEntity="\GPDSurvey\Entities\SurveyAnswerSession", inversedBy="answers")
-     * @ORM\JoinColumn(name="session_id", referencedColumnName="id", nullable=false)
-     *
      * @var SurveyAnswerSession
      */
+    #[ORM\ManyToOne(targetEntity: SurveyAnswerSession::class, inversedBy: 'answers')]
+    #[ORM\JoinColumn(name: 'session_id', referencedColumnName: 'id', nullable: false)]
     private $session;
 
     /**

@@ -21,7 +21,6 @@ type Query {
   getSurveyAnswerSession(id: ID!): SurveyAnswerSession
   findSurveyAnswerSessionByUsernameAndPassword(targetAudience: ID!, username: String!, password: String!): SurveyAnswerSession
   findSurveyAnswerSessionByOwnerCode(targetAudience: ID!, ownerCode: String!): SurveyAnswerSession
-  echo(message: String!): String!
 }
 type Mutation {
   """

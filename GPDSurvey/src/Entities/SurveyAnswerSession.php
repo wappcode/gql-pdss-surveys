@@ -10,78 +10,75 @@ use PDSSUtilities\AbstractEntityModelUlid;
 
 /**
  * Doctrine Entity For SurveyAnswerSession
- * @ORM\Entity()
- * @ORM\Table(name="gpd_survey_answer_session", indexes={
- * @ORM\Index(name="user_created_idx",columns={"created"}),
- * @ORM\Index(name="user_updated_idx",columns={"updated"}),
- * }, uniqueConstraints={
- * @ORM\UniqueConstraint(name="username", columns={"target_audience_id","username"})
- * })
- * 
  */
+#[ORM\Entity]
+#[ORM\Table(name: 'gpd_survey_answer_session', indexes: [
+    new ORM\Index(name: 'user_created_idx', columns: ['created']),
+    new ORM\Index(name: 'user_updated_idx', columns: ['updated']),
+], uniqueConstraints: [
+    new ORM\UniqueConstraint(name: 'username', columns: ['target_audience_id', 'username']),
+])]
 class SurveyAnswerSession  extends AbstractEntityModelUlid
 {
     const RELATIONS_MANY_TO_ONE = ['targetAudience', 'survey'];
     /**
-     * @ORM\Column(type="string", length=500, name="name", nullable=true) 
      * @var ?string
      */
+    #[ORM\Column(type: 'string', length: 500, name: 'name', nullable: true)]
     private $name;
     /**
-     * @ORM\Column(type="string", length=500, name="username", nullable=true) 
      * @var ?string
      */
+    #[ORM\Column(type: 'string', length: 500, name: 'username', nullable: true)]
     private $username;
     /**
-     * @ORM\Column(type="string", length=500, name="session_password", nullable=true) 
      * @var ?string
      */
+    #[ORM\Column(type: 'string', length: 500, name: 'session_password', nullable: true)]
     private $password;
     /**
      * Extern reference to the owner 
      * Can be many for the same Target Audience
-     * @ORM\Column(type="string", length=500, name="owner_code", nullable=true) 
      * @var ?string
      */
+    #[ORM\Column(type: 'string', length: 500, name: 'owner_code', nullable: true)]
     private $ownerCode;
     /**
      *
-     * @ORM\Column(type="decimal", name="score", precision=10, scale=4, nullable=true)
      * @var ?float
      */
+    #[ORM\Column(type: 'decimal', name: 'score', precision: 10, scale: 4, nullable: true)]
     private $score;
     /**
      *
-     * @ORM\Column(type="boolean", name="completed", options={"default": 0})
      * @var bool
      */
+    #[ORM\Column(type: 'boolean', name: 'completed', options: ['default' => 0])]
     private $completed;
     /**
      *
-     * @ORM\Column(type="decimal", name="score_percent", precision=8, scale=4, nullable=true)
      * @var ?float
      */
+    #[ORM\Column(type: 'decimal', name: 'score_percent', precision: 8, scale: 4, nullable: true)]
     private $scorePercent;
     /**
-     * @ORM\OneToMany(targetEntity="\GPDSurvey\Entities\SurveyAnswer", mappedBy="session")
-     *
      * @var Collection
      */
+    #[ORM\OneToMany(targetEntity: SurveyAnswer::class, mappedBy: 'session')]
     private $answers;
 
     /**
      *
-     * @ORM\ManyToOne(targetEntity="\GPDSurvey\Entities\SurveyTargetAudience")
-     * @ORM\JoinColumn(name="target_audience_id", referencedColumnName="id", nullable=false)
      * @var SurveyTargetAudience
      */
+    #[ORM\ManyToOne(targetEntity: SurveyTargetAudience::class)]
+    #[ORM\JoinColumn(name: 'target_audience_id', referencedColumnName: 'id', nullable: false)]
     private $targetAudience;
     /**
-     * @ORM\ManyToOne(targetEntity="\GPDSurvey\Entities\Survey")
-     * @ORM\JoinColumn(name="survey_id", referencedColumnName="id", nullable=false)
-     *
      * @var Survey
      */
+    #[ORM\ManyToOne(targetEntity: Survey::class)]
+    #[ORM\JoinColumn(name: 'survey_id', referencedColumnName: 'id', nullable: false)]
     private $survey;
 
     public function __construct()

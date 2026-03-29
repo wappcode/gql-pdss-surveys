@@ -15,7 +15,15 @@
   },
   "autoload-dev": {
     "psr-4": {
-      "AppModule\\": "dev/modules/AppModule/src/"
+      "AppModule\\": "dev/modules/AppModule/src/",
+      "Tests\\": "tests/"
     }
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^10.5",
+    "wappcode/graphql-basic-client": "^1.0"
+  },
+  "scripts": {
+    "test": "phpunit -c phpunit.xml.dist"
   }
 }

@@ -12,53 +12,52 @@ use Doctrine\ORM\Mapping as ORM;
  * No se agrega indice unico a question_id y option_value porque se tiene que reducir el length de la columna value a 255
  * 
  * Doctrine Entity For SurveyQuestionOption
- * @ORM\Entity()
- * @ORM\Table(name="gpd_survey_question_option", indexes={
- * @ORM\Index(name="user_created_idx",columns={"created"}),
- * @ORM\Index(name="user_updated_idx",columns={"updated"})
- * })
- * 
  */
+#[ORM\Entity]
+#[ORM\Table(name: 'gpd_survey_question_option', indexes: [
+    new ORM\Index(name: 'user_created_idx', columns: ['created']),
+    new ORM\Index(name: 'user_updated_idx', columns: ['updated']),
+])]
 class SurveyQuestionOption  extends AbstractEntityModel
 {
     const RELATIONS_MANY_TO_ONE = ['content', 'presentation', 'question'];
     /**
-     * @ORM\Column(type="string", length="5000", name="option_value", nullable=false) 
      * @var string
      */
+    #[ORM\Column(type: 'string', length: 5000, name: 'option_value', nullable: false)]
     private $value;
     /**
-     * @ORM\Column(type="string", length="5000",  name="title", nullable=false) 
      * @var string
      */
+    #[ORM\Column(type: 'string', length: 5000, name: 'title', nullable: false)]
     private $title;
     /**
-     * @ORM\Column(type="integer", name="order_number", nullable=false) 
      * @var int
      */
+    #[ORM\Column(type: 'integer', name: 'order_number', nullable: false)]
     private $order;
     /**
      * @var SurveyContent
-     * @ORM\ManyToOne(targetEntity="\GPDSurvey\Entities\SurveyContent")
-     * @ORM\JoinColumn(name="content_id", referencedColumnName="id", nullable=true)
      * 
      */
+    #[ORM\ManyToOne(targetEntity: SurveyContent::class)]
+    #[ORM\JoinColumn(name: 'content_id', referencedColumnName: 'id', nullable: true)]
     private $content;
     /**
      *
-     * @ORM\ManyToOne(targetEntity="\GPDSurvey\Entities\SurveyConfiguration")
-     * @ORM\JoinColumn(name="presentation_id", referencedColumnName="id", nullable=true)
      * @var SurveyConfiguration
      * 
      */
+    #[ORM\ManyToOne(targetEntity: SurveyConfiguration::class)]
+    #[ORM\JoinColumn(name: 'presentation_id', referencedColumnName: 'id', nullable: true)]
     private $presentation;
 
     /**
      *
-     * @ORM\ManyToOne(targetEntity="SurveyQuestion", inversedBy="options")
-     * @ORM\JoinColumn(name="question_id", referencedColumnName="id", nullable=false)
      * @var SurveyQuestion
      */
+    #[ORM\ManyToOne(targetEntity: SurveyQuestion::class, inversedBy: 'options')]
+    #[ORM\JoinColumn(name: 'question_id', referencedColumnName: 'id', nullable: false)]
     private $question;
 
     /**

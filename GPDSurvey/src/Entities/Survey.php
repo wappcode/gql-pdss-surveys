@@ -10,46 +10,44 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Doctrine Entity For Survey
- * @ORM\Entity()
- * @ORM\Table(name="gpd_survey", indexes={
- * @ORM\Index(name="user_created_idx",columns={"created"}),
- * @ORM\Index(name="user_updated_idx",columns={"updated"})
- * })
- * 
  */
+#[ORM\Entity]
+#[ORM\Table(name: 'gpd_survey', indexes: [
+    new ORM\Index(name: 'user_created_idx', columns: ['created']),
+    new ORM\Index(name: 'user_updated_idx', columns: ['updated']),
+])]
 class Survey  extends AbstractEntityModelUlid
 {
     const RELATIONS_MANY_TO_ONE = [];
     /**
-     * @ORM\Column(type="string", name="title", nullable=false) 
      * @var string
      */
+    #[ORM\Column(type: 'string', name: 'title', nullable: false)]
     private $title;
     /**
      *
-     * @ORM\OneToMany(targetEntity="\GPDSurvey\Entities\SurveyTargetAudience", mappedBy="survey")
      * @var Collection
      */
+    #[ORM\OneToMany(targetEntity: SurveyTargetAudience::class, mappedBy: 'survey')]
     private $targetAudiences;
     /**
      *
-     * @ORM\OneToMany(targetEntity="\GPDSurvey\Entities\SurveyQuestion", mappedBy="survey")
      * @var Collection
      */
+    #[ORM\OneToMany(targetEntity: SurveyQuestion::class, mappedBy: 'survey')]
     private $questions;
     /**
      *
-     * @ORM\OneToMany(targetEntity="\GPDSurvey\Entities\SurveySection", mappedBy="survey")
      * @var Collection
      */
+    #[ORM\OneToMany(targetEntity: SurveySection::class, mappedBy: 'survey')]
     private $sections;
 
     //TODO: Configurar para que no se puedan agregar respuestas en una encuesta activa
     /**
-     * @ORM\Column(name="active",type="boolean",nullable=false,options={"default":0})
-     *
      * @var bool
      */
+    #[ORM\Column(name: 'active', type: 'boolean', nullable: false, options: ['default' => 0])]
     private $active;
 
     public function __construct()

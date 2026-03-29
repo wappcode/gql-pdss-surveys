@@ -10,28 +10,26 @@ use PDSSUtilities\AbstractEntityModel;
  * Doctrine Entity For SurveyPresentation
  * 
  * Guarda en formato JSON la configuración de la presentación para encuestas, secciones y preguntas opciones de preguntas, etc
- * 
- * @ORM\Entity()
- * @ORM\Table(name="gpd_survey_configuration", indexes={
- * @ORM\Index(name="user_created_idx",columns={"created"}),
- * @ORM\Index(name="user_updated_idx",columns={"updated"})
- * })
- * 
  */
+#[ORM\Entity]
+#[ORM\Table(name: 'gpd_survey_configuration', indexes: [
+    new ORM\Index(name: 'user_created_idx', columns: ['created']),
+    new ORM\Index(name: 'user_updated_idx', columns: ['updated']),
+])]
 class SurveyConfiguration  extends AbstractEntityModel
 {
     const RELATIONS_MANY_TO_ONE = [];
 
 
     /**
-     * @ORM\Column(type="json", name="config_value", nullable=false) 
      * @var array
      */
+    #[ORM\Column(type: 'json', name: 'config_value', nullable: false)]
     private $value;
     /**
-     * @ORM\Column(type="string", name="config_type", nullable=false) 
      * @var string
      */
+    #[ORM\Column(type: 'string', name: 'config_type', nullable: false)]
     private $type;
 
     /**

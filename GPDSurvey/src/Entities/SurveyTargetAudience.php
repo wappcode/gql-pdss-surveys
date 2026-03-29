@@ -14,71 +14,69 @@ use PDSSUtilities\AbstractEntityModelUlid;
 
 /**
  * Doctrine Entity For SurveyTargetAudience
- * @ORM\Entity()
- * @ORM\Table(name="gpd_survey_target_audience", indexes={
- * @ORM\Index(name="user_created_idx",columns={"created"}),
- * @ORM\Index(name="user_updated_idx",columns={"updated"})
- * })
- * 
  */
+#[ORM\Entity]
+#[ORM\Table(name: 'gpd_survey_target_audience', indexes: [
+    new ORM\Index(name: 'user_created_idx', columns: ['created']),
+    new ORM\Index(name: 'user_updated_idx', columns: ['updated']),
+])]
 class SurveyTargetAudience  extends AbstractEntityModelUlid
 {
     const RELATIONS_MANY_TO_ONE = ['welcome', 'farewell', 'survey', 'presentation'];
     /**
-     * @ORM\Column(type="string", name="title", nullable=false) 
      * @var string
      */
+    #[ORM\Column(type: 'string', name: 'title', nullable: false)]
     private $title;
     /**
      * @var DateTimeInterface
-     * @ORM\Column(type="datetimetz_immutable", name="starts", nullable=true)
      */
+    #[ORM\Column(type: 'datetimetz_immutable', name: 'starts', nullable: true)]
     private $starts;
     /**
      * @var DateTimeInterface
-     * @ORM\Column(type="datetimetz_immutable", name="ends", nullable=true)
      */
+    #[ORM\Column(type: 'datetimetz_immutable', name: 'ends', nullable: true)]
     private $ends;
 
     /**
      * @var ?SurveyContent
-     * @ORM\ManyToOne(targetEntity="\GPDSurvey\Entities\SurveyContent")
-     * @ORM\JoinColumn(name="welcome_content_id",referencedColumnName="id", nullable=true)
      */
+    #[ORM\ManyToOne(targetEntity: SurveyContent::class)]
+    #[ORM\JoinColumn(name: 'welcome_content_id', referencedColumnName: 'id', nullable: true)]
     private $welcome;
     /**
      * @var ?SurveyContent
-     * @ORM\ManyToOne(targetEntity="\GPDSurvey\Entities\SurveyContent")
-     * @ORM\JoinColumn(name="farewell_content_id",referencedColumnName="id", nullable=true)
      */
+    #[ORM\ManyToOne(targetEntity: SurveyContent::class)]
+    #[ORM\JoinColumn(name: 'farewell_content_id', referencedColumnName: 'id', nullable: true)]
     private $farewell;
     /**
-     * @ORM\Column(type="integer", name="attempts", nullable=true) 
      * @var int
      */
+    #[ORM\Column(type: 'integer', name: 'attempts', nullable: true)]
     private $attempts;
 
     /**
      * @var Survey
-     * @ORM\ManyToOne(targetEntity="\GPDSurvey\Entities\Survey", inversedBy="targetAudiences")
-     * @ORM\JoinColumn(name="survey_id", referencedColumnName="id", nullable=false)
      */
+    #[ORM\ManyToOne(targetEntity: Survey::class, inversedBy: 'targetAudiences')]
+    #[ORM\JoinColumn(name: 'survey_id', referencedColumnName: 'id', nullable: false)]
     private $survey;
 
     /**
      *
-     * @ORM\ManyToOne(targetEntity="\GPDSurvey\Entities\SurveyConfiguration")
-     * @ORM\JoinColumn(name="presentation_id", referencedColumnName="id", nullable=true)
      * @var ?SurveyConfiguration
      * 
      */
+    #[ORM\ManyToOne(targetEntity: SurveyConfiguration::class)]
+    #[ORM\JoinColumn(name: 'presentation_id', referencedColumnName: 'id', nullable: true)]
     private $presentation;
     //TODO agregar seguridad para consultas de targetAudience no debe retornar información si tiene asignado un password
     /**
-     * @ORM\Column(type="string",length=255,nullable=true,name="audience_password")
-     *
      * @var ?string
      */
+    #[ORM\Column(type: 'string', length: 255, nullable: true, name: 'audience_password')]
     private $password;
 
     /**

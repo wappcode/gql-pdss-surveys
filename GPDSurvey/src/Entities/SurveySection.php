@@ -12,64 +12,61 @@ use Doctrine\Common\Collections\ArrayCollection;
 /**
  * Doctrine Entity For SurveySection
  * No se agregar indice único relacionado con el orden podria ocacionar conflictos en el procesos build
- * 
- * @ORM\Entity()
- * @ORM\Table(name="gpd_survey_section", indexes={
- * @ORM\Index(name="user_created_idx",columns={"created"}),
- * @ORM\Index(name="user_updated_idx",columns={"updated"})
- * }
- * )
- * 
  */
+#[ORM\Entity]
+#[ORM\Table(name: 'gpd_survey_section', indexes: [
+    new ORM\Index(name: 'user_created_idx', columns: ['created']),
+    new ORM\Index(name: 'user_updated_idx', columns: ['updated']),
+])]
 class SurveySection  extends AbstractEntityModelUlid
 {
     const RELATIONS_MANY_TO_ONE = ['survey', 'content', 'presentation'];
     /**
-     * @ORM\Column(type="string", name="title", nullable=false) 
      * @var string
      */
+    #[ORM\Column(type: 'string', name: 'title', nullable: false)]
     private $title;
     /**
-     * @ORM\ManyToOne(targetEntity="\GPDSurvey\Entities\SurveyContent")
-     * @ORM\JoinColumn(name="content_id", referencedColumnName="id", nullable=true)
      * @var SurveyContent
      */
+    #[ORM\ManyToOne(targetEntity: SurveyContent::class)]
+    #[ORM\JoinColumn(name: 'content_id', referencedColumnName: 'id', nullable: true)]
     private $content;
     /**
      * 
-     * @ORM\OneToMany(targetEntity="\GPDSurvey\Entities\SurveySectionItem", mappedBy="section")
      * @var Collection
      */
+    #[ORM\OneToMany(targetEntity: SurveySectionItem::class, mappedBy: 'section')]
     private $items;
     /**
-     * @ORM\Column(type="integer", name="order_number", nullable=false) 
      * @var int
      */
+    #[ORM\Column(type: 'integer', name: 'order_number', nullable: false)]
     private $order;
 
     /**
      * Este valor no se registra dentro del valor presentation porque se utiliza para determinar que preguntas obligatorias no se han contestado
      * 
-     * @ORM\Column(type="boolean", name="hidden", nullable=false, options={"default":0}) 
      * @var bool
      */
+    #[ORM\Column(type: 'boolean', name: 'hidden', nullable: false, options: ['default' => 0])]
     private $hidden;
 
     /**
      *
-     * @ORM\ManyToOne(targetEntity="\GPDSurvey\Entities\SurveyConfiguration")
-     * @ORM\JoinColumn(name="presentation_id", referencedColumnName="id", nullable=true)
      * @var SurveyConfiguration
      * 
      */
+    #[ORM\ManyToOne(targetEntity: SurveyConfiguration::class)]
+    #[ORM\JoinColumn(name: 'presentation_id', referencedColumnName: 'id', nullable: true)]
     private $presentation;
 
     /**
      * 
-     * @ORM\ManyToOne(targetEntity="\GPDSurvey\Entities\Survey", inversedBy="sections")
-     * @ORM\JoinColumn(name="survey_id", referencedColumnName="id", nullable=false)
      * @var Survey
      */
+    #[ORM\ManyToOne(targetEntity: Survey::class, inversedBy: 'sections')]
+    #[ORM\JoinColumn(name: 'survey_id', referencedColumnName: 'id', nullable: false)]
     private $survey;
 
     public function __construct()
