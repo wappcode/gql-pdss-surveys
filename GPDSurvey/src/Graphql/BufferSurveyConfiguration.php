@@ -2,7 +2,7 @@
 
 namespace GPDSurvey\Graphql;
 
-use GPDCore\Library\EntityBuffer;
+use GPDCore\DataLoaders\EntityDataLoader;
 use GPDSurvey\Entities\SurveyConfiguration;
 
 class BufferSurveyConfiguration
@@ -10,11 +10,11 @@ class BufferSurveyConfiguration
 
     private static $instance;
 
-    public static function getInstance(): EntityBuffer
+    public static function getInstance(): EntityDataLoader
     {
 
         if (static::$instance === null) {
-            static::$instance = new EntityBuffer(SurveyConfiguration::class, SurveyConfiguration::RELATIONS_MANY_TO_ONE);
+            static::$instance = new EntityDataLoader(SurveyConfiguration::class, SurveyConfiguration::RELATIONS_MANY_TO_ONE);
         }
         return static::$instance;
     }

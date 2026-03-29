@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace GPDSurvey\Graphql;
 
-use GPDCore\Library\EntityBuffer;
+use GPDCore\DataLoaders\EntityDataLoader;
 use GPDSurvey\Entities\SurveyContent;
-use GPDCore\Library\ResolverFactory;
+use GPDCore\Graphql\ResolverFactory;
 use GPDSurvey\Graphql\BufferSurveyContent;
 use GPDSurvey\Graphql\BufferSurveySection;
 use GPDSurvey\Entities\SurveyConfiguration;
@@ -22,26 +22,26 @@ class ResolversSurveySectionItem
     // 'conditions', 'section', 'question', 'content'
     public static function getQuestionResolver(?callable $proxy): callable
     {
-        $entityBuffer = new EntityBuffer(SurveyQuestion::class, SurveyQuestion::RELATIONS_MANY_TO_ONE);
-        $resolver = ResolverFactory::createEntityResolver($entityBuffer, 'question');
+        $entityBuffer = new EntityDataLoader(SurveyQuestion::class, SurveyQuestion::RELATIONS_MANY_TO_ONE);
+        $resolver = ResolverFactory::forEntity($entityBuffer, 'question');
         return is_callable($proxy) ? $proxy($resolver) : $resolver;
     }
     public static function getConditionsResolver(?callable $proxy): callable
     {
-        $presentationsBuffer = new EntityBuffer(SurveyConfiguration::class, SurveyConfiguration::RELATIONS_MANY_TO_ONE);
-        $resolver = ResolverFactory::createEntityResolver($presentationsBuffer, 'conditions');
+        $presentationsBuffer = new EntityDataLoader(SurveyConfiguration::class, SurveyConfiguration::RELATIONS_MANY_TO_ONE);
+        $resolver = ResolverFactory::forEntity($presentationsBuffer, 'conditions');
         return is_callable($proxy) ? $proxy($resolver) : $resolver;
     }
     public static function getSectionResolver(?callable $proxy): callable
     {
-        $entityBuffer = new EntityBuffer(SurveySection::class, SurveySection::RELATIONS_MANY_TO_ONE);
-        $resolver = ResolverFactory::createEntityResolver($entityBuffer, 'section');
+        $entityBuffer = new EntityDataLoader(SurveySection::class, SurveySection::RELATIONS_MANY_TO_ONE);
+        $resolver = ResolverFactory::forEntity($entityBuffer, 'section');
         return is_callable($proxy) ? $proxy($resolver) : $resolver;
     }
     public static function getContentResolver(?callable $proxy): callable
     {
-        $entityBuffer = new EntityBuffer(SurveyContent::class, SurveyContent::RELATIONS_MANY_TO_ONE);
-        $resolver = ResolverFactory::createEntityResolver($entityBuffer, 'content');
+        $entityBuffer = new EntityDataLoader(SurveyContent::class, SurveyContent::RELATIONS_MANY_TO_ONE);
+        $resolver = ResolverFactory::forEntity($entityBuffer, 'content');
         return is_callable($proxy) ? $proxy($resolver) : $resolver;
     }
 }

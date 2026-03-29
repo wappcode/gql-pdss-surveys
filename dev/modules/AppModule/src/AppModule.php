@@ -2,7 +2,7 @@
 
 namespace AppModule;
 
-use GPDCore\Library\AbstractModule;
+use GPDCore\Core\AbstractModule;
 use GraphQL\Type\Definition\Type;
 
 class AppModule extends AbstractModule
@@ -17,13 +17,31 @@ class AppModule extends AbstractModule
     {
         return require(__DIR__ . '/../config/module.config.php');
     }
-    function getServicesAndGQLTypes(): array
+
+    public function getRoutes(): array
+    {
+        return [];
+    }
+    public function getSchema(): string
+    {
+        return "";
+    }
+    function getServices(): array
     {
         return [
             'invokables' => [],
             'factories' => [],
             'aliases' => []
         ];
+    }
+    function getTypes(): array
+    {
+        return [];
+    }
+
+    function getMiddlewares(): array
+    {
+        return [];
     }
     /**
      * Array con los resolvers del módulo

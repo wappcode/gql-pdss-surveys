@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace GPDSurvey\Graphql;
 
-use GPDCore\Library\EntityBuffer;
-use GPDCore\Library\ResolverFactory;
+use GPDCore\DataLoaders\EntityDataLoader;
+use GPDCore\Graphql\ResolverFactory;
 use GPDSurvey\Entities\SurveyAnswerSession;
 use GPDSurvey\Entities\SurveyQuestion;
 
@@ -19,8 +19,8 @@ class ResolversSurveyAnswer
      */
     public static function getQuestionResolver(?callable $proxy): callable
     {
-        $entityBuffer = new EntityBuffer(SurveyQuestion::class, SurveyQuestion::RELATIONS_MANY_TO_ONE);
-        $resolver = ResolverFactory::createEntityResolver($entityBuffer, 'question');
+        $entityBuffer = new EntityDataLoader(SurveyQuestion::class, SurveyQuestion::RELATIONS_MANY_TO_ONE);
+        $resolver = ResolverFactory::forEntity($entityBuffer, 'question');
         return is_callable($proxy) ? $proxy($resolver) : $resolver;
     }
     /**
@@ -31,8 +31,8 @@ class ResolversSurveyAnswer
      */
     public static function getSessionResolver(?callable $proxy): callable
     {
-        $entityBuffer = new EntityBuffer(SurveyAnswerSession::class, SurveyAnswerSession::RELATIONS_MANY_TO_ONE);
-        $resolver = ResolverFactory::createEntityResolver($entityBuffer, 'session');
+        $entityBuffer = new EntityDataLoader(SurveyAnswerSession::class, SurveyAnswerSession::RELATIONS_MANY_TO_ONE);
+        $resolver = ResolverFactory::forEntity($entityBuffer, 'session');
         return is_callable($proxy) ? $proxy($resolver) : $resolver;
     }
 }

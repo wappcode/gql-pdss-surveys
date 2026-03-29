@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace GPDSurvey\Graphql;
 
-use GPDCore\Library\EntityBuffer;
+use GPDCore\DataLoaders\EntityDataLoader;
 use GPDSurvey\Entities\SurveyContent;
-use GPDCore\Library\ResolverFactory;
+use GPDCore\Graphql\ResolverFactory;
 use GPDSurvey\Entities\SurveyConfiguration;
 use GPDSurvey\Entities\SurveyQuestion;
 
@@ -15,21 +15,21 @@ class ResolversSurveyQuestionOption
 {
     public static function getPresentationResolver(?callable $proxy): callable
     {
-        $presentationsBuffer = new EntityBuffer(SurveyConfiguration::class, SurveyConfiguration::RELATIONS_MANY_TO_ONE);
-        $resolver = ResolverFactory::createEntityResolver($presentationsBuffer, 'presentation');
+        $presentationsBuffer = new EntityDataLoader(SurveyConfiguration::class, SurveyConfiguration::RELATIONS_MANY_TO_ONE);
+        $resolver = ResolverFactory::forEntity($presentationsBuffer, 'presentation');
         return is_callable($proxy) ? $proxy($resolver) : $resolver;
     }
 
     public static function getContentResolver(?callable $proxy): callable
     {
-        $entityBuffer = new EntityBuffer(SurveyContent::class, SurveyContent::RELATIONS_MANY_TO_ONE);
-        $resolver = ResolverFactory::createEntityResolver($entityBuffer, 'content');
+        $entityBuffer = new EntityDataLoader(SurveyContent::class, SurveyContent::RELATIONS_MANY_TO_ONE);
+        $resolver = ResolverFactory::forEntity($entityBuffer, 'content');
         return is_callable($proxy) ? $proxy($resolver) : $resolver;
     }
     public static function getQuestionResolver(?callable $proxy): callable
     {
-        $entityBuffer = new EntityBuffer(SurveyQuestion::class, SurveyQuestion::RELATIONS_MANY_TO_ONE);
-        $resolver = ResolverFactory::createEntityResolver($entityBuffer, 'question');
+        $entityBuffer = new EntityDataLoader(SurveyQuestion::class, SurveyQuestion::RELATIONS_MANY_TO_ONE);
+        $resolver = ResolverFactory::forEntity($entityBuffer, 'question');
         return is_callable($proxy) ? $proxy($resolver) : $resolver;
     }
 }

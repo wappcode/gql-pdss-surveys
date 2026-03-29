@@ -28,7 +28,7 @@ services:
       - ./xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
       - ./commands:/home/commands
     ports: 
-      - "${GQLPDSSSURVEY_APP_PORT:-8080}:8080"
+      - "${GQLPDSSSURVEY_APP_PORT:-8080}:80"
     entrypoint: sh -c "/home/commands/run.sh"
     restart: "no"
     platform: linux/x86_64
