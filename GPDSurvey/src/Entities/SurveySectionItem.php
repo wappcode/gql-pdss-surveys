@@ -4,8 +4,8 @@ namespace GPDSurvey\Entities;
 
 use GPDSurvey\Entities\SurveyContent;
 use Doctrine\ORM\Mapping as ORM;
-use GraphQL\Doctrine\Annotation as API;
-use GPDCore\Entities\AbstractEntityModelStringId;
+
+use PDSSUtilities\AbstractEntityModelUlid;
 
 /**
  * Doctrine Entity For SurveySectionItem
@@ -19,7 +19,7 @@ use GPDCore\Entities\AbstractEntityModelStringId;
  * )
  * 
  */
-class SurveySectionItem  extends AbstractEntityModelStringId
+class SurveySectionItem  extends AbstractEntityModelUlid
 {
     const RELATIONS_MANY_TO_ONE = ['conditions', 'section', 'question', 'content'];
 

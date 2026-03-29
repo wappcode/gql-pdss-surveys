@@ -3,14 +3,14 @@
 namespace GPDSurvey\Graphql;
 
 use Exception;
-use GPDCore\Library\GQLException;
+use GPDCore\Exceptions\GQLException;
 use GraphQL\Type\Definition\Type;
-use GPDCore\Library\IContextService;
+use GPDCore\Contracts\AppContextInterface;
 use GPDSurvey\Library\DeleteSurveySectionItem;
 
 class FieldDeleteSurveySectionItem
 {
-    public static function get(IContextService $context, ?callable $proxy)
+    public static function get(AppContextInterface $context, ?callable $proxy)
     {
         $resolver = static::createReslove();
         $proxyResolver = is_callable($proxy) ? $proxy($resolver) : $resolver;
@@ -25,7 +25,7 @@ class FieldDeleteSurveySectionItem
     }
     protected static function createReslove()
     {
-        return function ($root, $args, IContextService $context, $info) {
+        return function ($root, $args, AppContextInterface $context, $info) {
             $entityManager = $context->getEntityManager();
 
             $id = $args["id"];

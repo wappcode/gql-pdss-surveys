@@ -3,8 +3,8 @@
 namespace GPDSurvey\Library;
 
 use Doctrine\ORM\EntityManager;
-use GPDCore\Library\GQLException;
-use GPDCore\Library\IContextService;
+use GPDCore\Exceptions\GQLException;
+use GPDCore\Contracts\AppContextInterface;
 use GPDSurvey\Entities\SurveyQuestionOption;
 
 final class DeleteSurveyQuestionOption
@@ -14,7 +14,7 @@ final class DeleteSurveyQuestionOption
     /**
      * 
      *
-     * @var IContextService
+     * @var AppContextInterface
      */
     private $context;
 
@@ -23,13 +23,13 @@ final class DeleteSurveyQuestionOption
      */
     private $entityManager;
 
-    public static function delete(IContextService $context, int $id): void
+    public static function delete(AppContextInterface $context, int $id): void
     {
         $instance = new DeleteSurveyQuestionOption($context);
         $instance->process($id);
     }
 
-    private function __construct(IContextService $context)
+    private function __construct(AppContextInterface $context)
     {
         $this->context = $context;
         $this->entityManager = $this->context->getEntityManager();

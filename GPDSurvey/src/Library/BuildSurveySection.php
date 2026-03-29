@@ -4,9 +4,9 @@ namespace GPDSurvey\Library;
 
 use Exception;
 use GPDSurvey\Entities\Survey;
-use GPDCore\Library\GQLException;
-use GPDCore\Graphql\ArrayToEntity;
-use GPDCore\Library\IContextService;
+use GPDCore\Exceptions\GQLException;
+use GPDCore\Doctrine\EntityHydrator;
+use GPDCore\Contracts\AppContextInterface;
 use GPDSurvey\Entities\SurveyContent;
 use GPDSurvey\Entities\SurveySection;
 use GPDSurvey\Entities\SurveySectionItem;
@@ -15,7 +15,7 @@ use GPDSurvey\Entities\SurveyConfiguration;
 class BuildSurveySection
 {
 
-    public static function build(IContextService $context, ?array $input): ?SurveySection
+    public static function build(AppContextInterface $context, ?array $input): ?SurveySection
     {
         if (empty($input) || !is_array($input)) {
             return null;
@@ -46,7 +46,7 @@ class BuildSurveySection
             $sectionInput = $input;
             unset($sectionInput["items"]);
 
-            ArrayToEntity::setValues($entityManager, $section, $sectionInput);
+            EntityHydrator::hydrate($entityManager, $section, $sectionInput);
             $entityManager->persist($section);
             $entityManager->flush();
 
@@ -63,7 +63,7 @@ class BuildSurveySection
             throw $e;
         }
     }
-    public static function buildItems(IContextService $context, array $itemsInput, SurveySection $section): array
+    public static function buildItems(AppContextInterface $context, array $itemsInput, SurveySection $section): array
     {
         $items = array_map(function ($input) use ($context, $section) {
             $input["section"] = $section;
@@ -73,7 +73,7 @@ class BuildSurveySection
         return $items;
     }
 
-    public static function getSection(IContextService $context, string $id): ?SurveySection
+    public static function getSection(AppContextInterface $context, string $id): ?SurveySection
     {
         $entityManager = $context->getEntityManager();
         $qb = $entityManager->createQueryBuilder()->from(SurveySection::class, 'section')
@@ -86,7 +86,7 @@ class BuildSurveySection
         return $section;
     }
 
-    public static function clearContentAndPresentation(IContextService $context, SurveySection $section)
+    public static function clearContentAndPresentation(AppContextInterface $context, SurveySection $section)
     {
         $entityManager = $context->getEntityManager();
         $content = $section->getContent();
@@ -121,7 +121,7 @@ class BuildSurveySection
         return $ids;
     }
 
-    public static function removeNotUsedItems(IContextService $context, array $ids)
+    public static function removeNotUsedItems(AppContextInterface $context, array $ids)
     {
         if (empty($ids)) {
             return;

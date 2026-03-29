@@ -3,9 +3,9 @@
 namespace GPDSurvey\Library;
 
 use Exception;
-use GPDCore\Graphql\ArrayToEntity;
-use GPDCore\Library\GQLException;
-use GPDCore\Library\IContextService;
+use GPDCore\Contracts\AppContextInterface;
+use GPDCore\Doctrine\EntityHydrator;
+use GPDCore\Exceptions\GQLException;
 use GPDSurvey\Entities\Survey;
 use GPDSurvey\Entities\SurveyConfiguration;
 use GPDSurvey\Entities\SurveyContent;
@@ -14,7 +14,7 @@ use GPDSurvey\Entities\SurveyTargetAudience;
 class BuildSurveyTargetAudience
 {
 
-    public static function build(IContextService $context, ?array $input): ?SurveyTargetAudience
+    public static function build(AppContextInterface $context, ?array $input): ?SurveyTargetAudience
     {
         if (empty($input) || !is_array($input)) {
             return null;
@@ -38,7 +38,7 @@ class BuildSurveyTargetAudience
                 $targetAudience = static::getAudience($context, $id);
                 static::clearRelations($context, $targetAudience);
             }
-            ArrayToEntity::setValues($entityManager, $targetAudience, $input);
+            EntityHydrator::hydrate($entityManager, $targetAudience, $input);
             $entityManager->persist($targetAudience);
             $entityManager->flush();
             $entityManager->commit();
@@ -49,7 +49,7 @@ class BuildSurveyTargetAudience
         }
     }
 
-    private static function getAudience(IContextService $context, $id)
+    private static function getAudience(AppContextInterface $context, $id)
     {
         $entityManager = $context->getEntityManager();
         $qb = $entityManager->createQueryBuilder()->from(SurveyTargetAudience::class, 'audience')
@@ -69,7 +69,7 @@ class BuildSurveyTargetAudience
      * @param SurveyTargetAudience $audience
      * @return void
      */
-    private static function clearRelations(IContextService $context, SurveyTargetAudience $audience)
+    private static function clearRelations(AppContextInterface $context, SurveyTargetAudience $audience)
     {
         $entityManager = $context->getEntityManager();
         $welcome = $audience->getWelcome();

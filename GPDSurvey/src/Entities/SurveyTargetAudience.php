@@ -8,9 +8,9 @@ use DateTimeInterface;
 use GPDSurvey\Entities\Survey;
 use Doctrine\ORM\Mapping as ORM;
 use GPDSurvey\Entities\SurveyContent;
-use GraphQL\Doctrine\Annotation as API;
+
 use GPDSurvey\Entities\SurveyConfiguration;
-use GPDCore\Entities\AbstractEntityModelStringId;
+use PDSSUtilities\AbstractEntityModelUlid;
 
 /**
  * Doctrine Entity For SurveyTargetAudience
@@ -21,7 +21,7 @@ use GPDCore\Entities\AbstractEntityModelStringId;
  * })
  * 
  */
-class SurveyTargetAudience  extends AbstractEntityModelStringId
+class SurveyTargetAudience  extends AbstractEntityModelUlid
 {
     const RELATIONS_MANY_TO_ONE = ['welcome', 'farewell', 'survey', 'presentation'];
     /**

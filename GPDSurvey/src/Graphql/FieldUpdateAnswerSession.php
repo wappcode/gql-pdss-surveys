@@ -2,36 +2,19 @@
 
 namespace GPDSurvey\Graphql;
 
-use GPDCore\Library\GeneralDoctrineUtilities;
-use GPDCore\Library\GQLException;
-use GPDCore\Library\IContextService;
+use GPDCore\Doctrine\QueryBuilderHelper;
+use GPDCore\Exceptions\GQLException;
+use GPDCore\Contracts\AppContextInterface;
 use GPDSurvey\Entities\SurveyAnswerSession;
-use GPDSurvey\Entities\SurveyTargetAudience;
-use GPDSurvey\Library\SurveySaveAnswers;
 use GPDSurvey\Library\SurveySaveAnswerSession;
 use GraphQL\Type\Definition\Type;
 
 class FieldUpdateAnswerSession
 {
 
-    public static function get(IContextService $context, ?callable $proxy)
+    public static function createResolve()
     {
-        $type = $context->getTypes();
-        $resolve = static::createReslove();
-        $proxyResolve = is_callable($proxy) ? $proxy($resolve) : $resolve;
-        return [
-            'type' => $type->getOutput(SurveyAnswerSession::class),
-            'args' => [
-                'id' => Type::nonNull(Type::id()),
-                'input' => $type->getPartialInput(SurveyAnswerSession::class)
-            ],
-            'resolve' => $proxyResolve
-        ];
-    }
-
-    protected static function createReslove()
-    {
-        return function ($root, $args, IContextService $context, $info) {
+        return function ($root, $args, AppContextInterface $context, $info) {
             $entityManager = $context->getEntityManager();
             $id = $args["id"];
             $input = $args["input"];
@@ -44,7 +27,7 @@ class FieldUpdateAnswerSession
                 throw new GQLException("The session doesn't exist", 400);
             }
             SurveySaveAnswerSession::updateAnswerSession($context, $answerSession, $answerInput, $answerSessionInput);
-            $result = GeneralDoctrineUtilities::getArrayEntityById($entityManager, SurveyAnswerSession::class, $answerSession->getId(), SurveyAnswerSession::RELATIONS_MANY_TO_ONE);
+            $result = QueryBuilderHelper::fetchById($entityManager, SurveyAnswerSession::class, $answerSession->getId(), SurveyAnswerSession::RELATIONS_MANY_TO_ONE);
             return $result;
         };
     }

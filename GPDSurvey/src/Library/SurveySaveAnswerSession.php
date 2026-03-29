@@ -4,7 +4,7 @@ namespace GPDSurvey\Library;
 
 use DateTimeImmutable;
 use Exception;
-use GPDCore\Library\IContextService;
+use GPDCore\Contracts\AppContextInterface;
 use GPDSurvey\Entities\SurveyAnswer;
 use GPDSurvey\Entities\SurveyAnswerSession;
 use GPDSurvey\Entities\SurveyQuestion;
@@ -18,7 +18,7 @@ class SurveySaveAnswerSession
     /**
      * Crea una sesión de respuestas
      *
-     * @param IContextService $context
+     * @param AppContextInterface $context
      * @param SurveyTargetAudience $targetAudience
      * @param array $answersInputs
      * @param array $answerSessionInput
@@ -26,7 +26,7 @@ class SurveySaveAnswerSession
      * @param callable|null $answerScoreCalculator funcion para calcular el puntaje de una respuesta parametros SurveyQuestion y ?string (valor de la respuesta);
      * @return SurveyAnswerSession
      */
-    public static function createAnswerSession(IContextService $context, SurveyTargetAudience $targetAudience, array $answersInputs, array $answerSessionInput, ?callable $sessionScoreCalculator = null, ?callable $answerScoreCalculator = null): SurveyAnswerSession
+    public static function createAnswerSession(AppContextInterface $context, SurveyTargetAudience $targetAudience, array $answersInputs, array $answerSessionInput, ?callable $sessionScoreCalculator = null, ?callable $answerScoreCalculator = null): SurveyAnswerSession
     {
 
         $entityManager = $context->getEntityManager();
@@ -46,7 +46,7 @@ class SurveySaveAnswerSession
         return $answerSession;
     }
 
-    public static function updateAnswerSession(IContextService $context, SurveyAnswerSession $answerSession, array $answersInputs, array $answerSessionInput, ?callable $sessionScoreCalculator = null, ?callable $answerScoreCalculator = null): SurveyAnswerSession
+    public static function updateAnswerSession(AppContextInterface $context, SurveyAnswerSession $answerSession, array $answersInputs, array $answerSessionInput, ?callable $sessionScoreCalculator = null, ?callable $answerScoreCalculator = null): SurveyAnswerSession
     {
         $entityManager = $context->getEntityManager();
         $targetAudience = $answerSession->getTargetAudience();
@@ -104,10 +104,10 @@ class SurveySaveAnswerSession
      * a que puede haber preguntas condicionadas, ocultas o no asignadas a un item de sección.
      * 
      * Si hay error en éste cálculo no afecta los demás procesos de guardado.
-     * @param IContextService $context
+     * @param AppContextInterface $context
      * @return callable
      */
-    protected static function createDefaultSessionScoreValuesCalculator(IContextService $context)
+    protected static function createDefaultSessionScoreValuesCalculator(AppContextInterface $context)
     {
 
         return function (SurveyAnswerSession $session) use ($context) {
@@ -137,7 +137,7 @@ class SurveySaveAnswerSession
         };
     }
 
-    protected static function updateSessionScore(IContextService $context, SurveyAnswerSession $answerSession, ?callable $sessionScoreCalculator)
+    protected static function updateSessionScore(AppContextInterface $context, SurveyAnswerSession $answerSession, ?callable $sessionScoreCalculator)
     {
         $entityManager = $context->getEntityManager();
         if (!is_callable($sessionScoreCalculator)) {

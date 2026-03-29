@@ -2,11 +2,11 @@
 
 namespace GPDSurvey\Entities;
 
-use GPDCore\Entities\AbstractEntityModel;
+use PDSSUtilities\AbstractEntityModel;
 use GPDSurvey\Entities\SurveyContent;
 use GPDSurvey\Entities\SurveyQuestion;
 use Doctrine\ORM\Mapping as ORM;
-use GraphQL\Doctrine\Annotation as API;
+
 
 /**
  * No se agrega indice unico a question_id y option_value porque se tiene que reducir el length de la columna value a 255

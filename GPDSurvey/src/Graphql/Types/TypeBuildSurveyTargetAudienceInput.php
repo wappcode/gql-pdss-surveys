@@ -6,7 +6,7 @@ namespace GPDSurvey\Graphql\Types;
 
 use DateTime;
 use GraphQL\Type\Definition\Type;
-use GPDCore\Library\IContextService;
+use GPDCore\Contracts\AppContextInterface;
 use GPDSurvey\Entities\SurveyConfiguration;
 use GraphQL\Type\Definition\InputObjectType;
 use GPDSurvey\Graphql\Types\TypeBuildSurveyContentInput;
@@ -14,7 +14,7 @@ use GPDSurvey\Graphql\Types\TypeBuildSurveyContentInput;
 class TypeBuildSurveyTargetAudienceInput extends InputObjectType
 {
     const NAME = 'BuildSurveyTargetAudienceInput';
-    public function __construct(IContextService $context)
+    public function __construct(AppContextInterface $context)
     {
         $serviceManager = $context->getServiceManager();
         $types = $context->getTypes();

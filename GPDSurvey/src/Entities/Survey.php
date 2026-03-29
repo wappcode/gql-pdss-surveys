@@ -3,9 +3,9 @@
 namespace GPDSurvey\Entities;
 
 use Doctrine\Common\Collections\Collection;
-use GPDCore\Entities\AbstractEntityModelStringId;
+use PDSSUtilities\AbstractEntityModelUlid;
 use Doctrine\Common\Collections\ArrayCollection;
-use GraphQL\Doctrine\Annotation as API;
+
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -17,7 +17,7 @@ use Doctrine\ORM\Mapping as ORM;
  * })
  * 
  */
-class Survey  extends AbstractEntityModelStringId
+class Survey  extends AbstractEntityModelUlid
 {
     const RELATIONS_MANY_TO_ONE = [];
     /**

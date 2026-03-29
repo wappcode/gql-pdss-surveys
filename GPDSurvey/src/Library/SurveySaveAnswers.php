@@ -7,8 +7,8 @@ use DateTimeImmutable;
 use DateTimeInterface;
 use Doctrine\ORM\EntityManager;
 use Exception;
-use GPDCore\Library\GQLException;
-use GPDCore\Library\IContextService;
+use GPDCore\Exceptions\GQLException;
+use GPDCore\Contracts\AppContextInterface;
 use GPDSurvey\Entities\SurveyAnswer;
 use GPDSurvey\Entities\SurveyAnswerSession;
 use GPDSurvey\Entities\SurveyQuestion;
@@ -18,7 +18,7 @@ class SurveySaveAnswers
     /**
      * Guarda las respuestas en la base de datos
      *
-     * @param IContextService $context
+     * @param AppContextInterface $context
      * @param string $sessionId
      * @param array $answersInputs
      * @param array $questions [$questionID => SurveyQuestion]
@@ -26,7 +26,7 @@ class SurveySaveAnswers
      * @param DateTimeImmutable|null $ends
      * @return array $answer SurveyAnswer[]
      */
-    public static function save(IContextService $context, SurveyAnswerSession $session, array $answersInputs, array $questions, ?DateTimeImmutable $starts, ?DateTimeImmutable $ends, ?callable $answerScoreCalculator)
+    public static function save(AppContextInterface $context, SurveyAnswerSession $session, array $answersInputs, array $questions, ?DateTimeImmutable $starts, ?DateTimeImmutable $ends, ?callable $answerScoreCalculator)
     {
 
         static::validateDate($starts, $ends);

@@ -2,34 +2,16 @@
 
 namespace GPDSurvey\Graphql;
 
-use GPDCore\Library\GeneralDoctrineUtilities;
-use GPDCore\Library\GQLException;
-use GPDCore\Library\IContextService;
+use GPDCore\Contracts\AppContextInterface;
+use GPDCore\Doctrine\QueryBuilderHelper;
 use GPDSurvey\Entities\SurveyAnswerSession;
-use GraphQL\Type\Definition\Type;
 
 class FieldFindAnswerSessionByUsernameAndPassword
 {
 
-    public static function get(IContextService $context, ?callable $proxy)
+    public static function createReslove()
     {
-        $type = $context->getTypes();
-        $resolve = static::createReslove();
-        $proxyResolve = is_callable($proxy) ? $proxy($resolve) : $resolve;
-        return [
-            'type' => $type->getOutput(SurveyAnswerSession::class),
-            'args' => [
-                'targetAudience' => Type::nonNull(Type::id()),
-                'username' => Type::nonNull(Type::string()),
-                'password' => Type::nonNull(Type::string())
-            ],
-            'resolve' => $proxyResolve
-        ];
-    }
-
-    protected static function createReslove()
-    {
-        return function ($root, $args, IContextService $context, $info) {
+        return function ($root, $args, AppContextInterface $context, $info) {
             $targetAudienceId = $args["targetAudience"];
             $username = $args["username"];
             $password = $args["password"];
@@ -41,11 +23,11 @@ class FieldFindAnswerSessionByUsernameAndPassword
             if (!($answerSession instanceof SurveyAnswerSession)) {
                 return null;
             }
-            $result = GeneralDoctrineUtilities::getArrayEntityById($entityManager, SurveyAnswerSession::class, $answerSession->getId(), SurveyAnswerSession::RELATIONS_MANY_TO_ONE);
+            $result = QueryBuilderHelper::fetchById($entityManager, SurveyAnswerSession::class, $answerSession->getId(), SurveyAnswerSession::RELATIONS_MANY_TO_ONE);
             return $result;
         };
     }
-    protected static function findAnswerSession(IContextService $context, $targetAudienceId, $username, $password): ?SurveyAnswerSession
+    protected static function findAnswerSession(AppContextInterface $context, $targetAudienceId, $username, $password): ?SurveyAnswerSession
     {
         $entityManager = $context->getEntityManager();
         $qb = $entityManager->createQueryBuilder()->from(SurveyAnswerSession::class, 'answerSession')->select("answerSession");

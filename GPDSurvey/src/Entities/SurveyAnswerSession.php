@@ -3,10 +3,10 @@
 namespace GPDSurvey\Entities;
 
 use Doctrine\Common\Collections\Collection;
-use GPDCore\Entities\AbstractEntityModelStringId;
 use Doctrine\Common\Collections\ArrayCollection;
-use GraphQL\Doctrine\Annotation as API;
+
 use Doctrine\ORM\Mapping as ORM;
+use PDSSUtilities\AbstractEntityModelUlid;
 
 /**
  * Doctrine Entity For SurveyAnswerSession
@@ -19,7 +19,7 @@ use Doctrine\ORM\Mapping as ORM;
  * })
  * 
  */
-class SurveyAnswerSession  extends AbstractEntityModelStringId
+class SurveyAnswerSession  extends AbstractEntityModelUlid
 {
     const RELATIONS_MANY_TO_ONE = ['targetAudience', 'survey'];
     /**

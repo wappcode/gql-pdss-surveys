@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace GPDSurvey\Graphql\Types;
 
 use GraphQL\Type\Definition\Type;
-use GPDCore\Library\IContextService;
+use GPDCore\Contracts\AppContextInterface;
 use GPDSurvey\Entities\SurveyConfiguration;
 use GraphQL\Type\Definition\InputObjectType;
 use GPDSurvey\Graphql\Types\TypeSurveyContentType;
@@ -14,11 +14,11 @@ class TypeBuildSurveyContentInput extends InputObjectType
 {
     const NAME = 'BuildSurveyContentInput';
     /**
-     * @var IContextService
+     * @var AppContextInterface
      */
     protected $context;
 
-    public function __construct(IContextService $context)
+    public function __construct(AppContextInterface $context)
     {
         $this->context = $context;
         $serviceManager = $this->context->getServiceManager();

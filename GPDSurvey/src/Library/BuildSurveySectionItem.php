@@ -3,9 +3,9 @@
 namespace GPDSurvey\Library;
 
 use Exception;
-use GPDCore\Graphql\ArrayToEntity;
-use GPDCore\Library\GQLException;
-use GPDCore\Library\IContextService;
+use GPDCore\Doctrine\EntityHydrator;
+use GPDCore\Exceptions\GQLException;
+use GPDCore\Contracts\AppContextInterface;
 use GPDSurvey\Entities\SurveyConfiguration;
 use GPDSurvey\Entities\SurveyContent;
 use GPDSurvey\Entities\SurveyQuestion;
@@ -15,7 +15,7 @@ use GPDSurvey\Entities\SurveySectionItem;
 class BuildSurveySectionItem
 {
 
-    public static function build(IContextService $context, ?array $input): ?SurveySectionItem
+    public static function build(AppContextInterface $context, ?array $input): ?SurveySectionItem
     {
         if (empty($input) || !is_array($input)) {
             return null;
@@ -51,7 +51,7 @@ class BuildSurveySectionItem
             }
             $input["question"] = BuildSurveyQuestion::build($context, $questionInput);
             $input["conditions"] = BuildSurveyConfiguration::build($context, $input["conditions"] ?? null);
-            ArrayToEntity::setValues($entityManager, $surveySectionItem, $input);
+            EntityHydrator::hydrate($entityManager, $surveySectionItem, $input);
             $entityManager->persist($surveySectionItem);
             $entityManager->flush();
             $entityManager->commit();
@@ -63,7 +63,7 @@ class BuildSurveySectionItem
     }
 
 
-    private static function getSurveySectionItem(IContextService $context, $id): ?SurveySectionItem
+    private static function getSurveySectionItem(AppContextInterface $context, $id): ?SurveySectionItem
     {
         $entityManager = $context->getEntityManager();
         $qb = $entityManager->createQueryBuilder()->from(SurveySectionItem::class, 'item')
@@ -75,7 +75,7 @@ class BuildSurveySectionItem
         return $item;
     }
 
-    private static function removeContentAndConditions(IContextService $context, SurveySectionItem $item)
+    private static function removeContentAndConditions(AppContextInterface $context, SurveySectionItem $item)
     {
 
         $content = $item->getContent();
@@ -93,7 +93,7 @@ class BuildSurveySectionItem
         }
     }
 
-    private static function removeObsoleteQuestion(IContextService $context, SurveySectionItem $item, ?string $questionId)
+    private static function removeObsoleteQuestion(AppContextInterface $context, SurveySectionItem $item, ?string $questionId)
     {
         $entityManager = $context->getEntityManager();
         $question = $item->getQuestion();

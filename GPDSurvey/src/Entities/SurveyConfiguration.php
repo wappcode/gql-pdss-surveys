@@ -2,9 +2,9 @@
 
 namespace GPDSurvey\Entities;
 
-use GPDCore\Entities\AbstractEntityModel;
 use Doctrine\ORM\Mapping as ORM;
-use GraphQL\Doctrine\Annotation as API;
+
+use PDSSUtilities\AbstractEntityModel;
 
 /**
  * Doctrine Entity For SurveyPresentation

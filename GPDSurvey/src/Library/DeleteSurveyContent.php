@@ -4,7 +4,7 @@ namespace GPDSurvey\Library;
 
 use Exception;
 use Doctrine\ORM\EntityManager;
-use GPDCore\Library\IContextService;
+use GPDCore\Contracts\AppContextInterface;
 use GPDSurvey\Entities\SurveyContent;
 use GPDSurvey\Entities\SurveyConfiguration;
 
@@ -15,7 +15,7 @@ final class DeleteSurveyContent
     /**
      * 
      *
-     * @var IContextService
+     * @var AppContextInterface
      */
     private $context;
 
@@ -29,17 +29,17 @@ final class DeleteSurveyContent
     /**
      * Elimna un registro SurveyContent
      *
-     * @param IContextService $context
+     * @param AppContextInterface $context
      * @param integer $id
      * @return void
      */
-    public static function delete(IContextService $context, int $id): void
+    public static function delete(AppContextInterface $context, int $id): void
     {
         $instance = new DeleteSurveyContent($context);
         $instance->process($id);
     }
 
-    private function __construct(IContextService $context)
+    private function __construct(AppContextInterface $context)
     {
         $this->context = $context;
         $this->entityManager = $context->getEntityManager();

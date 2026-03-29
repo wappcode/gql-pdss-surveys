@@ -4,10 +4,10 @@ namespace GPDSurvey\Services;
 
 
 use Exception;
-use GPDCore\Library\GQLException;
+use GPDCore\Exceptions\GQLException;
 use FlowUtilities\UploadedFileModel;
 use FlowUtilities\UploadFileManager;
-use GPDCore\Library\IContextService;
+use GPDCore\Contracts\AppContextInterface;
 
 use function FlowUtilities\getFileExtension;
 
@@ -16,7 +16,7 @@ class SurveyUploadFileService
 
 
 
-    public static function upload(IContextService $context, string $uploadDir, string $tmpDir)
+    public static function upload(AppContextInterface $context, string $uploadDir, string $tmpDir)
     {
         $file = UploadFileManager::uploadFile($tmpDir, $tmpDir);
 

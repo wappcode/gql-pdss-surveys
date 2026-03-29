@@ -2,15 +2,14 @@
 
 namespace GPDSurvey\Library;
 
-use GPDCore\Graphql\ArrayToEntity;
-use GPDCore\Library\IContextService;
-use GPDSurvey\Entities\SurveyConfiguration;
+use GPDCore\Contracts\AppContextInterface;
+use GPDCore\Doctrine\EntityHydrator;
 use GPDSurvey\Entities\SurveyContent;
 
 class BuildSurveyContent
 {
 
-    public static function build(IContextService $context, ?array $input): ?SurveyContent
+    public static function build(AppContextInterface $context, ?array $input): ?SurveyContent
     {
         if (empty($input) || !is_array($input)) {
             return null;
@@ -18,7 +17,7 @@ class BuildSurveyContent
         $entityManager = $context->getEntityManager();
         $content = new SurveyContent();
         $input["presentation"] = BuildSurveyConfiguration::build($context, $input["presentation"] ?? null);
-        ArrayToEntity::setValues($entityManager, $content, $input);
+        EntityHydrator::hydrate($entityManager, $content, $input);
         $entityManager->persist($content);
         $entityManager->flush();
         return $content;

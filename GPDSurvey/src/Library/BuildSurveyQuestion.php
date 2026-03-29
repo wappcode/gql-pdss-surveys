@@ -4,9 +4,9 @@ namespace GPDSurvey\Library;
 
 use Exception;
 use GPDSurvey\Entities\Survey;
-use GPDCore\Library\GQLException;
-use GPDCore\Graphql\ArrayToEntity;
-use GPDCore\Library\IContextService;
+use GPDCore\Exceptions\GQLException;
+use GPDCore\Doctrine\EntityHydrator;
+use GPDCore\Contracts\AppContextInterface;
 use GPDSurvey\Entities\SurveyContent;
 use GPDSurvey\Entities\SurveyQuestion;
 use GPDSurvey\Entities\SurveyConfiguration;
@@ -15,7 +15,7 @@ use GPDSurvey\Entities\SurveyQuestionOption;
 class BuildSurveyQuestion
 {
 
-    public static function build(IContextService $context, ?array $input): ?SurveyQuestion
+    public static function build(AppContextInterface $context, ?array $input): ?SurveyQuestion
     {
         if (empty($input) || !is_array($input)) {
             return null;
@@ -45,7 +45,7 @@ class BuildSurveyQuestion
             $input["hint"] = BuildSurveyContent::build($context, $input["hint"] ?? null);
             $inputQuestion = $input;
             unset($inputQuestion["options"]);
-            ArrayToEntity::setValues($entityManager, $question, $inputQuestion);
+            EntityHydrator::hydrate($entityManager, $question, $inputQuestion);
             $entityManager->persist($question);
             $entityManager->flush();
             $optionsInput = $input["options"] ?? [];
@@ -62,7 +62,7 @@ class BuildSurveyQuestion
         }
     }
 
-    protected static function buildOptions(IContextService $context, array $optionsInput, SurveyQuestion $question): array
+    protected static function buildOptions(AppContextInterface $context, array $optionsInput, SurveyQuestion $question): array
     {
         $options = array_map(function ($input) use ($context, $question) {
             $input["question"] = $question;
@@ -72,7 +72,7 @@ class BuildSurveyQuestion
         return $options;
     }
 
-    private static function getSurveyQuestion(IContextService $context, $id): ?SurveyQuestion
+    private static function getSurveyQuestion(AppContextInterface $context, $id): ?SurveyQuestion
     {
         $entityManager = $context->getEntityManager();
         $qb = $entityManager->createQueryBuilder()->from(SurveyQuestion::class, "question")
@@ -87,7 +87,7 @@ class BuildSurveyQuestion
         return $question;
     }
 
-    private static function removeContentPresentationScoresAndValidators(IContextService $context, SurveyQuestion $question)
+    private static function removeContentPresentationScoresAndValidators(AppContextInterface $context, SurveyQuestion $question)
     {
 
         $content = $question->getContent();
@@ -136,7 +136,7 @@ class BuildSurveyQuestion
         return $ids;
     }
 
-    private static function removeObsoleteOptions(IContextService $context, $optionsIds)
+    private static function removeObsoleteOptions(AppContextInterface $context, $optionsIds)
     {
         if (empty($optionsIds)) {
             return;

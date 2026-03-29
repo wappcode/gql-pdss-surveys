@@ -3,17 +3,16 @@
 namespace GPDSurvey\Library;
 
 use Exception;
-use GPDCore\Graphql\ArrayToEntity;
-use GPDCore\Library\GQLException;
-use GPDCore\Library\IContextService;
+use GPDCore\Contracts\AppContextInterface;
+use GPDCore\Doctrine\EntityHydrator;
+use GPDCore\Exceptions\GQLException;
 use GPDSurvey\Entities\Survey;
 use GPDSurvey\Entities\SurveySection;
-use GPDSurvey\Entities\SurveyTargetAudience;
 
 class BuildSurvey
 {
 
-    public static function build(IContextService $context, ?array $input): ?Survey
+    public static function build(AppContextInterface $context, ?array $input): ?Survey
     {
         if (empty($input) || !is_array($input)) {
             return null;
@@ -35,7 +34,7 @@ class BuildSurvey
         $entityManager->beginTransaction();
         try {
 
-            ArrayToEntity::setValues($entityManager, $survey, $surveyInput);
+            EntityHydrator::hydrate($entityManager, $survey, $surveyInput);
             if (empty($id)) {
                 $entityManager->persist($survey);
             }
@@ -68,7 +67,7 @@ class BuildSurvey
         }
     }
 
-    protected static function buildSections($context, array $sectionsInput, Survey $survey): array
+    protected static function buildSections(AppContextInterface $context, array $sectionsInput, Survey $survey): array
     {
         $sections = array_map(function ($input) use ($context, $survey) {
             $input["survey"] = $survey;
@@ -78,7 +77,7 @@ class BuildSurvey
         return $sections;
     }
 
-    private static function getCurrentSectionsIds(IContextService $context, ?string $surveyId)
+    private static function getCurrentSectionsIds(AppContextInterface $context, ?string $surveyId)
     {
         if (empty($surveyId)) {
             return [];

@@ -3,9 +3,9 @@
 namespace GPDSurvey\Library;
 
 use Exception;
-use GPDCore\Library\GQLException;
-use GPDCore\Graphql\ArrayToEntity;
-use GPDCore\Library\IContextService;
+use GPDCore\Exceptions\GQLException;
+use GPDCore\Doctrine\EntityHydrator;
+use GPDCore\Contracts\AppContextInterface;
 use GPDSurvey\Entities\SurveyContent;
 use GPDSurvey\Entities\SurveyQuestion;
 use GPDSurvey\Entities\SurveyConfiguration;
@@ -14,7 +14,7 @@ use GPDSurvey\Entities\SurveyQuestionOption;
 class BuildSurveyQuestionOption
 {
 
-    public static function build(IContextService $context, ?array $input): ?SurveyQuestionOption
+    public static function build(AppContextInterface $context, ?array $input): ?SurveyQuestionOption
     {
         if (empty($input) || !is_array($input)) {
             return null;
@@ -39,7 +39,7 @@ class BuildSurveyQuestionOption
             static::removeContentPresentation($context, $option);
             $input["content"] = BuildSurveyContent::build($context, $input["content"] ?? null);
             $input["presentation"] = BuildSurveyConfiguration::build($context, $input["presentation"] ?? null);
-            ArrayToEntity::setValues($entityManager, $option, $input);
+            EntityHydrator::hydrate($entityManager, $option, $input);
             $entityManager->persist($option);
             $entityManager->flush();
             $entityManager->commit();
@@ -51,7 +51,7 @@ class BuildSurveyQuestionOption
     }
 
 
-    private static function getOption(IContextService $contxt, $id): ?SurveyQuestionOption
+    private static function getOption(AppContextInterface $contxt, $id): ?SurveyQuestionOption
     {
         $entityManager = $contxt->getEntityManager();
         $qb = $entityManager->createQueryBuilder()->from(SurveyQuestionOption::class, 'option')
@@ -62,7 +62,7 @@ class BuildSurveyQuestionOption
         return $option;
     }
 
-    private static function removeContentPresentation(IContextService $context, SurveyQuestionOption $option)
+    private static function removeContentPresentation(AppContextInterface $context, SurveyQuestionOption $option)
     {
         $entityManager = $context->getEntityManager();
         $content = $option->getContent();
