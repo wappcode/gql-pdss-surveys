@@ -15,10 +15,7 @@ use PDSSUtilities\AbstractEntityModel;
 )]
 class DoctrineSurveyContent extends AbstractEntityModel
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue(strategy: 'AUTO')]
-    #[ORM\Column(type: 'integer', name: 'id', nullable: false)]
-    protected int $id;
+
 
     #[ORM\Column(type: 'string', name: 'config_type', nullable: false)]
     private string $type;
