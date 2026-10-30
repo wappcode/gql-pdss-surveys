@@ -4,6 +4,22 @@ namespace GPDSurvey;
 
 use GPDCore\Core\AbstractModule;
 use GPDCore\Graphql\ResolverFactory;
+use GPDSurvey\Application\Survey\ActivateSurveyHandler;
+use GPDSurvey\Application\Survey\CreateSurveyHandler;
+use GPDSurvey\Application\Survey\GetSurveyByIdHandler;
+use GPDSurvey\Application\Survey\ListSurveysHandler;
+use GPDSurvey\Application\Survey\AnswerApplicationService;
+use GPDSurvey\Application\Survey\AnswerSessionApplicationService;
+use GPDSurvey\Application\Survey\ConfigurationApplicationService;
+use GPDSurvey\Application\Survey\QuestionApplicationService;
+use GPDSurvey\Application\Survey\QuestionOptionApplicationService;
+use GPDSurvey\Application\Survey\SurveyApplicationService;
+use GPDSurvey\Application\Survey\SurveyQueryService;
+use GPDSurvey\Application\Survey\SurveySectionApplicationService;
+use GPDSurvey\Application\Survey\SurveyTargetAudienceApplicationService;
+use GPDSurvey\Application\Survey\UpdateSurveyTitleHandler;
+use GPDSurvey\Domain\Survey\SurveyRepository;
+use GPDSurvey\Domain\Survey\SurveyTargetAudience;
 use GPDSurvey\Entities\Survey;
 use GPDSurvey\Entities\SurveyAnswer;
 use GPDSurvey\Entities\SurveyAnswerSession;
@@ -13,9 +29,11 @@ use GPDSurvey\Entities\SurveyQuestion;
 use GPDSurvey\Entities\SurveyQuestionOption;
 use GPDSurvey\Entities\SurveySection;
 use GPDSurvey\Entities\SurveySectionItem;
-use GPDSurvey\Entities\SurveyTargetAudience;
 use GPDSurvey\Graphql\FieldFindAnswerSessionByOwnerCode;
 use GPDSurvey\Graphql\FieldFindAnswerSessionByUsernameAndPassword;
+use GPDSurvey\Infrastructure\Persistence\Doctrine\Repository\SurveyDoctrineRepository;
+use GPDSurvey\Infrastructure\Persistence\Doctrine\Repository\TargetAudienceDoctrineRepository;
+use GPDSurvey\Presentation\GraphQL\SurveyQueries;
 
 class GPDSurveyModule extends AbstractModule
 {
@@ -38,7 +56,107 @@ class GPDSurveyModule extends AbstractModule
     {
         return [
             'invokables' => [],
-            'factories' => [],
+            'factories' => [
+                SurveyRepository::class => function ($container) {
+                    $entityManager = $container->get('doctrine.entitymanager.orm_default');
+                    return new SurveyDoctrineRepository($entityManager);
+                },
+                CreateSurveyHandler::class => function ($container) {
+                    return new CreateSurveyHandler($container->get(SurveyRepository::class));
+                },
+                GetSurveyByIdHandler::class => function ($container) {
+                    return new GetSurveyByIdHandler($container->get(SurveyRepository::class));
+                },
+                ListSurveysHandler::class => function ($container) {
+                    return new ListSurveysHandler($container->get(SurveyRepository::class));
+                },
+                SurveyQueryService::class => function ($container) {
+                    return new SurveyQueryService($container->get(SurveyRepository::class));
+                },
+                TargetAudienceDoctrineRepository::class => function ($container) {
+                    $entityManager = $container->get('doctrine.entitymanager.orm_default');
+                    return new TargetAudienceDoctrineRepository($entityManager);
+                },
+                SurveyTargetAudienceApplicationService::class => function ($container) {
+                    return new SurveyTargetAudienceApplicationService(
+                        $container->get(TargetAudienceDoctrineRepository::class)
+                    );
+                },
+                QuestionDoctrineRepository::class => function ($container) {
+                    $entityManager = $container->get('doctrine.entitymanager.orm_default');
+                    return new QuestionDoctrineRepository($entityManager);
+                },
+                QuestionApplicationService::class => function ($container) {
+                    return new QuestionApplicationService(
+                        $container->get(QuestionDoctrineRepository::class)
+                    );
+                },
+                SectionDoctrineRepository::class => function ($container) {
+                    $entityManager = $container->get('doctrine.entitymanager.orm_default');
+                    return new SectionDoctrineRepository($entityManager);
+                },
+                SurveySectionApplicationService::class => function ($container) {
+                    return new SurveySectionApplicationService(
+                        $container->get(SectionDoctrineRepository::class)
+                    );
+                },
+                AnswerDoctrineRepository::class => function ($container) {
+                    $entityManager = $container->get('doctrine.entitymanager.orm_default');
+                    return new AnswerDoctrineRepository($entityManager);
+                },
+                AnswerApplicationService::class => function ($container) {
+                    return new AnswerApplicationService(
+                        $container->get(AnswerDoctrineRepository::class)
+                    );
+                },
+                QuestionOptionDoctrineRepository::class => function ($container) {
+                    $entityManager = $container->get('doctrine.entitymanager.orm_default');
+                    return new QuestionOptionDoctrineRepository($entityManager);
+                },
+                QuestionOptionApplicationService::class => function ($container) {
+                    return new QuestionOptionApplicationService(
+                        $container->get(QuestionOptionDoctrineRepository::class)
+                    );
+                },
+                AnswerSessionDoctrineRepository::class => function ($container) {
+                    $entityManager = $container->get('doctrine.entitymanager.orm_default');
+                    return new AnswerSessionDoctrineRepository($entityManager);
+                },
+                AnswerSessionApplicationService::class => function ($container) {
+                    return new AnswerSessionApplicationService(
+                        $container->get(AnswerSessionDoctrineRepository::class)
+                    );
+                },
+                ConfigurationDoctrineRepository::class => function ($container) {
+                    $entityManager = $container->get('doctrine.entitymanager.orm_default');
+                    return new ConfigurationDoctrineRepository($entityManager);
+                },
+                ConfigurationApplicationService::class => function ($container) {
+                    return new ConfigurationApplicationService(
+                        $container->get(ConfigurationDoctrineRepository::class)
+                    );
+                },
+                ActivateSurveyHandler::class => function ($container) {
+                    return new ActivateSurveyHandler($container->get(SurveyRepository::class));
+                },
+                UpdateSurveyTitleHandler::class => function ($container) {
+                    return new UpdateSurveyTitleHandler($container->get(SurveyRepository::class));
+                },
+                SurveyApplicationService::class => function ($container) {
+                    return new SurveyApplicationService(
+                        $container->get(CreateSurveyHandler::class),
+                        $container->get(SurveyQueryService::class),
+                        $container->get(GetSurveyByIdHandler::class),
+                        $container->get(UpdateSurveyTitleHandler::class),
+                        $container->get(ActivateSurveyHandler::class)
+                    );
+                },
+                SurveyQueries::class => function ($container) {
+                    return new SurveyQueries(
+                        $container->get(SurveyApplicationService::class)
+                    );
+                },
+            ],
             'aliases' => []
         ];
     }
@@ -50,26 +168,26 @@ class GPDSurveyModule extends AbstractModule
     function getResolvers(): array
     {
         return [
-            'Query::getSurveys' => ResolverFactory::forConnection(Survey::class),
-            'Query::getSurvey' => ResolverFactory::forItem(Survey::class,),
-            'Query::getSurveyTargetAudiences' => ResolverFactory::forConnection(SurveyTargetAudience::class),
-            'Query::getSurveyTargetAudience' => ResolverFactory::forItem(SurveyTargetAudience::class,),
-            'Query::getSurveyAnswers' => ResolverFactory::forConnection(SurveyAnswer::class),
-            'Query::getSurveyAnswer' => ResolverFactory::forItem(SurveyAnswer::class,),
-            'Query::getSurveyConfigurations' => ResolverFactory::forConnection(SurveyConfiguration::class),
-            'Query::getSurveyConfiguration' => ResolverFactory::forItem(SurveyConfiguration::class,),
+            'Query::getSurveys' => [SurveyQueries::class, 'list'],
+            'Query::getSurvey' => [SurveyQueries::class, 'getById'],
+            'Query::getSurveyTargetAudiences' => [SurveyTargetAudienceApplicationService::class, 'list'],
+            'Query::getSurveyTargetAudience' => [SurveyTargetAudienceApplicationService::class, 'list'],
+            'Query::getSurveyAnswers' => [AnswerApplicationService::class, 'list'],
+            'Query::getSurveyAnswer' => [AnswerApplicationService::class, 'findById'],
+            'Query::getSurveyConfigurations' => [ConfigurationApplicationService::class, 'list'],
+            'Query::getSurveyConfiguration' => [ConfigurationApplicationService::class, 'findById'],
             'Query::getSurveyContents' => ResolverFactory::forConnection(SurveyContent::class),
             'Query::getSurveyContent' => ResolverFactory::forItem(SurveyContent::class,),
-            'Query::getSurveyQuestions' => ResolverFactory::forConnection(SurveyQuestion::class),
-            'Query::getSurveyQuestion' => ResolverFactory::forItem(SurveyQuestion::class,),
-            'Query::getSurveyQuestionOptions' => ResolverFactory::forConnection(SurveyQuestionOption::class),
-            'Query::getSurveyQuestionOption' => ResolverFactory::forItem(SurveyQuestionOption::class,),
-            'Query::getSurveySections' => ResolverFactory::forConnection(SurveySection::class),
-            'Query::getSurveySection' => ResolverFactory::forItem(SurveySection::class,),
+            'Query::getSurveyQuestions' => [QuestionApplicationService::class, 'list'],
+            'Query::getSurveyQuestion' => [QuestionApplicationService::class, 'findById'],
+            'Query::getSurveyQuestionOptions' => [QuestionOptionApplicationService::class, 'list'],
+            'Query::getSurveyQuestionOption' => [QuestionOptionApplicationService::class, 'findById'],
+            'Query::getSurveySections' => [SurveySectionApplicationService::class, 'list'],
+            'Query::getSurveySection' => [SurveySectionApplicationService::class, 'findById'],
             'Query::getSurveySectionItems' => ResolverFactory::forConnection(SurveySectionItem::class),
             'Query::getSurveySectionItem' => ResolverFactory::forItem(SurveySectionItem::class,),
-            'Query::getSurveyAnswerSessions' => ResolverFactory::forConnection(SurveyAnswerSession::class),
-            'Query::getSurveyAnswerSession' => ResolverFactory::forItem(SurveyAnswerSession::class,),
+            'Query::getSurveyAnswerSessions' => [AnswerSessionApplicationService::class, 'list'],
+            'Query::getSurveyAnswerSession' => [AnswerSessionApplicationService::class, 'findById'],
             // 'findSurveyAnswerSessionByUsernameAndPassword' => FieldFindAnswerSessionByUsernameAndPassword::get($this->context, $proxy = null),
             // 'findSurveyAnswerSessionByOwnerCode' => FieldFindAnswerSessionByOwnerCode::get($this->context, $proxy = null),
         ];
