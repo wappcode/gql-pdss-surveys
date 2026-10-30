@@ -3,14 +3,14 @@
 namespace GPDSurvey\Library;
 
 use Exception;
-use GPDSurvey\Entities\Survey;
+use GPDSurvey\Infrastructure\Doctrine\Entities\Survey;
 use GPDCore\Library\GQLException;
 use GPDCore\Graphql\ArrayToEntity;
 use GPDCore\Library\IContextService;
-use GPDSurvey\Entities\SurveyContent;
-use GPDSurvey\Entities\SurveySection;
-use GPDSurvey\Entities\SurveySectionItem;
-use GPDSurvey\Entities\SurveyConfiguration;
+use GPDSurvey\Infrastructure\Doctrine\Entities\SurveyContent;
+use GPDSurvey\Infrastructure\Doctrine\Entities\SurveySection;
+use GPDSurvey\Infrastructure\Doctrine\Entities\SurveySectionItem;
+use GPDSurvey\Infrastructure\Doctrine\Entities\SurveyConfiguration;
 
 class BuildSurveySection
 {

@@ -5,7 +5,7 @@ namespace GPDSurvey\Library;
 use Doctrine\ORM\EntityManager;
 use GPDCore\Library\GQLException;
 use GPDCore\Library\IContextService;
-use GPDSurvey\Entities\SurveyQuestionOption;
+use GPDSurvey\Infrastructure\Doctrine\Entities\SurveyQuestionOption;
 
 final class DeleteSurveyQuestionOption
 {

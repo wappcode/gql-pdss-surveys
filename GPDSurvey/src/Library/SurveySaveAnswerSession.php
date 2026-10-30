@@ -5,10 +5,10 @@ namespace GPDSurvey\Library;
 use DateTimeImmutable;
 use Exception;
 use GPDCore\Library\IContextService;
-use GPDSurvey\Entities\SurveyAnswer;
-use GPDSurvey\Entities\SurveyAnswerSession;
-use GPDSurvey\Entities\SurveyQuestion;
-use GPDSurvey\Entities\SurveyTargetAudience;
+use GPDSurvey\Infrastructure\Doctrine\Entities\SurveyAnswer;
+use GPDSurvey\Infrastructure\Doctrine\Entities\SurveyAnswerSession;
+use GPDSurvey\Infrastructure\Doctrine\Entities\SurveyQuestion;
+use GPDSurvey\Infrastructure\Doctrine\Entities\SurveyTargetAudience;
 
 class SurveySaveAnswerSession
 {

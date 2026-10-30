@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace GPDSurvey\Graphql;
 
 use GPDCore\Library\EntityBuffer;
-use GPDSurvey\Entities\SurveyContent;
+use GPDSurvey\Infrastructure\Doctrine\Entities\SurveyContent;
 use GPDCore\Library\ResolverFactory;
 use GPDSurvey\Graphql\BufferSurveyContent;
 use GPDSurvey\Graphql\BufferSurveySection;
-use GPDSurvey\Entities\SurveyConfiguration;
-use GPDSurvey\Entities\SurveyQuestion;
-use GPDSurvey\Entities\SurveySection;
+use GPDSurvey\Infrastructure\Doctrine\Entities\SurveyConfiguration;
+use GPDSurvey\Infrastructure\Doctrine\Entities\SurveyQuestion;
+use GPDSurvey\Infrastructure\Doctrine\Entities\SurveySection;
 use GPDSurvey\Graphql\BufferSurveyQuestion;
 use GPDSurvey\Graphql\BufferSurveyConfiguration;
 

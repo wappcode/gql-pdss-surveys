@@ -6,9 +6,9 @@ use Exception;
 use GPDCore\Graphql\ArrayToEntity;
 use GPDCore\Library\GQLException;
 use GPDCore\Library\IContextService;
-use GPDSurvey\Entities\Survey;
-use GPDSurvey\Entities\SurveySection;
-use GPDSurvey\Entities\SurveyTargetAudience;
+use GPDSurvey\Infrastructure\Doctrine\Entities\Survey;
+use GPDSurvey\Infrastructure\Doctrine\Entities\SurveySection;
+use GPDSurvey\Infrastructure\Doctrine\Entities\SurveyTargetAudience;
 
 class BuildSurvey
 {

@@ -4,8 +4,8 @@ namespace GPDSurvey\Library;
 
 use GPDCore\Graphql\ArrayToEntity;
 use GPDCore\Library\IContextService;
-use GPDSurvey\Entities\SurveyConfiguration;
-use GPDSurvey\Entities\SurveyContent;
+use GPDSurvey\Infrastructure\Doctrine\Entities\SurveyConfiguration;
+use GPDSurvey\Infrastructure\Doctrine\Entities\SurveyContent;
 
 class BuildSurveyContent
 {

@@ -6,11 +6,11 @@ use Exception;
 use GPDCore\Graphql\ArrayToEntity;
 use GPDCore\Library\GQLException;
 use GPDCore\Library\IContextService;
-use GPDSurvey\Entities\SurveyConfiguration;
-use GPDSurvey\Entities\SurveyContent;
-use GPDSurvey\Entities\SurveyQuestion;
-use GPDSurvey\Entities\SurveySection;
-use GPDSurvey\Entities\SurveySectionItem;
+use GPDSurvey\Infrastructure\Doctrine\Entities\SurveyConfiguration;
+use GPDSurvey\Infrastructure\Doctrine\Entities\SurveyContent;
+use GPDSurvey\Infrastructure\Doctrine\Entities\SurveyQuestion;
+use GPDSurvey\Infrastructure\Doctrine\Entities\SurveySection;
+use GPDSurvey\Infrastructure\Doctrine\Entities\SurveySectionItem;
 
 class BuildSurveySectionItem
 {

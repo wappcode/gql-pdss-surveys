@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace GPDSurvey\Graphql;
 
 use GPDCore\Library\EntityBuffer;
-use GPDSurvey\Entities\SurveyAnswer;
+use GPDSurvey\Infrastructure\Doctrine\Entities\SurveyAnswer;
 use GPDCore\Library\ResolverFactory;
-use GPDSurvey\Entities\Survey;
-use GPDSurvey\Entities\SurveyAnswerSession;
-use GPDSurvey\Entities\SurveyTargetAudience;
+use GPDSurvey\Infrastructure\Doctrine\Entities\Survey;
+use GPDSurvey\Infrastructure\Doctrine\Entities\SurveyAnswerSession;
+use GPDSurvey\Infrastructure\Doctrine\Entities\SurveyTargetAudience;
 
 class ResolversSurveyAnswerSession
 {

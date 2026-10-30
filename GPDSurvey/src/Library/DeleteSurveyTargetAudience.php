@@ -6,10 +6,10 @@ use Exception;
 use Doctrine\ORM\EntityManager;
 use GPDCore\Library\GQLException;
 use GPDCore\Library\IContextService;
-use GPDSurvey\Entities\SurveyContent;
-use GPDSurvey\Entities\SurveyAnswerSession;
-use GPDSurvey\Entities\SurveyConfiguration;
-use GPDSurvey\Entities\SurveyTargetAudience;
+use GPDSurvey\Infrastructure\Doctrine\Entities\SurveyContent;
+use GPDSurvey\Infrastructure\Doctrine\Entities\SurveyAnswerSession;
+use GPDSurvey\Infrastructure\Doctrine\Entities\SurveyConfiguration;
+use GPDSurvey\Infrastructure\Doctrine\Entities\SurveyTargetAudience;
 
 final class DeleteSurveyTargetAudience
 {

@@ -5,7 +5,7 @@ namespace GPDSurvey\Graphql;
 use Exception;
 use GPDCore\Library\GeneralDoctrineUtilities;
 use GPDCore\Library\GQLException;
-use GPDSurvey\Entities\Survey;
+use GPDSurvey\Infrastructure\Doctrine\Entities\Survey;
 use GPDCore\Library\IContextService;
 use GPDSurvey\Graphql\Types\TypeBuildSurveyInput;
 use GPDSurvey\Library\BuildSurvey;

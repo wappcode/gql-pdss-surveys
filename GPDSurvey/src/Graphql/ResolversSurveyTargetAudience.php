@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace GPDSurvey\Graphql;
 
 use GPDCore\Library\EntityBuffer;
-use GPDSurvey\Entities\SurveyContent;
+use GPDSurvey\Infrastructure\Doctrine\Entities\SurveyContent;
 use GPDCore\Library\ResolverFactory;
-use GPDSurvey\Entities\Survey;
-use GPDSurvey\Entities\SurveyConfiguration;
+use GPDSurvey\Infrastructure\Doctrine\Entities\Survey;
+use GPDSurvey\Infrastructure\Doctrine\Entities\SurveyConfiguration;
 
 class ResolversSurveyTargetAudience
 {

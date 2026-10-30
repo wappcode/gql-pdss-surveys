@@ -6,8 +6,8 @@ use Exception;
 use Doctrine\ORM\EntityManager;
 use GPDCore\Library\GQLException;
 use GPDCore\Library\IContextService;
-use GPDSurvey\Entities\SurveyAnswer;
-use GPDSurvey\Entities\SurveyAnswerSession;
+use GPDSurvey\Infrastructure\Doctrine\Entities\SurveyAnswer;
+use GPDSurvey\Infrastructure\Doctrine\Entities\SurveyAnswerSession;
 
 final class DeleteSurveyAnswerSession
 {

@@ -1,84 +1,68 @@
 <?php
 
-namespace GPDSurvey\Entities;
+namespace GPDSurvey\Infrastructure\Doctrine\Entities;
 
-use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
-use GraphQL\Doctrine\Annotation as API;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping as ORM;
+use PDSSUtilities\AbstractEntityModelUlid;
 
-class SurveyAnswerSession
+#[ORM\Entity]
+#[ORM\Table(
+    name: 'gpd_survey_answer_session',
+    indexes: [
+        new ORM\Index(name: 'user_created_idx', columns: ['created']),
+        new ORM\Index(name: 'user_updated_idx', columns: ['updated']),
+    ],
+    uniqueConstraints: [
+        new ORM\UniqueConstraint(name: 'username', columns: ['target_audience_id', 'username']),
+    ]
+)]
+class DoctrineSurveyAnswerSession extends AbstractEntityModelUlid
 {
-    protected $id;
-    protected $created;
-    protected $updated;
 
-    const RELATIONS_MANY_TO_ONE = ['targetAudience', 'survey'];
-    /**
-     * @ORM\Column(type="string", length=500, name="name", nullable=true) 
-     * @var ?string
-     */
-    private $name;
-    /**
-     * @ORM\Column(type="string", length=500, name="username", nullable=true) 
-     * @var ?string
-     */
-    private $username;
-    /**
-     * @ORM\Column(type="string", length=500, name="session_password", nullable=true) 
-     * @var ?string
-     */
-    private $password;
-    /**
-     * Extern reference to the owner 
-     * Can be many for the same Target Audience
-     * @ORM\Column(type="string", length=500, name="owner_code", nullable=true) 
-     * @var ?string
-     */
-    private $ownerCode;
-    /**
-     *
-     * @ORM\Column(type="decimal", name="score", precision=10, scale=4, nullable=true)
-     * @var ?float
-     */
-    private $score;
-    /**
-     *
-     * @ORM\Column(type="boolean", name="completed", options={"default": 0})
-     * @var bool
-     */
-    private $completed;
-    /**
-     *
-     * @ORM\Column(type="decimal", name="score_percent", precision=8, scale=4, nullable=true)
-     * @var ?float
-     */
-    private $scorePercent;
-    /**
-     * @ORM\OneToMany(targetEntity="\GPDSurvey\Entities\SurveyAnswer", mappedBy="session")
-     *
-     * @var Collection
-     */
-    private $answers;
 
-    /**
-     *
-     * @ORM\ManyToOne(targetEntity="\GPDSurvey\Entities\SurveyTargetAudience")
-     * @ORM\JoinColumn(name="target_audience_id", referencedColumnName="id", nullable=false)
-     * @var SurveyTargetAudience
-     */
-    private $targetAudience;
-    /**
-     * @ORM\ManyToOne(targetEntity="\GPDSurvey\Entities\Survey")
-     * @ORM\JoinColumn(name="survey_id", referencedColumnName="id", nullable=false)
-     *
-     * @var Survey
-     */
-    private $survey;
+    #[ORM\Column(type: 'string', length: 500, name: 'name', nullable: true)]
+    private ?string $name;
+
+    #[ORM\Column(type: 'string', length: 500, name: 'username', nullable: true)]
+    private ?string $username;
+
+    #[ORM\Column(type: 'string', length: 500, name: 'session_password', nullable: true)]
+    private ?string $password;
+
+    #[ORM\Column(type: 'string', length: 500, name: 'owner_code', nullable: true)]
+    private ?string $ownerCode;
+
+    #[ORM\Column(type: 'decimal', name: 'score', precision: 10, scale: 4, nullable: true)]
+    private ?float $score;
+
+    #[ORM\Column(type: 'boolean', name: 'completed', nullable: false, options: ['default' => 0])]
+    private bool $completed;
+
+    #[ORM\Column(type: 'decimal', name: 'score_percent', precision: 8, scale: 4, nullable: true)]
+    private ?float $scorePercent;
+
+    #[ORM\Column(type: 'datetimetz_immutable', name: 'created', nullable: false)]
+    protected \DateTimeImmutable $created;
+
+    #[ORM\Column(type: 'datetimetz_immutable', name: 'updated', nullable: false)]
+    protected \DateTimeImmutable $updated;
+
+    #[ORM\OneToMany(targetEntity: DoctrineSurveyAnswer::class, mappedBy: 'session')]
+    private Collection $answers;
+
+    #[ORM\ManyToOne(targetEntity: DoctrineSurveyTargetAudience::class)]
+    #[ORM\JoinColumn(name: 'target_audience_id', referencedColumnName: 'id', nullable: false)]
+    private DoctrineSurveyTargetAudience $targetAudience;
+
+    #[ORM\ManyToOne(targetEntity: DoctrineSurvey::class)]
+    #[ORM\JoinColumn(name: 'survey_id', referencedColumnName: 'id', nullable: false)]
+    private DoctrineSurvey $survey;
 
     public function __construct()
     {
-        $this->created = new \DateTimeImmutable();
-        $this->updated = new \DateTimeImmutable();
+        parent::__construct();
         $this->answers = new ArrayCollection();
         $this->completed = false;
     }
@@ -235,15 +219,7 @@ class SurveyAnswerSession
         return $this->answers;
     }
 
-    /**
-     * Set the value of answers
-     *
-     * @API\Input(type="?GPDSurvey\Graphql\Types\TypeSurveyAnswerQuestionInput[]")
-     * @param  Collection  $answers
-     *
-     * @return  self
-     */
-    public function setAnswers(Collection $answers)
+    public function setAnswers(Collection $answers): self
     {
         $this->answers = $answers;
 
@@ -253,22 +229,14 @@ class SurveyAnswerSession
     /**
      * Get the value of targetAudience
      *
-     * @return  SurveyTargetAudience
+     * @return  DoctrineSurveyTargetAudience
      */
     public function getTargetAudience()
     {
         return $this->targetAudience;
     }
 
-    /**
-     * Set the value of targetAudience
-     *
-     * @API\Input(type="id")
-     * @param  SurveyTargetAudience  $targetAudience
-     *
-     * @return  self
-     */
-    public function setTargetAudience(SurveyTargetAudience $targetAudience)
+    public function setTargetAudience(DoctrineSurveyTargetAudience $targetAudience): self
     {
         $this->targetAudience = $targetAudience;
 
@@ -278,22 +246,14 @@ class SurveyAnswerSession
     /**
      * Get the value of survey
      *
-     * @return  Survey
+     * @return  DoctrineSurvey
      */
     public function getSurvey()
     {
         return $this->survey;
     }
 
-    /**
-     * Set the value of survey
-     *
-     * @API\Exclude()
-     * @param  Survey  $survey
-     *
-     * @return  self
-     */
-    public function setSurvey(Survey $survey)
+    public function setSurvey(DoctrineSurvey $survey): self
     {
         $this->survey = $survey;
 

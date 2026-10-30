@@ -7,7 +7,7 @@ use GPDCore\Library\GQLException;
 use GraphQL\Type\Definition\Type;
 use GPDCore\Library\IContextService;
 use GPDCore\Library\GeneralDoctrineUtilities;
-use GPDSurvey\Entities\SurveyQuestion;
+use GPDSurvey\Infrastructure\Doctrine\Entities\SurveyQuestion;
 use GPDSurvey\Graphql\Types\TypeBuildSurveyQuestionInput;
 use GPDSurvey\Library\BuildSurveyQuestion;
 

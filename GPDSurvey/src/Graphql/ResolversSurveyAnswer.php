@@ -6,8 +6,8 @@ namespace GPDSurvey\Graphql;
 
 use GPDCore\Library\EntityBuffer;
 use GPDCore\Library\ResolverFactory;
-use GPDSurvey\Entities\SurveyAnswerSession;
-use GPDSurvey\Entities\SurveyQuestion;
+use GPDSurvey\Infrastructure\Doctrine\Entities\SurveyAnswerSession;
+use GPDSurvey\Infrastructure\Doctrine\Entities\SurveyQuestion;
 
 class ResolversSurveyAnswer
 {

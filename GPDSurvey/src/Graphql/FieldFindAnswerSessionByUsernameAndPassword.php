@@ -5,7 +5,7 @@ namespace GPDSurvey\Graphql;
 use GPDCore\Library\GeneralDoctrineUtilities;
 use GPDCore\Library\GQLException;
 use GPDCore\Library\IContextService;
-use GPDSurvey\Entities\SurveyAnswerSession;
+use GPDSurvey\Infrastructure\Doctrine\Entities\SurveyAnswerSession;
 use GraphQL\Type\Definition\Type;
 
 class FieldFindAnswerSessionByUsernameAndPassword

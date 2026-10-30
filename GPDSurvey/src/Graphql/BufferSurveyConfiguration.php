@@ -3,7 +3,7 @@
 namespace GPDSurvey\Graphql;
 
 use GPDCore\Library\EntityBuffer;
-use GPDSurvey\Entities\SurveyConfiguration;
+use GPDSurvey\Infrastructure\Doctrine\Entities\SurveyConfiguration;
 
 class BufferSurveyConfiguration
 {

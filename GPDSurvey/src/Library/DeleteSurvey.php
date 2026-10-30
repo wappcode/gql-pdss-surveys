@@ -3,7 +3,7 @@
 namespace GPDSurvey\Library;
 
 use Exception;
-use GPDSurvey\Entities\Survey;
+use GPDSurvey\Infrastructure\Doctrine\Entities\Survey;
 use Doctrine\ORM\EntityManager;
 use GPDCore\Library\GQLException;
 use GPDCore\Library\IContextService;

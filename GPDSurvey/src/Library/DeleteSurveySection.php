@@ -6,9 +6,9 @@ use Exception;
 use Doctrine\ORM\EntityManager;
 use GPDCore\Library\GQLException;
 use GPDCore\Library\IContextService;
-use GPDSurvey\Entities\SurveyContent;
-use GPDSurvey\Entities\SurveySection;
-use GPDSurvey\Entities\SurveyConfiguration;
+use GPDSurvey\Infrastructure\Doctrine\Entities\SurveyContent;
+use GPDSurvey\Infrastructure\Doctrine\Entities\SurveySection;
+use GPDSurvey\Infrastructure\Doctrine\Entities\SurveyConfiguration;
 
 final class DeleteSurveySection
 {

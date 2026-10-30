@@ -8,7 +8,8 @@ use GPDCore\Factory\EntityManagerFactory;
 require_once __DIR__ . "/../vendor/autoload.php";
 $options = require __DIR__ . "/../dev/config/doctrine.local.php";
 $cacheDir = __DIR__ . "/../dev/data/DoctrineORMModule";
-$entityManager = EntityManagerFactory::createFromAttributesAndXml($options, $cacheDir);
+$isDevMode = true;
+$entityManager = EntityManagerFactory::createFromAttributesAndXml($options, $cacheDir, $isDevMode);
 
 $commands = [
     // If you want to add your own custom console commands,

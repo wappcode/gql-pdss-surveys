@@ -5,7 +5,7 @@ namespace GPDSurvey\Library;
 use Exception;
 use Doctrine\ORM\EntityManager;
 use GPDCore\Library\IContextService;
-use GPDSurvey\Entities\SurveyConfiguration;
+use GPDSurvey\Infrastructure\Doctrine\Entities\SurveyConfiguration;
 
 final class DeleteSurveyConfiguration
 {

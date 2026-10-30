@@ -6,7 +6,7 @@ namespace GPDSurvey\Graphql\Types;
 
 use GraphQL\Type\Definition\Type;
 use GPDCore\Library\IContextService;
-use GPDSurvey\Entities\SurveyConfiguration;
+use GPDSurvey\Infrastructure\Doctrine\Entities\SurveyConfiguration;
 use GraphQL\Type\Definition\InputObjectType;
 use GPDSurvey\Graphql\Types\TypeBuildSurveyContentInput;
 

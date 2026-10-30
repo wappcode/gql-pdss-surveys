@@ -2,10 +2,10 @@
 
 namespace GPDSurvey\Library;
 
-use GPDSurvey\Entities\Survey;
-use GPDSurvey\Entities\SurveyAnswer;
-use GPDSurvey\Entities\SurveyConfiguration;
-use GPDSurvey\Entities\SurveyQuestion;
+use GPDSurvey\Infrastructure\Doctrine\Entities\Survey;
+use GPDSurvey\Infrastructure\Doctrine\Entities\SurveyAnswer;
+use GPDSurvey\Infrastructure\Doctrine\Entities\SurveyConfiguration;
+use GPDSurvey\Infrastructure\Doctrine\Entities\SurveyQuestion;
 
 class SurveyScoreUtilities
 {
@@ -111,7 +111,9 @@ class SurveyScoreUtilities
         if (empty($answerWitScores)) {
             return null;
         }
-        $totalScores = array_reduce($answerWitScores,function(float $acc,SurveyAnswer $answer){ return $acc+ $answer->getScorePercent();},0);
+        $totalScores = array_reduce($answerWitScores, function (float $acc, SurveyAnswer $answer) {
+            return $acc + $answer->getScorePercent();
+        }, 0);
         $scores = array_map(function (SurveyAnswer $answer) {
             return $answer->getScorePercent();
         }, $answerWitScores);

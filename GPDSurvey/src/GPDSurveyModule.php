@@ -4,16 +4,16 @@ namespace GPDSurvey;
 
 use GPDCore\Core\AbstractModule;
 use GPDCore\Graphql\ResolverFactory;
-use GPDSurvey\Entities\Survey;
-use GPDSurvey\Entities\SurveyAnswer;
-use GPDSurvey\Entities\SurveyAnswerSession;
-use GPDSurvey\Entities\SurveyConfiguration;
-use GPDSurvey\Entities\SurveyContent;
-use GPDSurvey\Entities\SurveyQuestion;
-use GPDSurvey\Entities\SurveyQuestionOption;
-use GPDSurvey\Entities\SurveySection;
-use GPDSurvey\Entities\SurveySectionItem;
-use GPDSurvey\Entities\SurveyTargetAudience;
+use GPDSurvey\Infrastructure\Doctrine\Entities\Survey;
+use GPDSurvey\Infrastructure\Doctrine\Entities\SurveyAnswer;
+use GPDSurvey\Infrastructure\Doctrine\Entities\SurveyAnswerSession;
+use GPDSurvey\Infrastructure\Doctrine\Entities\SurveyConfiguration;
+use GPDSurvey\Infrastructure\Doctrine\Entities\SurveyContent;
+use GPDSurvey\Infrastructure\Doctrine\Entities\SurveyQuestion;
+use GPDSurvey\Infrastructure\Doctrine\Entities\SurveyQuestionOption;
+use GPDSurvey\Infrastructure\Doctrine\Entities\SurveySection;
+use GPDSurvey\Infrastructure\Doctrine\Entities\SurveySectionItem;
+use GPDSurvey\Infrastructure\Doctrine\Entities\SurveyTargetAudience;
 use GPDSurvey\Graphql\FieldFindAnswerSessionByOwnerCode;
 use GPDSurvey\Graphql\FieldFindAnswerSessionByUsernameAndPassword;
 

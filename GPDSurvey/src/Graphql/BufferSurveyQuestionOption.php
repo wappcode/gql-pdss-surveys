@@ -2,9 +2,9 @@
 
 namespace GPDSurvey\Graphql;
 
-use GPDSurvey\Entities\Survey;
+use GPDSurvey\Infrastructure\Doctrine\Entities\Survey;
 use GPDCore\Library\EntityBuffer;
-use GPDSurvey\Entities\SurveyQuestionOption;
+use GPDSurvey\Infrastructure\Doctrine\Entities\SurveyQuestionOption;
 
 class BufferSurveyQuestionOption
 {
