@@ -3,6 +3,19 @@
 namespace GPDSurvey;
 
 use GPDCore\Core\AbstractModule;
+use GPDCore\Graphql\ResolverFactory;
+use GPDSurvey\Entities\Survey;
+use GPDSurvey\Entities\SurveyAnswer;
+use GPDSurvey\Entities\SurveyAnswerSession;
+use GPDSurvey\Entities\SurveyConfiguration;
+use GPDSurvey\Entities\SurveyContent;
+use GPDSurvey\Entities\SurveyQuestion;
+use GPDSurvey\Entities\SurveyQuestionOption;
+use GPDSurvey\Entities\SurveySection;
+use GPDSurvey\Entities\SurveySectionItem;
+use GPDSurvey\Entities\SurveyTargetAudience;
+use GPDSurvey\Graphql\FieldFindAnswerSessionByOwnerCode;
+use GPDSurvey\Graphql\FieldFindAnswerSessionByUsernameAndPassword;
 
 class GPDSurveyModule extends AbstractModule
 {
@@ -36,7 +49,30 @@ class GPDSurveyModule extends AbstractModule
      */
     function getResolvers(): array
     {
-        return [];
+        return [
+            'Query::getSurveys' => ResolverFactory::forConnection(Survey::class),
+            'Query::getSurvey' => ResolverFactory::forItem(Survey::class,),
+            'Query::getSurveyTargetAudiences' => ResolverFactory::forConnection(SurveyTargetAudience::class),
+            'Query::getSurveyTargetAudience' => ResolverFactory::forItem(SurveyTargetAudience::class,),
+            'Query::getSurveyAnswers' => ResolverFactory::forConnection(SurveyAnswer::class),
+            'Query::getSurveyAnswer' => ResolverFactory::forItem(SurveyAnswer::class,),
+            'Query::getSurveyConfigurations' => ResolverFactory::forConnection(SurveyConfiguration::class),
+            'Query::getSurveyConfiguration' => ResolverFactory::forItem(SurveyConfiguration::class,),
+            'Query::getSurveyContents' => ResolverFactory::forConnection(SurveyContent::class),
+            'Query::getSurveyContent' => ResolverFactory::forItem(SurveyContent::class,),
+            'Query::getSurveyQuestions' => ResolverFactory::forConnection(SurveyQuestion::class),
+            'Query::getSurveyQuestion' => ResolverFactory::forItem(SurveyQuestion::class,),
+            'Query::getSurveyQuestionOptions' => ResolverFactory::forConnection(SurveyQuestionOption::class),
+            'Query::getSurveyQuestionOption' => ResolverFactory::forItem(SurveyQuestionOption::class,),
+            'Query::getSurveySections' => ResolverFactory::forConnection(SurveySection::class),
+            'Query::getSurveySection' => ResolverFactory::forItem(SurveySection::class,),
+            'Query::getSurveySectionItems' => ResolverFactory::forConnection(SurveySectionItem::class),
+            'Query::getSurveySectionItem' => ResolverFactory::forItem(SurveySectionItem::class,),
+            'Query::getSurveyAnswerSessions' => ResolverFactory::forConnection(SurveyAnswerSession::class),
+            'Query::getSurveyAnswerSession' => ResolverFactory::forItem(SurveyAnswerSession::class,),
+            // 'findSurveyAnswerSessionByUsernameAndPassword' => FieldFindAnswerSessionByUsernameAndPassword::get($this->context, $proxy = null),
+            // 'findSurveyAnswerSessionByOwnerCode' => FieldFindAnswerSessionByOwnerCode::get($this->context, $proxy = null),
+        ];
     }
     public function getMiddlewares(): array
     {
@@ -207,26 +243,26 @@ class GPDSurveyModule extends AbstractModule
     //     $surveySectionItemConnection = $this->context->getServiceManager()->get(TypeSurveySectionItemConnection::class);
     //     $surveyAnswerSessionConnection = $this->context->getServiceManager()->get(TypeSurveyAnswerSessionConnection::class);
     //     return [
-    //         'getSurveys' => GPDFieldFactory::buildFieldConnection($this->context, $surveyConnection, Survey::class, Survey::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
-    //         'getSurvey' => GPDFieldFactory::buildFieldItem($this->context, Survey::class, Survey::RELATIONS_MANY_TO_ONE, $proxy = null),
-    //         'getSurveyTargetAudiences' => GPDFieldFactory::buildFieldConnection($this->context, $surveyTargetAudienceConnection, SurveyTargetAudience::class, SurveyTargetAudience::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
-    //         'getSurveyTargetAudience' => GPDFieldFactory::buildFieldItem($this->context, SurveyTargetAudience::class, SurveyTargetAudience::RELATIONS_MANY_TO_ONE, $proxy = null),
-    //         'getSurveyAnswers' => GPDFieldFactory::buildFieldConnection($this->context, $surveyAnswerConnection, SurveyAnswer::class, SurveyAnswer::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
-    //         'getSurveyAnswer' => GPDFieldFactory::buildFieldItem($this->context, SurveyAnswer::class, SurveyAnswer::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
-    //         'getSurveyConfigurations' => GPDFieldFactory::buildFieldConnection($this->context, $surveyConfigurationConnection, SurveyConfiguration::class, SurveyConfiguration::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
-    //         'getSurveyConfiguration' => GPDFieldFactory::buildFieldItem($this->context, SurveyConfiguration::class, SurveyConfiguration::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
-    //         'getSurveyContents' => GPDFieldFactory::buildFieldConnection($this->context, $surveyContentConnection, SurveyContent::class, SurveyContent::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
-    //         'getSurveyContent' => GPDFieldFactory::buildFieldItem($this->context, SurveyContent::class, SurveyContent::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
-    //         'getSurveyQuestions' => GPDFieldFactory::buildFieldConnection($this->context, $surveyQuestionConnection, SurveyQuestion::class, SurveyQuestion::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
-    //         'getSurveyQuestion' => GPDFieldFactory::buildFieldItem($this->context, SurveyQuestion::class, SurveyQuestion::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
-    //         'getSurveyQuestionOptions' => GPDFieldFactory::buildFieldConnection($this->context, $surveyQuestionOptionConnection, SurveyQuestionOption::class, SurveyQuestionOption::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
-    //         'getSurveyQuestionOption' => GPDFieldFactory::buildFieldItem($this->context, SurveyQuestionOption::class, SurveyQuestionOption::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
-    //         'getSurveySections' => GPDFieldFactory::buildFieldConnection($this->context, $surveySectionConnection, SurveySection::class, SurveySection::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
-    //         'getSurveySection' => GPDFieldFactory::buildFieldItem($this->context, SurveySection::class, SurveySection::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
-    //         'getSurveySectionItems' => GPDFieldFactory::buildFieldConnection($this->context, $surveySectionItemConnection, SurveySectionItem::class, SurveySectionItem::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
-    //         'getSurveySectionItem' => GPDFieldFactory::buildFieldItem($this->context, SurveySectionItem::class, SurveySectionItem::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
-    //         'getSurveyAnswerSessions' => GPDFieldFactory::buildFieldConnection($this->context, $surveyAnswerSessionConnection, SurveyAnswerSession::class, SurveyAnswerSession::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
-    //         'getSurveyAnswerSession' => GPDFieldFactory::buildFieldItem($this->context, SurveyAnswerSession::class, SurveyAnswerSession::RELATIONS_MANY_TO_ONE, $proxy = null),
+    //         'getSurveys' => ResolverFactory::forConnection(Survey::class, Survey::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
+    //         'getSurvey' => ResolverFactory::forItem(Survey::class,),
+    //         'getSurveyTargetAudiences' => ResolverFactory::forConnection(SurveyTargetAudience::class, SurveyTargetAudience::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
+    //         'getSurveyTargetAudience' => ResolverFactory::forItem(SurveyTargetAudience::class,),
+    //         'getSurveyAnswers' => ResolverFactory::forConnection(SurveyAnswer::class, SurveyAnswer::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
+    //         'getSurveyAnswer' => ResolverFactory::forItem(SurveyAnswer::class,),
+    //         'getSurveyConfigurations' => ResolverFactory::forConnection(SurveyConfiguration::class, SurveyConfiguration::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
+    //         'getSurveyConfiguration' => ResolverFactory::forItem(SurveyConfiguration::class,),
+    //         'getSurveyContents' => ResolverFactory::forConnection(SurveyContent::class, SurveyContent::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
+    //         'getSurveyContent' => ResolverFactory::forItem(SurveyContent::class,),
+    //         'getSurveyQuestions' => ResolverFactory::forConnection(SurveyQuestion::class, SurveyQuestion::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
+    //         'getSurveyQuestion' => ResolverFactory::forItem(SurveyQuestion::class,),
+    //         'getSurveyQuestionOptions' => ResolverFactory::forConnection(SurveyQuestionOption::class, SurveyQuestionOption::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
+    //         'getSurveyQuestionOption' => ResolverFactory::forItem(SurveyQuestionOption::class,),
+    //         'getSurveySections' => ResolverFactory::forConnection(SurveySection::class, SurveySection::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
+    //         'getSurveySection' => ResolverFactory::forItem(SurveySection::class,),
+    //         'getSurveySectionItems' => ResolverFactory::forConnection(SurveySectionItem::class, SurveySectionItem::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
+    //         'getSurveySectionItem' => ResolverFactory::forItem(SurveySectionItem::class,),
+    //         'getSurveyAnswerSessions' => ResolverFactory::forConnection(SurveyAnswerSession::class, SurveyAnswerSession::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
+    //         'getSurveyAnswerSession' => ResolverFactory::forItem(SurveyAnswerSession::class,),
     //         'findSurveyAnswerSessionByUsernameAndPassword' => FieldFindAnswerSessionByUsernameAndPassword::get($this->context, $proxy = null),
     //         'findSurveyAnswerSessionByOwnerCode' => FieldFindAnswerSessionByOwnerCode::get($this->context, $proxy = null),
     //     ];
@@ -235,36 +271,36 @@ class GPDSurveyModule extends AbstractModule
     // {
     //     return [
     //         'buildSurvey' => FieldBuildSurvey::get($this->context, $this->defaultProxy),
-    //         'createSurvey' => GPDFieldFactory::buildFieldCreate($this->context, Survey::class, Survey::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
-    //         'updateSurvey' => GPDFieldFactory::buildFieldUpdate($this->context, Survey::class, Survey::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
+    //         'createSurvey' => ResolverFactory::buildFieldCreate($this->context, Survey::class, Survey::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
+    //         'updateSurvey' => ResolverFactory::buildFieldUpdate($this->context, Survey::class, Survey::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
     //         'deleteSurvey' => FieldDeleteSurvey::get($this->context, $this->defaultProxy),
     //         'buildSurveyTargetAudience' => FieldBuildSurveyTargetAudience::get($this->context,  $this->defaultProxy),
-    //         'createSurveyTargetAudience' => GPDFieldFactory::buildFieldCreate($this->context, SurveyTargetAudience::class, SurveyTargetAudience::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
-    //         'updateSurveyTargetAudience' => GPDFieldFactory::buildFieldUpdate($this->context, SurveyTargetAudience::class, SurveyTargetAudience::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
+    //         'createSurveyTargetAudience' => ResolverFactory::buildFieldCreate($this->context, SurveyTargetAudience::class, SurveyTargetAudience::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
+    //         'updateSurveyTargetAudience' => ResolverFactory::buildFieldUpdate($this->context, SurveyTargetAudience::class, SurveyTargetAudience::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
     //         'deleteSurveyTargetAudience' => FieldDeleteSurveyTargetAudience::get($this->context, $this->defaultProxy),
-    //         'createSurveyAnswer' => GPDFieldFactory::buildFieldCreate($this->context, SurveyAnswer::class, SurveyAnswer::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
-    //         'updateSurveyAnswer' => GPDFieldFactory::buildFieldUpdate($this->context, SurveyAnswer::class, SurveyAnswer::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
-    //         'deleteSurveyAnswer' => GPDFieldFactory::buildFieldDelete($this->context, SurveyAnswer::class, SurveyAnswer::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
-    //         'createSurveyConfiguration' => GPDFieldFactory::buildFieldCreate($this->context, SurveyConfiguration::class, SurveyConfiguration::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
-    //         'updateSurveyConfiguration' => GPDFieldFactory::buildFieldUpdate($this->context, SurveyConfiguration::class, SurveyConfiguration::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
-    //         'deleteSurveyConfiguration' => GPDFieldFactory::buildFieldDelete($this->context, SurveyConfiguration::class, SurveyConfiguration::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
-    //         'createSurveyContent' => GPDFieldFactory::buildFieldCreate($this->context, SurveyContent::class, SurveyContent::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
-    //         'updateSurveyContent' => GPDFieldFactory::buildFieldUpdate($this->context, SurveyContent::class, SurveyContent::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
+    //         'createSurveyAnswer' => ResolverFactory::buildFieldCreate($this->context, SurveyAnswer::class, SurveyAnswer::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
+    //         'updateSurveyAnswer' => ResolverFactory::buildFieldUpdate($this->context, SurveyAnswer::class, SurveyAnswer::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
+    //         'deleteSurveyAnswer' => ResolverFactory::buildFieldDelete($this->context, SurveyAnswer::class, SurveyAnswer::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
+    //         'createSurveyConfiguration' => ResolverFactory::buildFieldCreate($this->context, SurveyConfiguration::class, SurveyConfiguration::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
+    //         'updateSurveyConfiguration' => ResolverFactory::buildFieldUpdate($this->context, SurveyConfiguration::class, SurveyConfiguration::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
+    //         'deleteSurveyConfiguration' => ResolverFactory::buildFieldDelete($this->context, SurveyConfiguration::class, SurveyConfiguration::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
+    //         'createSurveyContent' => ResolverFactory::buildFieldCreate($this->context, SurveyContent::class, SurveyContent::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
+    //         'updateSurveyContent' => ResolverFactory::buildFieldUpdate($this->context, SurveyContent::class, SurveyContent::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
     //         'deleteSurveyContent' => FieldDeleteSurveyContent::get($this->context, $this->defaultProxy),
     //         'buildSurveyQuestion' => FieldBuildSurveyQuestion::get($this->context, $this->defaultProxy),
-    //         'createSurveyQuestion' => GPDFieldFactory::buildFieldCreate($this->context, SurveyQuestion::class, SurveyQuestion::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
-    //         'updateSurveyQuestion' => GPDFieldFactory::buildFieldUpdate($this->context, SurveyQuestion::class, SurveyQuestion::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
+    //         'createSurveyQuestion' => ResolverFactory::buildFieldCreate($this->context, SurveyQuestion::class, SurveyQuestion::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
+    //         'updateSurveyQuestion' => ResolverFactory::buildFieldUpdate($this->context, SurveyQuestion::class, SurveyQuestion::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
     //         'deleteSurveyQuestion' => FieldDeleteSurveyQuestion::get($this->context,  $this->defaultProxy),
-    //         'createSurveyQuestionOption' => GPDFieldFactory::buildFieldCreate($this->context, SurveyQuestionOption::class, SurveyQuestionOption::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
-    //         'updateSurveyQuestionOption' => GPDFieldFactory::buildFieldUpdate($this->context, SurveyQuestionOption::class, SurveyQuestionOption::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
+    //         'createSurveyQuestionOption' => ResolverFactory::buildFieldCreate($this->context, SurveyQuestionOption::class, SurveyQuestionOption::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
+    //         'updateSurveyQuestionOption' => ResolverFactory::buildFieldUpdate($this->context, SurveyQuestionOption::class, SurveyQuestionOption::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
     //         'deleteSurveyQuestionOption' => FieldDeleteSurveyQuestionOption::get($this->context, $this->defaultProxy),
     //         'buildSurveySection' => FieldBuildSurveySection::get($this->context, $this->defaultProxy),
-    //         'createSurveySection' => GPDFieldFactory::buildFieldCreate($this->context, SurveySection::class, SurveySection::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
-    //         'updateSurveySection' => GPDFieldFactory::buildFieldUpdate($this->context, SurveySection::class, SurveySection::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
+    //         'createSurveySection' => ResolverFactory::buildFieldCreate($this->context, SurveySection::class, SurveySection::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
+    //         'updateSurveySection' => ResolverFactory::buildFieldUpdate($this->context, SurveySection::class, SurveySection::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
     //         'deleteSurveySection' => FieldDeleteSurveySection::get($this->context,  $this->defaultProxy),
     //         'buildSurveySectionItem' => FieldBuildSurveySectionItem::get($this->context, $this->defaultProxy),
-    //         'createSurveySectionItem' => GPDFieldFactory::buildFieldCreate($this->context, SurveySectionItem::class, SurveySectionItem::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
-    //         'updateSurveySectionItem' => GPDFieldFactory::buildFieldUpdate($this->context, SurveySectionItem::class, SurveySectionItem::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
+    //         'createSurveySectionItem' => ResolverFactory::buildFieldCreate($this->context, SurveySectionItem::class, SurveySectionItem::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
+    //         'updateSurveySectionItem' => ResolverFactory::buildFieldUpdate($this->context, SurveySectionItem::class, SurveySectionItem::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
     //         'deleteSurveySectionItem' => FieldDeleteSurveySectionItem::get($this->context,  $this->defaultProxy),
     //         'createSurveyAnswerSession' => FieldCreateAnswerSession::get($this->context, $proxy = null),
     //         'updateSurveyAnswerSession' => FieldUpdateAnswerSession::get($this->context, $proxy = null),
