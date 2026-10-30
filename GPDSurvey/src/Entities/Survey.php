@@ -3,22 +3,15 @@
 namespace GPDSurvey\Entities;
 
 use Doctrine\Common\Collections\Collection;
-use GPDCore\Entities\AbstractEntityModelStringId;
 use Doctrine\Common\Collections\ArrayCollection;
 use GraphQL\Doctrine\Annotation as API;
-use Doctrine\ORM\Mapping as ORM;
 
-/**
- * Doctrine Entity For Survey
- * @ORM\Entity()
- * @ORM\Table(name="gpd_survey", indexes={
- * @ORM\Index(name="user_created_idx",columns={"created"}),
- * @ORM\Index(name="user_updated_idx",columns={"updated"})
- * })
- * 
- */
-class Survey  extends AbstractEntityModelStringId
+class Survey
 {
+    protected $id;
+    protected $created;
+    protected $updated;
+
     const RELATIONS_MANY_TO_ONE = [];
     /**
      * @ORM\Column(type="string", name="title", nullable=false) 
@@ -54,7 +47,8 @@ class Survey  extends AbstractEntityModelStringId
 
     public function __construct()
     {
-        parent::__construct();
+        $this->created = new \DateTimeImmutable();
+        $this->updated = new \DateTimeImmutable();
         $this->targetAudiences = new ArrayCollection();
         $this->questions = new ArrayCollection();
         $this->sections = new ArrayCollection();

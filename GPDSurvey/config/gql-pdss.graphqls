@@ -1,0 +1,1341 @@
+input BuildSurveyContentInput {
+  type: SurveyContentType!
+  body: String
+  presentation: SurveyConfigurationInput
+}
+input BuildSurveyInput {
+  """
+  Si se asigna un id actualiza la encuesta relacionada con ese id
+  """
+  id: ID
+  title: String!
+  sections: [BuildSurveySectionInput!]!
+  targetAudience: BuildSurveyTargetAudienceInput
+  active: Boolean!
+}
+input BuildSurveyQuestionInput {
+  id: ID
+  title: String!
+  code: String!
+  type: String!
+  required: Boolean!
+  other: Boolean
+  hint: BuildSurveyContentInput
+  options: [BuildSurveyQuestionOptionInput]
+  content: BuildSurveyContentInput
+  presentation: SurveyConfigurationInput
+  validators: SurveyConfigurationInput
+  answerScore: SurveyConfigurationInput
+  score: Float
+  survey: ID
+}
+input BuildSurveyQuestionOptionInput {
+  id: ID
+  title: String!
+  value: String!
+  order: Int!
+  content: BuildSurveyContentInput
+  presentation: SurveyConfigurationInput
+  question: ID
+}
+input BuildSurveySectionInput {
+  id: ID
+  title: String!
+  content: BuildSurveyContentInput
+  presentation: SurveyConfigurationInput
+  order: Int!
+  hidden: Boolean!
+  items: [BuildSurveySectionItemInput]!
+  survey: ID
+}
+input BuildSurveySectionItemInput {
+  id: ID
+  type: SurveySectionItemType!
+  order: Int!
+  conditions: SurveyConfigurationInput
+  question: BuildSurveyQuestionInput
+  content: BuildSurveyContentInput
+  hidden: Boolean!
+  section: ID
+}
+input BuildSurveyTargetAudienceInput {
+  """
+  Si se asigna un id actualiza el registro relacionado con ese id
+  """
+  id: ID
+  title: String!
+  starts: DateTime
+  ends: DateTime
+  welcome: BuildSurveyContentInput
+  farewell: BuildSurveyContentInput
+  attempts: Int
+  presentation: SurveyConfigurationInput
+  password: String
+  survey: ID
+}
+
+type Mutation {
+  """
+  Construye una encuesta (Survey) puede actualizar un registro si se asigna un id válido. La actualización no es parcial elimina los elementos del registro previo que no esten en el input con excepción de Target Audiences
+  """
+  buildSurvey(input: BuildSurveyInput!): Survey
+  createSurvey(input: SurveyInput!): Survey!
+  updateSurvey(id: ID!, input: SurveyPartialInput!): Survey!
+  """
+  Elimna la encuesta. No se pueden eliminar encuestas activas. No se pueden eliminar encuestas que tengan preguntas con respuestas
+  """
+  deleteSurvey(id: ID!): Boolean!
+  """
+  Construye un registro SurveyTargetAudience puede actualizar un registro si se asigna un id válido. La actualización no es parcial elimina los elementos del registro previo que no esten en el input
+  """
+  buildSurveyTargetAudience(
+    input: BuildSurveyTargetAudienceInput!
+  ): SurveyTargetAudience
+  createSurveyTargetAudience(
+    input: SurveyTargetAudienceInput!
+  ): SurveyTargetAudience!
+  updateSurveyTargetAudience(
+    id: ID!
+    input: SurveyTargetAudiencePartialInput!
+  ): SurveyTargetAudience!
+  """
+  Elimna el registro de audiencia. No se pueden eliminar registros con respuestas relacionadas
+  """
+  deleteSurveyTargetAudience(id: ID!): Boolean!
+  createSurveyAnswer(input: SurveyAnswerInput!): SurveyAnswer!
+  updateSurveyAnswer(id: ID!, input: SurveyAnswerPartialInput!): SurveyAnswer!
+  deleteSurveyAnswer(id: ID!): Boolean!
+  createSurveyConfiguration(
+    input: SurveyConfigurationInput!
+  ): SurveyConfiguration!
+  updateSurveyConfiguration(
+    id: ID!
+    input: SurveyConfigurationPartialInput!
+  ): SurveyConfiguration!
+  deleteSurveyConfiguration(id: ID!): Boolean!
+  createSurveyContent(input: SurveyContentInput!): SurveyContent!
+  updateSurveyContent(
+    id: ID!
+    input: SurveyContentPartialInput!
+  ): SurveyContent!
+  deleteSurveyContent(id: ID!): Boolean!
+  """
+  Construye un registro SurveyQuestion puede actualizar un registro si se asigna un id válido. La actualización no es parcial elimina los elementos del registro previo que no esten en el input.
+  """
+  buildSurveyQuestion(input: BuildSurveyQuestionInput!): SurveyQuestion
+  createSurveyQuestion(input: SurveyQuestionInput!): SurveyQuestion!
+  updateSurveyQuestion(
+    id: ID!
+    input: SurveyQuestionPartialInput!
+  ): SurveyQuestion!
+  """
+  Elimna la pregunta. No se pueden eliminar preguntas con respuestas
+  """
+  deleteSurveyQuestion(id: ID!): Boolean!
+  createSurveyQuestionOption(
+    input: SurveyQuestionOptionInput!
+  ): SurveyQuestionOption!
+  updateSurveyQuestionOption(
+    id: ID!
+    input: SurveyQuestionOptionPartialInput!
+  ): SurveyQuestionOption!
+  deleteSurveyQuestionOption(id: ID!): Boolean!
+  """
+  Construye un registro SurveySection puede actualizar un registro si se asigna un id válido. La actualización no es parcial elimina los elementos del registro previo que no esten en el input.
+  """
+  buildSurveySection(input: BuildSurveySectionInput!): SurveySection
+  createSurveySection(input: SurveySectionInput!): SurveySection!
+  updateSurveySection(
+    id: ID!
+    input: SurveySectionPartialInput!
+  ): SurveySection!
+  """
+  Elimna la sección. No se pueden eliminar secciones que tengan preguntas con respuestas
+  """
+  deleteSurveySection(id: ID!): Boolean!
+  """
+  Construye un registro SurveySectionItem puede actualizar un registro si se asigna un id válido. La actualización no es parcial elimina los elementos del registro previo que no esten en el input.
+  """
+  buildSurveySectionItem(input: BuildSurveySectionItemInput!): SurveySectionItem
+  createSurveySectionItem(input: SurveySectionItemInput!): SurveySectionItem!
+  updateSurveySectionItem(
+    id: ID!
+    input: SurveySectionItemPartialInput!
+  ): SurveySectionItem!
+  """
+  Elimna un elemento de una sección. No se pueden eliminar items que tengan preguntas con respuestas
+  """
+  deleteSurveySectionItem(id: ID!): Boolean!
+  createSurveyAnswerSession(
+    input: SurveyAnswerSessionInput
+  ): SurveyAnswerSession
+  updateSurveyAnswerSession(
+    id: ID!
+    input: SurveyAnswerSessionPartialInput
+  ): SurveyAnswerSession
+  deleteSurveyAnswerSession(id: ID!): Boolean!
+}
+
+type Query {
+  getSurveys(input: ConnectionInput): SurveyConnection
+  getSurvey(id: ID!): Survey
+  getSurveyTargetAudiences(
+    input: ConnectionInput
+  ): SurveyTargetAudienceConnection
+  getSurveyTargetAudience(id: ID!): SurveyTargetAudience
+  getSurveyAnswers(input: ConnectionInput): SurveyAnswerConnection
+  getSurveyAnswer(id: ID!): SurveyAnswer
+  getSurveyConfigurations(input: ConnectionInput): SurveyConfigurationConnection
+  getSurveyConfiguration(id: ID!): SurveyConfiguration
+  getSurveyContents(input: ConnectionInput): SurveyContentConnection
+  getSurveyContent(id: ID!): SurveyContent
+  getSurveyQuestions(input: ConnectionInput): SurveyQuestionConnection
+  getSurveyQuestion(id: ID!): SurveyQuestion
+  getSurveyQuestionOptions(
+    input: ConnectionInput
+  ): SurveyQuestionOptionConnection
+  getSurveyQuestionOption(id: ID!): SurveyQuestionOption
+  getSurveySections(input: ConnectionInput): SurveySectionConnection
+  getSurveySection(id: ID!): SurveySection
+  getSurveySectionItems(input: ConnectionInput): SurveySectionItemConnection
+  getSurveySectionItem(id: ID!): SurveySectionItem
+  getSurveyAnswerSessions(input: ConnectionInput): SurveyAnswerSessionConnection
+  getSurveyAnswerSession(id: ID!): SurveyAnswerSession
+  findSurveyAnswerSessionByUsernameAndPassword(
+    targetAudience: ID!
+    username: String!
+    password: String!
+  ): SurveyAnswerSession
+  findSurveyAnswerSessionByOwnerCode(
+    targetAudience: ID!
+    ownerCode: String!
+  ): SurveyAnswerSession
+  echo(message: String!): String!
+}
+input QueryFilterCompountConditionInput {
+  conditionsLogic: QueryFilterLogic
+  conditions: [QueryFilterConditionInput]
+  compoundConditions: [QueryFilterCompountConditionInput]
+}
+input QueryFilterConditionInput {
+  filterOperator: QueryFilterConditionType!
+  value: QueryFilterConditionValue!
+  property: String!
+  onJoinedProperty: String
+}
+enum QueryFilterConditionType {
+  EQUAL
+  NOT_EQUAL
+  BETWEEN
+  GREATER_THAN
+  LESS_THAN
+  GREATER_EQUAL_THAN
+  LESS_EQUAL_THAN
+  LIKE
+  NOT_LIKE
+  IN
+  NOT_IN
+  DIFFERENT
+  IS_NOT_NULL
+  IS_NULL
+}
+input QueryFilterConditionValue {
+  single: String
+  many: [String]
+}
+input QueryFilterInput {
+  groupLogic: QueryFilterLogic
+  conditionsLogic: QueryFilterLogic
+  conditions: [QueryFilterConditionInput]
+  compoundConditions: [QueryFilterCompountConditionInput]
+}
+enum QueryFilterLogic {
+  AND
+  OR
+}
+"""
+Doctrine Entity For Survey
+"""
+type Survey {
+  """
+  The value of title
+  """
+  title: String!
+  """
+  The value of targetAudiences
+  """
+  targetAudiences: [SurveyTargetAudience!]!
+  """
+  The value of questions
+  """
+  questions: [SurveyQuestion!]!
+  """
+  The value of sections
+  """
+  sections: [SurveySection!]!
+  """
+  The value of active
+  """
+  active: Boolean!
+  id: ID!
+  """
+  The value of created
+  """
+  created: DateTime!
+  """
+  The value of updated
+  """
+  updated: DateTime!
+}
+"""
+Doctrine Entity For SurveyAnswer
+"""
+type SurveyAnswer {
+  """
+  The value of value
+  """
+  value: String
+  """
+  The value of question
+  """
+  question: SurveyQuestion
+  """
+  The value of score
+  """
+  score: Float
+  """
+  The value of scorePercent
+  """
+  scorePercent: Float
+  """
+  The value of session
+  """
+  session: SurveyAnswerSession!
+  id: ID!
+  """
+  The value of created
+  """
+  created: DateTime!
+  """
+  The value of updated
+  """
+  updated: DateTime!
+}
+type SurveyAnswerConnection {
+  totalCount: Int!
+  pageInfo: PageInfo
+  edges: [SurveyAnswerEdge]!
+}
+type SurveyAnswerEdge {
+  cursor: String!
+  node: SurveyAnswer!
+}
+"""
+Doctrine Entity For SurveyAnswer
+"""
+input SurveyAnswerInput {
+  """
+  The value of value
+  """
+  value: String!
+  """
+  The value of question
+  """
+  question: ID!
+  """
+  The value of score
+  """
+  score: Float
+  """
+  The value of scorePercent
+  """
+  scorePercent: Float
+  """
+  The value of session
+  """
+  session: ID!
+}
+"""
+Doctrine Entity For SurveyAnswer
+"""
+input SurveyAnswerPartialInput {
+  """
+  The value of value
+  """
+  value: String
+  """
+  The value of question
+  """
+  question: ID
+  """
+  The value of score
+  """
+  score: Float
+  """
+  The value of scorePercent
+  """
+  scorePercent: Float
+  """
+  The value of session
+  """
+  session: ID
+}
+input SurveyAnswerQuestionInput {
+  questionId: String!
+  value: String
+}
+"""
+Doctrine Entity For SurveyAnswerSession
+"""
+type SurveyAnswerSession {
+  """
+  The value of name
+  """
+  name: String
+  """
+  The value of username
+  """
+  username: String
+  """
+  The extern reference to the owner
+  """
+  ownerCode: String
+  """
+  The value of score
+  """
+  score: Float
+  scorePercent: Float
+  """
+  The value of answers
+  """
+  answers: [SurveyAnswer!]!
+  """
+  The value of targetAudience
+  """
+  targetAudience: SurveyTargetAudience!
+  """
+  The value of survey
+  """
+  survey: Survey!
+  """
+  The value of completed
+  """
+  completed: Boolean!
+  id: ID!
+  """
+  The value of created
+  """
+  created: DateTime!
+  """
+  The value of updated
+  """
+  updated: DateTime!
+}
+type SurveyAnswerSessionConnection {
+  totalCount: Int!
+  pageInfo: PageInfo
+  edges: [SurveyAnswerSessionEdge]!
+}
+type SurveyAnswerSessionEdge {
+  cursor: String!
+  node: SurveyAnswerSession!
+}
+
+"""
+Doctrine Entity For SurveyAnswerSession
+"""
+input SurveyAnswerSessionInput {
+  """
+  The value of name
+  """
+  name: String
+  """
+  The value of username
+  """
+  username: String
+  """
+  The value of password
+  """
+  password: String
+  """
+  The extern reference to the owner
+  """
+  ownerCode: String
+  score: Float
+  scorePercent: Float
+  """
+  The value of answers
+  """
+  answers: [SurveyAnswerQuestionInput!]
+  """
+  The value of targetAudience
+  """
+  targetAudience: ID!
+  """
+  The value of completed
+  """
+  completed: Boolean = false
+}
+"""
+Doctrine Entity For SurveyAnswerSession
+"""
+input SurveyAnswerSessionPartialInput {
+  """
+  The value of name
+  """
+  name: String
+  """
+  The value of username
+  """
+  username: String
+  """
+  The value of password
+  """
+  password: String
+  """
+  The extern reference to the owner
+  """
+  ownerCode: String
+  score: Float
+  scorePercent: Float
+  """
+  The value of answers
+  """
+  answers: [SurveyAnswerQuestionInput!]
+  """
+  The value of targetAudience
+  """
+  targetAudience: ID
+  """
+  The value of completed
+  """
+  completed: Boolean
+}
+"""
+Doctrine Entity For SurveyPresentation Guarda en formato JSON la configuración de la presentación para encuestas, secciones y preguntas opciones de preguntas, etc
+"""
+type SurveyConfiguration {
+  """
+  The value of value
+  """
+  value: SurveyConfigurationValue!
+  """
+  The value of type
+  """
+  type: SurveyConfigurationType!
+  id: ID!
+  """
+  The value of created
+  """
+  created: DateTime!
+  """
+  The value of updated
+  """
+  updated: DateTime!
+}
+type SurveyConfigurationConnection {
+  totalCount: Int!
+  pageInfo: PageInfo
+  edges: [SurveyConfigurationEdge]!
+}
+type SurveyConfigurationEdge {
+  cursor: String!
+  node: SurveyConfiguration!
+}
+"""
+Doctrine Entity For SurveyPresentation Guarda en formato JSON la configuración de la presentación para encuestas, secciones y preguntas opciones de preguntas, etc
+"""
+input SurveyConfigurationInput {
+  """
+  The value of value
+  """
+  value: SurveyConfigurationValue!
+  """
+  The value of type
+  """
+  type: SurveyConfigurationType!
+}
+"""
+Doctrine Entity For SurveyPresentation Guarda en formato JSON la configuración de la presentación para encuestas, secciones y preguntas opciones de preguntas, etc
+"""
+input SurveyConfigurationPartialInput {
+  """
+  The value of value
+  """
+  value: SurveyConfigurationValue
+  """
+  The value of type
+  """
+  type: SurveyConfigurationType
+}
+enum SurveyConfigurationType {
+  ANSWER_SCORE
+  CONDITION
+  PRESENTATION
+  VALIDATOR
+}
+"""
+JSON String
+"""
+scalar SurveyConfigurationValue
+type SurveyConnection {
+  totalCount: Int!
+  pageInfo: PageInfo
+  edges: [SurveyEdge]!
+}
+"""
+Doctrine Entity For Survey
+"""
+type SurveyContent {
+  """
+  The value of type
+  """
+  type: String!
+  """
+  The value of body
+  """
+  body: String
+  """
+  The value of presentation
+  """
+  presentation: SurveyConfiguration
+  id: ID!
+  """
+  The value of created
+  """
+  created: DateTime!
+  """
+  The value of updated
+  """
+  updated: DateTime!
+}
+type SurveyContentConnection {
+  totalCount: Int!
+  pageInfo: PageInfo
+  edges: [SurveyContentEdge]!
+}
+type SurveyContentEdge {
+  cursor: String!
+  node: SurveyContent!
+}
+
+"""
+Doctrine Entity For Survey
+"""
+input SurveyContentInput {
+  """
+  The value of type Combine ANY type with Presentation for custom
+  """
+  type: String!
+  """
+  The value of body
+  """
+  body: String!
+  """
+  The value of presentation
+  """
+  presentation: ID
+}
+"""
+Doctrine Entity For Survey
+"""
+input SurveyContentPartialInput {
+  """
+  The value of type Combine ANY type with Presentation for custom
+  """
+  type: String
+  """
+  The value of body
+  """
+  body: String
+  """
+  The value of presentation
+  """
+  presentation: ID
+}
+enum SurveyContentType {
+  DIVIDER
+  TEXT
+  HTML
+  IMAGE
+  VIDEO
+  AUDIO
+  ANY
+}
+type SurveyEdge {
+  cursor: String!
+  node: Survey!
+}
+
+"""
+Doctrine Entity For Survey
+"""
+input SurveyInput {
+  """
+  The value of title
+  """
+  title: String!
+  """
+  The value of active
+  """
+  active: Boolean!
+}
+"""
+Doctrine Entity For Survey
+"""
+input SurveyPartialInput {
+  """
+  The value of title
+  """
+  title: String
+  """
+  The value of active
+  """
+  active: Boolean
+}
+"""
+Doctrine Entity For SurveyQuestion
+"""
+type SurveyQuestion {
+  """
+  The value of title
+  """
+  title: String!
+  """
+  The value of code
+  """
+  code: String!
+  """
+  The value of type
+  """
+  type: String!
+  """
+  The value of required
+  """
+  required: Boolean!
+  """
+  The value of other
+  """
+  other: Boolean!
+  """
+  The value of options
+  """
+  options: [SurveyQuestionOption!]!
+  """
+  The value of content
+  """
+  content: SurveyContent
+  """
+  The value of presentation
+  """
+  presentation: SurveyConfiguration
+  """
+  Objeto SurveyConfiguration que tiene los puntajes por respuesta
+  """
+  answerScore: SurveyConfiguration
+  """
+  The value of score
+  """
+  score: Float
+  """
+  The value of survey
+  """
+  survey: Survey!
+  """
+  The value of validators
+  """
+  validators: SurveyConfiguration
+  """
+  The value of hint
+  """
+  hint: SurveyContent
+  id: ID!
+  """
+  The value of created
+  """
+  created: DateTime!
+  """
+  The value of updated
+  """
+  updated: DateTime!
+}
+type SurveyQuestionConnection {
+  totalCount: Int!
+  pageInfo: PageInfo
+  edges: [SurveyQuestionEdge]!
+}
+type SurveyQuestionEdge {
+  cursor: String!
+  node: SurveyQuestion!
+}
+
+"""
+Doctrine Entity For SurveyQuestion
+"""
+input SurveyQuestionInput {
+  """
+  The value of title
+  """
+  title: String!
+  """
+  The value of code
+  """
+  code: String!
+  """
+  The value of type CHECKBOX_LIST DATE DATE_RANGE DATETIME EMAIL FILE IMAGE NUMBER NUMBER_LIST ONE_LINE_TEXT PHONE RADIO_LIST SHORT_TEXT
+  """
+  type: String!
+  """
+  The value of required
+  """
+  required: Boolean!
+  """
+  The value of other
+  """
+  other: Boolean = false
+  """
+  The value of content
+  """
+  content: ID
+  """
+  The value of presentation
+  """
+  presentation: ID
+  """
+  Establece el objeto SurveyConfiguration que tiene los puntajes por respuesta
+  """
+  answerScore: ID
+  """
+  The value of score
+  """
+  score: Float
+  """
+  The value of survey
+  """
+  survey: ID!
+  """
+  The value of validators
+  """
+  validators: ID
+  """
+  The value of hint
+  """
+  hint: ID
+}
+"""
+No se agrega indice unico a question_id y option_value porque se tiene que reducir el length de la columna value a 255 Doctrine Entity For SurveyQuestionOption
+"""
+type SurveyQuestionOption {
+  """
+  The value of value
+  """
+  value: String!
+  """
+  The value of title
+  """
+  title: String!
+  """
+  The value of order
+  """
+  order: Int!
+  """
+  The value of content
+  """
+  content: SurveyContent
+  """
+  The value of presentation
+  """
+  presentation: SurveyConfiguration
+  """
+  The value of question
+  """
+  question: SurveyQuestion!
+  id: ID!
+  """
+  The value of created
+  """
+  created: DateTime!
+  """
+  The value of updated
+  """
+  updated: DateTime!
+}
+type SurveyQuestionOptionConnection {
+  totalCount: Int!
+  pageInfo: PageInfo
+  edges: [SurveyQuestionOptionEdge]!
+}
+type SurveyQuestionOptionEdge {
+  cursor: String!
+  node: SurveyQuestionOption!
+}
+"""
+No se agrega indice unico a question_id y option_value porque se tiene que reducir el length de la columna value a 255 Doctrine Entity For SurveyQuestionOption
+"""
+input SurveyQuestionOptionInput {
+  """
+  The value of value
+  """
+  value: String!
+  """
+  The value of title
+  """
+  title: String!
+  """
+  The value of order
+  """
+  order: Int!
+  """
+  The value of content
+  """
+  content: ID
+  """
+  The value of presentation
+  """
+  presentation: ID
+  """
+  The value of question
+  """
+  question: ID!
+}
+"""
+No se agrega indice unico a question_id y option_value porque se tiene que reducir el length de la columna value a 255 Doctrine Entity For SurveyQuestionOption
+"""
+input SurveyQuestionOptionPartialInput {
+  """
+  The value of value
+  """
+  value: String
+  """
+  The value of title
+  """
+  title: String
+  """
+  The value of order
+  """
+  order: Int
+  """
+  The value of content
+  """
+  content: ID
+  """
+  The value of presentation
+  """
+  presentation: ID
+  """
+  The value of question
+  """
+  question: ID
+}
+"""
+Doctrine Entity For SurveyQuestion
+"""
+input SurveyQuestionPartialInput {
+  """
+  The value of title
+  """
+  title: String
+  """
+  The value of code
+  """
+  code: String
+  """
+  The value of type CHECKBOX_LIST DATE DATE_RANGE DATETIME EMAIL FILE IMAGE NUMBER NUMBER_LIST ONE_LINE_TEXT PHONE RADIO_LIST SHORT_TEXT
+  """
+  type: String
+  """
+  The value of required
+  """
+  required: Boolean
+  """
+  The value of other
+  """
+  other: Boolean
+  """
+  The value of content
+  """
+  content: ID
+  """
+  The value of presentation
+  """
+  presentation: ID
+  """
+  Establece el objeto SurveyConfiguration que tiene los puntajes por respuesta
+  """
+  answerScore: ID
+  """
+  The value of score
+  """
+  score: Float
+  """
+  The value of survey
+  """
+  survey: ID
+  """
+  The value of validators
+  """
+  validators: ID
+  """
+  The value of hint
+  """
+  hint: ID
+}
+"""
+Doctrine Entity For SurveySection No se agregar indice único relacionado con el orden podria ocacionar conflictos en el procesos build
+"""
+type SurveySection {
+  """
+  The value of title
+  """
+  title: String!
+  """
+  The value of content
+  """
+  content: SurveyContent
+  """
+  The value of items
+  """
+  items: [SurveySectionItem!]!
+  """
+  The value of order
+  """
+  order: Int!
+  hidden: Boolean!
+  """
+  The value of presentation
+  """
+  presentation: SurveyConfiguration
+  """
+  The value of survey
+  """
+  survey: Survey!
+  id: ID!
+  """
+  The value of created
+  """
+  created: DateTime!
+  """
+  The value of updated
+  """
+  updated: DateTime!
+}
+type SurveySectionConnection {
+  totalCount: Int!
+  pageInfo: PageInfo
+  edges: [SurveySectionEdge]!
+}
+type SurveySectionEdge {
+  cursor: String!
+  node: SurveySection!
+}
+
+"""
+Doctrine Entity For SurveySection No se agregar indice único relacionado con el orden podria ocacionar conflictos en el procesos build
+"""
+input SurveySectionInput {
+  """
+  The value of title
+  """
+  title: String!
+  """
+  The value of content
+  """
+  content: ID
+  """
+  The value of order
+  """
+  order: Int!
+  hidden: Boolean!
+  """
+  The value of presentation
+  """
+  presentation: ID
+  """
+  The value of survey
+  """
+  survey: ID!
+}
+"""
+Doctrine Entity For SurveySectionItem No se agregar indice único relacionado con el orden podria ocacionar conflictos en el procesos build
+"""
+type SurveySectionItem {
+  """
+  The value of type
+  """
+  type: SurveySectionItemType!
+  """
+  The value of order
+  """
+  order: Int!
+  """
+  The value of conditions
+  """
+  conditions: SurveyConfiguration
+  """
+  The value of question
+  """
+  question: SurveyQuestion
+  """
+  The value of content
+  """
+  content: SurveyContent
+  """
+  The value of section
+  """
+  section: SurveySection!
+  """
+  Hidden
+  """
+  hidden: Boolean!
+  id: ID!
+  """
+  The value of created
+  """
+  created: DateTime!
+  """
+  The value of updated
+  """
+  updated: DateTime!
+}
+type SurveySectionItemConnection {
+  totalCount: Int!
+  pageInfo: PageInfo
+  edges: [SurveySectionItemEdge]!
+}
+type SurveySectionItemEdge {
+  cursor: String!
+  node: SurveySectionItem!
+}
+"""
+Doctrine Entity For SurveySectionItem No se agregar indice único relacionado con el orden podria ocacionar conflictos en el procesos build
+"""
+input SurveySectionItemInput {
+  """
+  The value of type
+  """
+  type: SurveySectionItemType!
+  """
+  The value of order
+  """
+  order: Int!
+  """
+  The value of conditions
+  """
+  conditions: ID
+  """
+  The value of question
+  """
+  question: ID
+  """
+  The value of content
+  """
+  content: ID
+  """
+  The value of section
+  """
+  section: ID!
+  """
+  Hidden
+  """
+  hidden: Boolean!
+}
+"""
+Doctrine Entity For SurveySectionItem No se agregar indice único relacionado con el orden podria ocacionar conflictos en el procesos build
+"""
+input SurveySectionItemPartialInput {
+  """
+  The value of type
+  """
+  type: SurveySectionItemType
+  """
+  The value of order
+  """
+  order: Int
+  """
+  The value of conditions
+  """
+  conditions: ID
+  """
+  The value of question
+  """
+  question: ID
+  """
+  The value of content
+  """
+  content: ID
+  """
+  The value of section
+  """
+  section: ID
+  """
+  Hidden
+  """
+  hidden: Boolean
+}
+enum SurveySectionItemType {
+  CONTENT
+  QUESTION
+}
+"""
+Doctrine Entity For SurveySection No se agregar indice único relacionado con el orden podria ocacionar conflictos en el procesos build
+"""
+input SurveySectionPartialInput {
+  """
+  The value of title
+  """
+  title: String
+  """
+  The value of content
+  """
+  content: ID
+  """
+  The value of order
+  """
+  order: Int
+  hidden: Boolean
+  """
+  The value of presentation
+  """
+  presentation: ID
+  """
+  The value of survey
+  """
+  survey: ID
+}
+"""
+Doctrine Entity For SurveyTargetAudience
+"""
+type SurveyTargetAudience {
+  """
+  The value of title
+  """
+  title: String!
+  """
+  The value of starts
+  """
+  starts: DateTime
+  """
+  The value of ends
+  """
+  ends: DateTime
+  """
+  The value of welcome
+  """
+  welcome: SurveyContent
+  """
+  The value of farewell
+  """
+  farewell: SurveyContent
+  """
+  The value of attempts
+  """
+  attempts: Int
+  """
+  The value of survey
+  """
+  survey: Survey!
+  """
+  The value of presentation
+  """
+  presentation: SurveyConfiguration
+  id: ID!
+  """
+  The value of created
+  """
+  created: DateTime!
+  """
+  The value of updated
+  """
+  updated: DateTime!
+}
+type SurveyTargetAudienceConnection {
+  totalCount: Int!
+  pageInfo: PageInfo
+  edges: [SurveyTargetAudienceEdge]!
+}
+type SurveyTargetAudienceEdge {
+  cursor: String!
+  node: SurveyTargetAudience!
+}
+"""
+Doctrine Entity For SurveyTargetAudience
+"""
+input SurveyTargetAudienceInput {
+  """
+  The value of title
+  """
+  title: String!
+  """
+  The value of starts
+  """
+  starts: DateTime
+  """
+  The value of ends
+  """
+  ends: DateTime
+  """
+  The value of welcome
+  """
+  welcome: ID
+  """
+  The value of farewell
+  """
+  farewell: ID
+  """
+  The value of attempts
+  """
+  attempts: Int
+  """
+  The value of survey
+  """
+  survey: ID!
+  """
+  The value of presentation
+  """
+  presentation: ID
+  """
+  The value of password
+  """
+  password: String
+}
+"""
+Doctrine Entity For SurveyTargetAudience
+"""
+input SurveyTargetAudiencePartialInput {
+  """
+  The value of title
+  """
+  title: String
+  """
+  The value of starts
+  """
+  starts: DateTime
+  """
+  The value of ends
+  """
+  ends: DateTime
+  """
+  The value of welcome
+  """
+  welcome: ID
+  """
+  The value of farewell
+  """
+  farewell: ID
+  """
+  The value of attempts
+  """
+  attempts: Int
+  """
+  The value of survey
+  """
+  survey: ID
+  """
+  The value of presentation
+  """
+  presentation: ID
+  """
+  The value of password
+  """
+  password: String
+}

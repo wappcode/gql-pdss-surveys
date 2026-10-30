@@ -2,25 +2,16 @@
 
 namespace GPDSurvey\Entities;
 
-use GPDCore\Entities\AbstractEntityModel;
 use GPDSurvey\Entities\SurveyContent;
 use GPDSurvey\Entities\SurveyQuestion;
-use Doctrine\ORM\Mapping as ORM;
 use GraphQL\Doctrine\Annotation as API;
 
-/**
- * No se agrega indice unico a question_id y option_value porque se tiene que reducir el length de la columna value a 255
- * 
- * Doctrine Entity For SurveyQuestionOption
- * @ORM\Entity()
- * @ORM\Table(name="gpd_survey_question_option", indexes={
- * @ORM\Index(name="user_created_idx",columns={"created"}),
- * @ORM\Index(name="user_updated_idx",columns={"updated"})
- * })
- * 
- */
-class SurveyQuestionOption  extends AbstractEntityModel
+class SurveyQuestionOption
 {
+    protected $id;
+    protected $created;
+    protected $updated;
+
     const RELATIONS_MANY_TO_ONE = ['content', 'presentation', 'question'];
     /**
      * @ORM\Column(type="string", length="5000", name="option_value", nullable=false) 

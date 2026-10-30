@@ -1,3 +1,4 @@
 dev/    export-ignore
 cli-config.php export-ignore
 dockerfiles_gqlpdsssurvey_php7_apache2_mysql8 export-ignore
+AGENTS.md export-ignore

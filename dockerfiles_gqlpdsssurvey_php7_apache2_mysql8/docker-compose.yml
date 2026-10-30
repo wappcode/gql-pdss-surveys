@@ -1,5 +1,5 @@
 version: '3.7'
-services: 
+services:
   gqlpdsssurvey-mysql:
     container_name: gqlpdsssurvey-mysql8
     image: mysql:8.0.28
@@ -9,29 +9,28 @@ services:
       MYSQL_ROOT_PASSWORD: ${GQLPDSSSURVEY_DBPASSWORD:-dbpassword}
     ports:
       - "${GQLPDSSSURVEY_MYSQL_PORT:-3308}:3306"
-    platform: linux/x86_64
+    platform: linux/amd64
     volumes:
       - ~/opt/dockerMysql8.0.28:/var/lib/mysql
     healthcheck:
-            test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
-            timeout: 5s
-            retries: 60
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost" ]
+      timeout: 5s
+      retries: 60
   gqlpdsssurvey-php:
     depends_on:
       gqlpdsssurvey-mysql:
         condition: service_healthy
-    container_name: gqlpdsssurvey-php7.4
-    image: jesusabarcag/php-dev:php7.4
-    volumes: 
+    container_name: gqlpdsssurvey-php
+    image: jesusabarcag/php-dev:8.3
+    volumes:
       - ..:/var/www/html
       - ./sites-enabled:/etc/apache2/sites-enabled
       - ./xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
       - ./commands:/home/commands
-    ports: 
-      - "${GQLPDSSSURVEY_APP_PORT:-8080}:8080"
+    ports:
+      - "${GQLPDSSSURVEY_APP_PORT:-8080}:80"
     entrypoint: sh -c "/home/commands/run.sh"
     restart: "no"
-    platform: linux/x86_64
     environment:
       - GQLPDSSSURVEY_APP_PORT=${GQLPDSSSURVEY_APP_PORT:-8080}
       - GQLPDSSSURVEY_DBUSER=${GQLPDSSSURVEY_DBUSER:-root}

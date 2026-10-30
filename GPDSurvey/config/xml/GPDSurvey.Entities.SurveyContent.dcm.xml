@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                                      https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="GPDSurvey\Entities\SurveyContent" table="gpd_survey_content">
+        <indexes>
+            <index name="user_created_idx" columns="created"/>
+            <index name="user_updated_idx" columns="updated"/>
+        </indexes>
+
+        <id name="id" type="integer" column="id">
+            <generator strategy="AUTO"/>
+        </id>
+
+        <field name="type" column="config_type" type="string" nullable="false"/>
+        <field name="body" column="body" type="text" nullable="true"/>
+        <field name="created" column="created" type="datetimetz_immutable" nullable="false"/>
+        <field name="updated" column="updated" type="datetimetz_immutable" nullable="false"/>
+
+        <many-to-one field="presentation" target-entity="GPDSurvey\Entities\SurveyConfiguration" fetch="LAZY">
+            <join-column name="presentation_id" referenced-column-name="id" nullable="true"/>
+        </many-to-one>
+    </entity>
+</doctrine-mapping>

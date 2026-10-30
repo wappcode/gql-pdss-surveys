@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                                      https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="GPDSurvey\Entities\Survey" table="gpd_survey">
+        <indexes>
+            <index name="user_created_idx" columns="created"/>
+            <index name="user_updated_idx" columns="updated"/>
+        </indexes>
+
+        <id name="id" type="string" column="id" length="27">
+            <generator strategy="CUSTOM"/>
+            <custom-id-generator class="PDSSUtilities\DoctrineUlidGenerator"/>
+        </id>
+
+        <field name="title" column="title" type="string" nullable="false"/>
+        <field name="active" column="active" type="boolean" nullable="false"/>
+        <field name="created" column="created" type="datetimetz_immutable" nullable="false"/>
+        <field name="updated" column="updated" type="datetimetz_immutable" nullable="false"/>
+
+        <one-to-many field="targetAudiences" target-entity="GPDSurvey\Entities\SurveyTargetAudience" mapped-by="survey"/>
+        <one-to-many field="questions" target-entity="GPDSurvey\Entities\SurveyQuestion" mapped-by="survey"/>
+        <one-to-many field="sections" target-entity="GPDSurvey\Entities\SurveySection" mapped-by="survey"/>
+    </entity>
+</doctrine-mapping>

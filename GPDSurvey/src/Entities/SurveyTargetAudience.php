@@ -6,23 +6,16 @@ use DateTime;
 use DateTimeImmutable;
 use DateTimeInterface;
 use GPDSurvey\Entities\Survey;
-use Doctrine\ORM\Mapping as ORM;
 use GPDSurvey\Entities\SurveyContent;
 use GraphQL\Doctrine\Annotation as API;
 use GPDSurvey\Entities\SurveyConfiguration;
-use GPDCore\Entities\AbstractEntityModelStringId;
 
-/**
- * Doctrine Entity For SurveyTargetAudience
- * @ORM\Entity()
- * @ORM\Table(name="gpd_survey_target_audience", indexes={
- * @ORM\Index(name="user_created_idx",columns={"created"}),
- * @ORM\Index(name="user_updated_idx",columns={"updated"})
- * })
- * 
- */
-class SurveyTargetAudience  extends AbstractEntityModelStringId
+class SurveyTargetAudience
 {
+    protected $id;
+    protected $created;
+    protected $updated;
+
     const RELATIONS_MANY_TO_ONE = ['welcome', 'farewell', 'survey', 'presentation'];
     /**
      * @ORM\Column(type="string", name="title", nullable=false) 

@@ -8,5 +8,6 @@ return [
         'host'   =>     getenv('GQLPDSSSURVEY_DBHOST') ? getenv('GQLPDSSSURVEY_DBHOST') : 'localhost',
         'charset' =>    'utf8mb4'
     ],
-    "entities" => require __DIR__ . "/doctrine.entities.php"
+    "entities" => require __DIR__ . "/doctrine.entities.php",
+    "xml" => require __DIR__ . "/doctrine.xml.php"
 ];

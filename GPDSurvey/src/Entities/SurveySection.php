@@ -3,26 +3,16 @@
 namespace GPDSurvey\Entities;
 
 use GPDSurvey\Entities\SurveyContent;
-use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
-use GPDCore\Entities\AbstractEntityModelStringId;
 use Doctrine\Common\Collections\ArrayCollection;
 use GraphQL\Doctrine\Annotation as API;
 
-/**
- * Doctrine Entity For SurveySection
- * No se agregar indice único relacionado con el orden podria ocacionar conflictos en el procesos build
- * 
- * @ORM\Entity()
- * @ORM\Table(name="gpd_survey_section", indexes={
- * @ORM\Index(name="user_created_idx",columns={"created"}),
- * @ORM\Index(name="user_updated_idx",columns={"updated"})
- * }
- * )
- * 
- */
-class SurveySection  extends AbstractEntityModelStringId
+class SurveySection
 {
+    protected $id;
+    protected $created;
+    protected $updated;
+
     const RELATIONS_MANY_TO_ONE = ['survey', 'content', 'presentation'];
     /**
      * @ORM\Column(type="string", name="title", nullable=false) 
@@ -74,7 +64,8 @@ class SurveySection  extends AbstractEntityModelStringId
 
     public function __construct()
     {
-        parent::__construct();
+        $this->created = new \DateTimeImmutable();
+        $this->updated = new \DateTimeImmutable();
         $this->items = new ArrayCollection();
         $this->hidden = false;
     }

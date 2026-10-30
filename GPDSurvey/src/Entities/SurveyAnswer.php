@@ -2,27 +2,14 @@
 
 namespace GPDSurvey\Entities;
 
-use Doctrine\ORM\Mapping as ORM;
-use GPDCore\Entities\AbstractEntityModel;
 use GraphQL\Doctrine\Annotation as API;
 
-/**
- * Doctrine Entity For SurveyAnswer
- * @ORM\Entity()
- * @ORM\Table(name="gpd_survey_answer", indexes={
- * @ORM\Index(name="user_created_idx",columns={"created"}),
- * @ORM\Index(name="user_updated_idx",columns={"updated"})
- * },
- * uniqueConstraints ={
- * @ORM\UniqueConstraint(name="answer_session_question", 
- * columns={"session_id", "question_id"})
- * }
- * 
- * )
- * 
- */
-class SurveyAnswer  extends AbstractEntityModel
+class SurveyAnswer
 {
+    protected $id;
+    protected $created;
+    protected $updated;
+
     const RELATIONS_MANY_TO_ONE = ['question', 'session'];
     /**
      * @ORM\Column(type="text", name="answer_value", nullable=true) 

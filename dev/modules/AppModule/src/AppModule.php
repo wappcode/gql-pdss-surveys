@@ -2,7 +2,7 @@
 
 namespace AppModule;
 
-use GPDCore\Library\AbstractModule;
+use GPDCore\Core\AbstractModule;
 use GraphQL\Type\Definition\Type;
 
 class AppModule extends AbstractModule
@@ -17,7 +17,11 @@ class AppModule extends AbstractModule
     {
         return require(__DIR__ . '/../config/module.config.php');
     }
-    function getServicesAndGQLTypes(): array
+    function getSchema(): string
+    {
+        return file_get_contents(__DIR__ . '/../config/gql-pdss.graphqls') ?: '';
+    }
+    function getServices(): array
     {
         return [
             'invokables' => [],
@@ -34,32 +38,28 @@ class AppModule extends AbstractModule
     {
         return [];
     }
-    /**
-     * Array con los graphql Queries del módulo
-     *
-     * @return array
-     */
-    function getQueryFields(): array
+    public function getMiddlewares(): array
     {
-        return [
-            'echo' =>  [
-                'type' => Type::nonNull(Type::string()),
-                'args' => [
-                    'message' => Type::nonNull(Type::string())
-                ],
 
-                'resolve' => function ($root, $args) {
-                    return $args["message"];
-                }
-            ],
-        ];
+        return [];
     }
     /**
-     * Array con los graphql mutations del módulo
+     * Array con los tipos scalar graphql del módulo. El indice se utiliza como nombre del tipo.
      *
-     * @return array
+     * @return array<string, ScalarType | class-string<ScalarType>>
      */
-    function getMutationFields(): array
+    public function getTypes(): array
+    {
+
+
+        return [];
+    }
+    /**
+     * Array con las rutas REST del módulo. El indice se utiliza como path de la ruta.
+     *
+     * @return array<GPDCore\Routing\RouteModel>
+     */
+    public function getRoutes(): array
     {
         return [];
     }

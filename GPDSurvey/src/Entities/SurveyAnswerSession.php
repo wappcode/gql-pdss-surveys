@@ -3,24 +3,15 @@
 namespace GPDSurvey\Entities;
 
 use Doctrine\Common\Collections\Collection;
-use GPDCore\Entities\AbstractEntityModelStringId;
 use Doctrine\Common\Collections\ArrayCollection;
 use GraphQL\Doctrine\Annotation as API;
-use Doctrine\ORM\Mapping as ORM;
 
-/**
- * Doctrine Entity For SurveyAnswerSession
- * @ORM\Entity()
- * @ORM\Table(name="gpd_survey_answer_session", indexes={
- * @ORM\Index(name="user_created_idx",columns={"created"}),
- * @ORM\Index(name="user_updated_idx",columns={"updated"}),
- * }, uniqueConstraints={
- * @ORM\UniqueConstraint(name="username", columns={"target_audience_id","username"})
- * })
- * 
- */
-class SurveyAnswerSession  extends AbstractEntityModelStringId
+class SurveyAnswerSession
 {
+    protected $id;
+    protected $created;
+    protected $updated;
+
     const RELATIONS_MANY_TO_ONE = ['targetAudience', 'survey'];
     /**
      * @ORM\Column(type="string", length=500, name="name", nullable=true) 
@@ -86,7 +77,8 @@ class SurveyAnswerSession  extends AbstractEntityModelStringId
 
     public function __construct()
     {
-        parent::__construct();
+        $this->created = new \DateTimeImmutable();
+        $this->updated = new \DateTimeImmutable();
         $this->answers = new ArrayCollection();
         $this->completed = false;
     }

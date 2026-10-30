@@ -2,21 +2,14 @@
 
 namespace GPDSurvey\Entities;
 
-use Doctrine\ORM\Mapping as ORM;
-use GPDCore\Entities\AbstractEntityModel;
 use GraphQL\Doctrine\Annotation as API;
 
-/**
- * Doctrine Entity For Survey
- * @ORM\Entity()
- * @ORM\Table(name="gpd_survey_content", indexes={
- * @ORM\Index(name="user_created_idx",columns={"created"}),
- * @ORM\Index(name="user_updated_idx",columns={"updated"})
- * })
- * 
- */
-class SurveyContent  extends AbstractEntityModel
+class SurveyContent
 {
+    protected $id;
+    protected $created;
+    protected $updated;
+
     const RELATIONS_MANY_TO_ONE = ['presentation'];
 
 

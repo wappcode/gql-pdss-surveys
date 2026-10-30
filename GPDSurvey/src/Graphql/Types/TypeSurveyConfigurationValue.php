@@ -9,7 +9,7 @@ use GraphQL\Error\Error;
 use GraphQL\Utils\Utils;
 use GraphQL\Type\Definition\ScalarType;
 use GraphQL\Language\AST\StringValueNode;
-
+//TODO: Ajustar a la nueva version
 final class TypeSurveyConfigurationValue extends ScalarType
 {
     const NAME = 'SurveyConfigurationValue';

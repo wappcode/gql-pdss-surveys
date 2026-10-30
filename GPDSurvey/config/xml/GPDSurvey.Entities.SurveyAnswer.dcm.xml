@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                                      https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="GPDSurvey\Entities\SurveyAnswer" table="gpd_survey_answer">
+        <indexes>
+            <index name="user_created_idx" columns="created"/>
+            <index name="user_updated_idx" columns="updated"/>
+        </indexes>
+        <unique-constraints>
+            <unique-constraint name="answer_session_question" columns="session_id,question_id"/>
+        </unique-constraints>
+
+        <id name="id" type="integer" column="id">
+            <generator strategy="AUTO"/>
+        </id>
+
+        <field name="value" column="answer_value" type="text" nullable="true"/>
+        <field name="score" column="score" type="decimal" precision="10" scale="4" nullable="true"/>
+        <field name="scorePercent" column="score_percent" type="decimal" precision="8" scale="4" nullable="true"/>
+        <field name="created" column="created" type="datetimetz_immutable" nullable="false"/>
+        <field name="updated" column="updated" type="datetimetz_immutable" nullable="false"/>
+
+        <many-to-one field="question" target-entity="GPDSurvey\Entities\SurveyQuestion" fetch="LAZY">
+            <join-column name="question_id" referenced-column-name="id" nullable="false"/>
+        </many-to-one>
+
+        <many-to-one field="session" target-entity="GPDSurvey\Entities\SurveyAnswerSession" inversed-by="answers" fetch="LAZY">
+            <join-column name="session_id" referenced-column-name="id" nullable="false"/>
+        </many-to-one>
+    </entity>
+</doctrine-mapping>

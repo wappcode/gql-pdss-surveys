@@ -2,24 +2,14 @@
 
 namespace GPDSurvey\Entities;
 
-use GPDCore\Entities\AbstractEntityModel;
-use Doctrine\ORM\Mapping as ORM;
 use GraphQL\Doctrine\Annotation as API;
 
-/**
- * Doctrine Entity For SurveyPresentation
- * 
- * Guarda en formato JSON la configuración de la presentación para encuestas, secciones y preguntas opciones de preguntas, etc
- * 
- * @ORM\Entity()
- * @ORM\Table(name="gpd_survey_configuration", indexes={
- * @ORM\Index(name="user_created_idx",columns={"created"}),
- * @ORM\Index(name="user_updated_idx",columns={"updated"})
- * })
- * 
- */
-class SurveyConfiguration  extends AbstractEntityModel
+class SurveyConfiguration
 {
+    protected $id;
+    protected $created;
+    protected $updated;
+
     const RELATIONS_MANY_TO_ONE = [];
 
 
