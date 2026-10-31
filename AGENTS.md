@@ -1,30 +1,30 @@
 # AGENTS.md
 
 ## Repo shape
-- This is a Composer PHP library, not an app with npm scripts or a test runner. The package is `wappcode/gql-pdss-surveys` in `composer.json`.
+- This repo is a Composer PHP library package: `wappcode/gql-pdss-surveys` (`composer.json`). It is not a Node app and does not define npm/test scripts.
 - PSR-4 autoloading maps `GPDSurvey\` to `GPDSurvey/src/`.
-- Main module entrypoint is `GPDSurvey/src/GPDSurveyModule.php`; GraphQL types, resolvers, and query/mutation registration live there.
-- The local/demo app lives under `dev/`; `dev/public/index.php` bootstraps `GPDSurveyModule` and `AppModule` via `GPDApp`.
+- The library entrypoint is `GPDSurvey/src/GPDSurveyModule.php`; it loads the GraphQL schema from `GPDSurvey/config/gql-pdss.graphqls` and registers query resolvers there.
+- The demo app wiring lives in `dev/`; `dev/public/index.php` boots the module stack via `GPDApp`.
 
-## Local dev / config
-- Doctrine config is loaded from `dev/config/doctrine.local.php` and reads DB settings from environment variables:
-  - `GQLPDSSSURVEY_DBUSER` (default: `root`)
-  - `GQLPDSSSURVEY_DBPASSWORD` (default: `dbpassword`)
-  - `GQLPDSSSURVEY_DBNAME` (default: `gqlpdss_surveydb`)
-  - `GQLPDSSSURVEY_DBHOST` (default: `localhost`)
-- Doctrine entity paths are in `dev/config/doctrine.entities.php`; they include both `AppModule\Entities` and `GPDSurvey\Entities`.
-- `GPDSurvey/config/module.config.php` defines `survey_upload_file_dir` and `app_upload_dir`; `app_upload_dir` must be overridden in the app config to a real upload directory like `public/uploads`.
+## Local setup and config
+- Doctrine settings are loaded from `dev/config/doctrine.local.php`; they read env vars:
+  - `GQLPDSSSURVEY_DBUSER` (default `root`)
+  - `GQLPDSSSURVEY_DBPASSWORD` (default `dbpassword`)
+  - `GQLPDSSSURVEY_DBNAME` (default `gqlpdss_surveydb`)
+  - `GQLPDSSSURVEY_DBHOST` (default `localhost`)
+- Entity paths are declared in `dev/config/doctrine.entities.php`; if you add/change entities, update both the app entity list and the GraphQL module registration.
+- `GPDSurvey/config/module.config.php` defines `survey_upload_file_dir` and `app_upload_dir`; `app_upload_dir` must be overridden in the consuming app to a real writable upload path such as `public/uploads`.
 
-## Commands that matter here
-- Refresh Composer autoloading after structure or namespace changes:
+## Commands that matter
+- Refresh Composer autoloading after namespace/structure changes:
   - `composer dump-autoload -o`
-- Inspect Doctrine schema changes without altering the DB:
+- Preview Doctrine schema changes without modifying the DB:
   - `vendor/bin/doctrine orm:schema-tool:update --dump-sql`
-- Apply the schema directly to the configured DB:
+- Apply the schema to the configured database:
   - `vendor/bin/doctrine orm:schema-tool:update --force`
-- There is no repo-defined lint/test/build task list in this project; do not invent JS/PHP package commands. This repo’s executable source of truth is Composer + Doctrine config.
+- There is no repo-defined lint/test/build task list; do not invent JS/PHP package commands. The executable source of truth here is Composer + Doctrine config.
 
-## Architecture notes
-- If you add or change entities, also review `dev/config/doctrine.entities.php` and any GraphQL registration in `GPDSurvey/src/GPDSurveyModule.php`.
-- The README is focused on consuming this package in another app and shows how to add it as a Composer dependency and register the entity path.
-- This repository is a library module for survey functionality; the app wiring and environment-specific setup live in `dev/`, not in the library root.
+## Change safety
+- If you add or change Doctrine entities, also review `dev/config/doctrine.entities.php` and `GPDSurvey/src/GPDSurveyModule.php`.
+- The README is written for consuming this package in another app (Composer dependency + entity path registration); it is not the app runtime for this repo.
+- Keep app-specific wiring in `dev/`; the library module itself is in `GPDSurvey/`.

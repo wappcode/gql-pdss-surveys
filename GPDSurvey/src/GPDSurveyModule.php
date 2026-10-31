@@ -16,6 +16,16 @@ use GPDSurvey\Infrastructure\Doctrine\Entities\SurveySectionItem;
 use GPDSurvey\Infrastructure\Doctrine\Entities\SurveyTargetAudience;
 use GPDSurvey\Graphql\FieldFindAnswerSessionByOwnerCode;
 use GPDSurvey\Graphql\FieldFindAnswerSessionByUsernameAndPassword;
+use GPDSurvey\Infrastructure\Doctrine\Entities\DoctrineSurvey;
+use GPDSurvey\Infrastructure\Doctrine\Entities\DoctrineSurveyAnswer;
+use GPDSurvey\Infrastructure\Doctrine\Entities\DoctrineSurveyAnswerSession;
+use GPDSurvey\Infrastructure\Doctrine\Entities\DoctrineSurveyConfiguration;
+use GPDSurvey\Infrastructure\Doctrine\Entities\DoctrineSurveyContent;
+use GPDSurvey\Infrastructure\Doctrine\Entities\DoctrineSurveyQuestion;
+use GPDSurvey\Infrastructure\Doctrine\Entities\DoctrineSurveyQuestionOption;
+use GPDSurvey\Infrastructure\Doctrine\Entities\DoctrineSurveySection;
+use GPDSurvey\Infrastructure\Doctrine\Entities\DoctrineSurveySectionItem;
+use GPDSurvey\Infrastructure\Doctrine\Entities\DoctrineSurveyTargetAudience;
 
 class GPDSurveyModule extends AbstractModule
 {
@@ -50,26 +60,26 @@ class GPDSurveyModule extends AbstractModule
     function getResolvers(): array
     {
         return [
-            'Query::getSurveys' => ResolverFactory::forConnection(Survey::class),
-            'Query::getSurvey' => ResolverFactory::forItem(Survey::class,),
-            'Query::getSurveyTargetAudiences' => ResolverFactory::forConnection(SurveyTargetAudience::class),
-            'Query::getSurveyTargetAudience' => ResolverFactory::forItem(SurveyTargetAudience::class,),
-            'Query::getSurveyAnswers' => ResolverFactory::forConnection(SurveyAnswer::class),
-            'Query::getSurveyAnswer' => ResolverFactory::forItem(SurveyAnswer::class,),
-            'Query::getSurveyConfigurations' => ResolverFactory::forConnection(SurveyConfiguration::class),
-            'Query::getSurveyConfiguration' => ResolverFactory::forItem(SurveyConfiguration::class,),
-            'Query::getSurveyContents' => ResolverFactory::forConnection(SurveyContent::class),
-            'Query::getSurveyContent' => ResolverFactory::forItem(SurveyContent::class,),
-            'Query::getSurveyQuestions' => ResolverFactory::forConnection(SurveyQuestion::class),
-            'Query::getSurveyQuestion' => ResolverFactory::forItem(SurveyQuestion::class,),
-            'Query::getSurveyQuestionOptions' => ResolverFactory::forConnection(SurveyQuestionOption::class),
-            'Query::getSurveyQuestionOption' => ResolverFactory::forItem(SurveyQuestionOption::class,),
-            'Query::getSurveySections' => ResolverFactory::forConnection(SurveySection::class),
-            'Query::getSurveySection' => ResolverFactory::forItem(SurveySection::class,),
-            'Query::getSurveySectionItems' => ResolverFactory::forConnection(SurveySectionItem::class),
-            'Query::getSurveySectionItem' => ResolverFactory::forItem(SurveySectionItem::class,),
-            'Query::getSurveyAnswerSessions' => ResolverFactory::forConnection(SurveyAnswerSession::class),
-            'Query::getSurveyAnswerSession' => ResolverFactory::forItem(SurveyAnswerSession::class,),
+            'Query::getSurveys' => ResolverFactory::forConnection(DoctrineSurvey::class),
+            'Query::getSurvey' => ResolverFactory::forItem(DoctrineSurvey::class,),
+            'Query::getSurveyTargetAudiences' => ResolverFactory::forConnection(DoctrineSurveyTargetAudience::class),
+            'Query::getSurveyTargetAudience' => ResolverFactory::forItem(DoctrineSurveyTargetAudience::class,),
+            'Query::getSurveyAnswers' => ResolverFactory::forConnection(DoctrineSurveyAnswer::class),
+            'Query::getSurveyAnswer' => ResolverFactory::forItem(DoctrineSurveyAnswer::class,),
+            'Query::getSurveyConfigurations' => ResolverFactory::forConnection(DoctrineSurveyConfiguration::class),
+            'Query::getSurveyConfiguration' => ResolverFactory::forItem(DoctrineSurveyConfiguration::class,),
+            'Query::getSurveyContents' => ResolverFactory::forConnection(DoctrineSurveyContent::class),
+            'Query::getSurveyContent' => ResolverFactory::forItem(DoctrineSurveyContent::class,),
+            'Query::getSurveyQuestions' => ResolverFactory::forConnection(DoctrineSurveyQuestion::class),
+            'Query::getSurveyQuestion' => ResolverFactory::forItem(DoctrineSurveyQuestion::class,),
+            'Query::getSurveyQuestionOptions' => ResolverFactory::forConnection(DoctrineSurveyQuestionOption::class),
+            'Query::getSurveyQuestionOption' => ResolverFactory::forItem(DoctrineSurveyQuestionOption::class,),
+            'Query::getSurveySections' => ResolverFactory::forConnection(DoctrineSurveySection::class),
+            'Query::getSurveySection' => ResolverFactory::forItem(DoctrineSurveySection::class,),
+            'Query::getSurveySectionItems' => ResolverFactory::forConnection(DoctrineSurveySectionItem::class),
+            'Query::getSurveySectionItem' => ResolverFactory::forItem(DoctrineSurveySectionItem::class,),
+            'Query::getSurveyAnswerSessions' => ResolverFactory::forConnection(DoctrineSurveyAnswerSession::class),
+            'Query::getSurveyAnswerSession' => ResolverFactory::forItem(DoctrineSurveyAnswerSession::class,),
             // 'findSurveyAnswerSessionByUsernameAndPassword' => FieldFindAnswerSessionByUsernameAndPassword::get($this->context, $proxy = null),
             // 'findSurveyAnswerSessionByOwnerCode' => FieldFindAnswerSessionByOwnerCode::get($this->context, $proxy = null),
         ];
@@ -103,92 +113,92 @@ class GPDSurveyModule extends AbstractModule
     // {
     //     return [
     //         'invokables' => [
-    //             TypeSurveyConfigurationValue::class => TypeSurveyConfigurationValue::class,
-    //             TypeSurveyAnswerQuestionInput::class => TypeSurveyAnswerQuestionInput::class,
-    //             TypeBuildSurveyInput::class => TypeBuildSurveyInput::class,
-    //             TypeSurveySectionItemType::class => TypeSurveySectionItemType::class,
-    //             TypeSurveyQuestionType::class => TypeSurveyQuestionType::class,
-    //             TypeSurveyConfigurationType::class => TypeSurveyConfigurationType::class,
-    //             TypeSurveyContentType::class => TypeSurveyContentType::class,
+    //             DoctrineTypeSurveyConfigurationValue::class => DoctrineTypeSurveyConfigurationValue::class,
+    //             DoctrineTypeSurveyAnswerQuestionInput::class => DoctrineTypeSurveyAnswerQuestionInput::class,
+    //             DoctrineTypeBuildSurveyInput::class => DoctrineTypeBuildSurveyInput::class,
+    //             DoctrineTypeSurveySectionItemType::class => DoctrineTypeSurveySectionItemType::class,
+    //             DoctrineTypeSurveyQuestionType::class => DoctrineTypeSurveyQuestionType::class,
+    //             DoctrineTypeSurveyConfigurationType::class => DoctrineTypeSurveyConfigurationType::class,
+    //             DoctrineTypeSurveyContentType::class => DoctrineTypeSurveyContentType::class,
     //         ],
     //         'factories' => [
-    //             TypeSurveyEdge::class => TypeSurveyEdge::getFactory($this->context, Survey::class),
-    //             TypeSurveyConnection::class => TypeSurveyConnection::getFactory($this->context, TypeSurveyEdge::class),
-    //             TypeSurveyTargetAudienceEdge::class => TypeSurveyTargetAudienceEdge::getFactory($this->context, SurveyTargetAudience::class),
-    //             TypeSurveyTargetAudienceConnection::class => TypeSurveyTargetAudienceConnection::getFactory($this->context, TypeSurveyTargetAudienceEdge::class),
-    //             TypeSurveyAnswerEdge::class => TypeSurveyAnswerEdge::getFactory($this->context, SurveyAnswer::class),
-    //             TypeSurveyAnswerConnection::class => TypeSurveyAnswerConnection::getFactory($this->context, TypeSurveyAnswerEdge::class),
-    //             TypeSurveyConfigurationEdge::class => TypeSurveyConfigurationEdge::getFactory($this->context, SurveyConfiguration::class),
-    //             TypeSurveyConfigurationConnection::class => TypeSurveyConfigurationConnection::getFactory($this->context, TypeSurveyConfigurationEdge::class),
-    //             TypeSurveyContentEdge::class => TypeSurveyContentEdge::getFactory($this->context, SurveyContent::class),
-    //             TypeSurveyContentConnection::class => TypeSurveyContentConnection::getFactory($this->context, TypeSurveyContentEdge::class),
-    //             TypeSurveyQuestionEdge::class => TypeSurveyQuestionEdge::getFactory($this->context, SurveyQuestion::class),
-    //             TypeSurveyQuestionConnection::class => TypeSurveyQuestionConnection::getFactory($this->context, TypeSurveyQuestionEdge::class),
-    //             TypeSurveyQuestionOptionEdge::class => TypeSurveyQuestionOptionEdge::getFactory($this->context, SurveyQuestionOption::class),
-    //             TypeSurveyQuestionOptionConnection::class => TypeSurveyQuestionOptionConnection::getFactory($this->context, TypeSurveyQuestionOptionEdge::class),
-    //             TypeSurveySectionEdge::class => TypeSurveySectionEdge::getFactory($this->context, SurveySection::class),
-    //             TypeSurveySectionConnection::class => TypeSurveySectionConnection::getFactory($this->context, TypeSurveySectionEdge::class),
-    //             TypeSurveySectionItemEdge::class => TypeSurveySectionItemEdge::getFactory($this->context, SurveySectionItem::class),
-    //             TypeSurveySectionItemConnection::class => TypeSurveySectionItemConnection::getFactory($this->context, TypeSurveySectionItemEdge::class),
-    //             TypeSurveyAnswerSessionEdge::class => TypeSurveyAnswerSessionEdge::getFactory($this->context, SurveyAnswerSession::class),
-    //             TypeSurveyAnswerSessionConnection::class => TypeSurveyAnswerSessionConnection::getFactory($this->context, TypeSurveyAnswerSessionEdge::class),
-    //             TypeBuildSurveyContentInput::class => function ($sm) {
+    //             DoctrineTypeSurveyEdge::class => TypeSurveyEdge::getFactory($this->context, DoctrineSurvey::class),
+    //             DoctrineTypeSurveyConnection::class => TypeSurveyConnection::getFactory($this->context, DoctrineTypeSurveyEdge::class),
+    //             DoctrineTypeSurveyTargetAudienceEdge::class => TypeSurveyTargetAudienceEdge::getFactory($this->context, DoctrineSurveyTargetAudience::class),
+    //             DoctrineTypeSurveyTargetAudienceConnection::class => TypeSurveyTargetAudienceConnection::getFactory($this->context, DoctrineTypeSurveyTargetAudienceEdge::class),
+    //             DoctrineTypeSurveyAnswerEdge::class => TypeSurveyAnswerEdge::getFactory($this->context, DoctrineSurveyAnswer::class),
+    //             DoctrineTypeSurveyAnswerConnection::class => TypeSurveyAnswerConnection::getFactory($this->context, DoctrineTypeSurveyAnswerEdge::class),
+    //             DoctrineTypeSurveyConfigurationEdge::class => TypeSurveyConfigurationEdge::getFactory($this->context, DoctrineSurveyConfiguration::class),
+    //             DoctrineTypeSurveyConfigurationConnection::class => TypeSurveyConfigurationConnection::getFactory($this->context, DoctrineTypeSurveyConfigurationEdge::class),
+    //             DoctrineTypeSurveyContentEdge::class => TypeSurveyContentEdge::getFactory($this->context, DoctrineSurveyContent::class),
+    //             DoctrineTypeSurveyContentConnection::class => TypeSurveyContentConnection::getFactory($this->context, DoctrineTypeSurveyContentEdge::class),
+    //             DoctrineTypeSurveyQuestionEdge::class => TypeSurveyQuestionEdge::getFactory($this->context, DoctrineSurveyQuestion::class),
+    //             DoctrineTypeSurveyQuestionConnection::class => TypeSurveyQuestionConnection::getFactory($this->context, DoctrineTypeSurveyQuestionEdge::class),
+    //             DoctrineTypeSurveyQuestionOptionEdge::class => TypeSurveyQuestionOptionEdge::getFactory($this->context, DoctrineSurveyQuestionOption::class),
+    //             DoctrineTypeSurveyQuestionOptionConnection::class => TypeSurveyQuestionOptionConnection::getFactory($this->context, DoctrineTypeSurveyQuestionOptionEdge::class),
+    //             DoctrineTypeSurveySectionEdge::class => TypeSurveySectionEdge::getFactory($this->context, DoctrineSurveySection::class),
+    //             DoctrineTypeSurveySectionConnection::class => TypeSurveySectionConnection::getFactory($this->context, DoctrineTypeSurveySectionEdge::class),
+    //             DoctrineTypeSurveySectionItemEdge::class => TypeSurveySectionItemEdge::getFactory($this->context, DoctrineSurveySectionItem::class),
+    //             DoctrineTypeSurveySectionItemConnection::class => TypeSurveySectionItemConnection::getFactory($this->context, DoctrineTypeSurveySectionItemEdge::class),
+    //             DoctrineTypeSurveyAnswerSessionEdge::class => TypeSurveyAnswerSessionEdge::getFactory($this->context, DoctrineSurveyAnswerSession::class),
+    //             DoctrineTypeSurveyAnswerSessionConnection::class => TypeSurveyAnswerSessionConnection::getFactory($this->context, DoctrineTypeSurveyAnswerSessionEdge::class),
+    //             DoctrineTypeBuildSurveyContentInput::class => function ($sm) {
     //                 return new TypeBuildSurveyContentInput($this->context);
     //             },
-    //             TypeBuildSurveyQuestionOptionInput::class => function ($sm) {
+    //             DoctrineTypeBuildSurveyQuestionOptionInput::class => function ($sm) {
     //                 return new TypeBuildSurveyQuestionOptionInput($this->context);
     //             },
-    //             TypeBuildSurveyQuestionInput::class => function ($sm) {
+    //             DoctrineTypeBuildSurveyQuestionInput::class => function ($sm) {
     //                 return new TypeBuildSurveyQuestionInput($this->context);
     //             },
-    //             TypeBuildSurveySectionItemInput::class => function ($sm) {
+    //             DoctrineTypeBuildSurveySectionItemInput::class => function ($sm) {
     //                 return new TypeBuildSurveySectionItemInput($this->context);
     //             },
-    //             TypeBuildSurveySectionInput::class => function ($sm) {
+    //             DoctrineTypeBuildSurveySectionInput::class => function ($sm) {
     //                 return new TypeBuildSurveySectionInput($this->context);
     //             },
-    //             TypeBuildSurveyTargetAudienceInput::class => function ($sm) {
+    //             DoctrineTypeBuildSurveyTargetAudienceInput::class => function ($sm) {
     //                 return new TypeBuildSurveyTargetAudienceInput($this->context);
     //             },
-    //             TypeBuildSurveyInput::class => function ($sm) {
+    //             DoctrineTypeBuildSurveyInput::class => function ($sm) {
     //                 return new TypeBuildSurveyInput($this->context);
     //             }
     //         ],
     //         'aliases' => [
-    //             TypeSurveyConfigurationValue::NAME => TypeSurveyConfigurationValue::class,
-    //             TypeSurveyAnswerQuestionInput::NAME => TypeSurveyAnswerQuestionInput::class,
-    //             TypeBuildSurveyInput::NAME => TypeBuildSurveyInput::class,
-    //             TypeSurveySectionItemType::NAME => TypeSurveySectionItemType::class,
-    //             TypeSurveyQuestionType::NAME => TypeSurveyQuestionType::class,
-    //             TypeSurveyConfigurationType::NAME => TypeSurveyConfigurationType::class,
-    //             TypeSurveyContentType::NAME => TypeSurveyContentType::class,
-    //             TypeSurveyEdge::NAME => TypeSurveyEdge::class,
-    //             TypeSurveyConnection::NAME => TypeSurveyConnection::class,
-    //             TypeSurveyTargetAudienceEdge::NAME => TypeSurveyTargetAudienceEdge::class,
-    //             TypeSurveyTargetAudienceConnection::NAME => TypeSurveyTargetAudienceConnection::class,
-    //             TypeSurveyAnswerEdge::NAME => TypeSurveyAnswerEdge::class,
-    //             TypeSurveyAnswerConnection::NAME => TypeSurveyAnswerConnection::class,
-    //             TypeSurveyConfigurationEdge::NAME => TypeSurveyConfigurationEdge::class,
-    //             TypeSurveyConfigurationConnection::NAME => TypeSurveyConfigurationConnection::class,
-    //             TypeSurveyContentEdge::NAME => TypeSurveyContentEdge::class,
-    //             TypeSurveyContentConnection::NAME => TypeSurveyContentConnection::class,
-    //             TypeSurveyQuestionEdge::NAME => TypeSurveyQuestionEdge::class,
-    //             TypeSurveyQuestionConnection::NAME => TypeSurveyQuestionConnection::class,
-    //             TypeSurveyQuestionOptionEdge::NAME => TypeSurveyQuestionOptionEdge::class,
-    //             TypeSurveyQuestionOptionConnection::NAME => TypeSurveyQuestionOptionConnection::class,
-    //             TypeSurveySectionEdge::NAME => TypeSurveySectionEdge::class,
-    //             TypeSurveySectionConnection::NAME => TypeSurveySectionConnection::class,
-    //             TypeSurveySectionItemEdge::NAME => TypeSurveySectionItemEdge::class,
-    //             TypeSurveySectionItemConnection::NAME => TypeSurveySectionItemConnection::class,
-    //             TypeSurveyAnswerSessionEdge::NAME => TypeSurveyAnswerSessionEdge::class,
-    //             TypeSurveyAnswerSessionConnection::NAME => TypeSurveyAnswerSessionConnection::class,
-    //             TypeBuildSurveyContentInput::NAME => TypeBuildSurveyContentInput::class,
-    //             TypeBuildSurveyQuestionOptionInput::NAME => TypeBuildSurveyQuestionOptionInput::class,
-    //             TypeBuildSurveyQuestionInput::NAME => TypeBuildSurveyQuestionInput::class,
-    //             TypeBuildSurveySectionItemInput::NAME => TypeBuildSurveySectionItemInput::class,
-    //             TypeBuildSurveySectionInput::NAME => TypeBuildSurveySectionInput::class,
-    //             TypeBuildSurveyTargetAudienceInput::NAME => TypeBuildSurveyTargetAudienceInput::class,
-    //             TypeBuildSurveyInput::NAME => TypeBuildSurveyInput::class,
+    //             TypeSurveyConfigurationValue::NAME => DoctrineTypeSurveyConfigurationValue::class,
+    //             TypeSurveyAnswerQuestionInput::NAME => DoctrineTypeSurveyAnswerQuestionInput::class,
+    //             TypeBuildSurveyInput::NAME => DoctrineTypeBuildSurveyInput::class,
+    //             TypeSurveySectionItemType::NAME => DoctrineTypeSurveySectionItemType::class,
+    //             TypeSurveyQuestionType::NAME => DoctrineTypeSurveyQuestionType::class,
+    //             TypeSurveyConfigurationType::NAME => DoctrineTypeSurveyConfigurationType::class,
+    //             TypeSurveyContentType::NAME => DoctrineTypeSurveyContentType::class,
+    //             TypeSurveyEdge::NAME => DoctrineTypeSurveyEdge::class,
+    //             TypeSurveyConnection::NAME => DoctrineTypeSurveyConnection::class,
+    //             TypeSurveyTargetAudienceEdge::NAME => DoctrineTypeSurveyTargetAudienceEdge::class,
+    //             TypeSurveyTargetAudienceConnection::NAME => DoctrineTypeSurveyTargetAudienceConnection::class,
+    //             TypeSurveyAnswerEdge::NAME => DoctrineTypeSurveyAnswerEdge::class,
+    //             TypeSurveyAnswerConnection::NAME => DoctrineTypeSurveyAnswerConnection::class,
+    //             TypeSurveyConfigurationEdge::NAME => DoctrineTypeSurveyConfigurationEdge::class,
+    //             TypeSurveyConfigurationConnection::NAME => DoctrineTypeSurveyConfigurationConnection::class,
+    //             TypeSurveyContentEdge::NAME => DoctrineTypeSurveyContentEdge::class,
+    //             TypeSurveyContentConnection::NAME => DoctrineTypeSurveyContentConnection::class,
+    //             TypeSurveyQuestionEdge::NAME => DoctrineTypeSurveyQuestionEdge::class,
+    //             TypeSurveyQuestionConnection::NAME => DoctrineTypeSurveyQuestionConnection::class,
+    //             TypeSurveyQuestionOptionEdge::NAME => DoctrineTypeSurveyQuestionOptionEdge::class,
+    //             TypeSurveyQuestionOptionConnection::NAME => DoctrineTypeSurveyQuestionOptionConnection::class,
+    //             TypeSurveySectionEdge::NAME => DoctrineTypeSurveySectionEdge::class,
+    //             TypeSurveySectionConnection::NAME => DoctrineTypeSurveySectionConnection::class,
+    //             TypeSurveySectionItemEdge::NAME => DoctrineTypeSurveySectionItemEdge::class,
+    //             TypeSurveySectionItemConnection::NAME => DoctrineTypeSurveySectionItemConnection::class,
+    //             TypeSurveyAnswerSessionEdge::NAME => DoctrineTypeSurveyAnswerSessionEdge::class,
+    //             TypeSurveyAnswerSessionConnection::NAME => DoctrineTypeSurveyAnswerSessionConnection::class,
+    //             TypeBuildSurveyContentInput::NAME => DoctrineTypeBuildSurveyContentInput::class,
+    //             TypeBuildSurveyQuestionOptionInput::NAME => DoctrineTypeBuildSurveyQuestionOptionInput::class,
+    //             TypeBuildSurveyQuestionInput::NAME => DoctrineTypeBuildSurveyQuestionInput::class,
+    //             TypeBuildSurveySectionItemInput::NAME => DoctrineTypeBuildSurveySectionItemInput::class,
+    //             TypeBuildSurveySectionInput::NAME => DoctrineTypeBuildSurveySectionInput::class,
+    //             TypeBuildSurveyTargetAudienceInput::NAME => DoctrineTypeBuildSurveyTargetAudienceInput::class,
+    //             TypeBuildSurveyInput::NAME => DoctrineTypeBuildSurveyInput::class,
     //         ]
     //     ];
     // }
@@ -232,37 +242,37 @@ class GPDSurveyModule extends AbstractModule
     // //TODO: Cambiar el nombre de los campos de query agregando el prefijo get
     // function getQueryFields(): array
     // {
-    //     $surveyConnection = $this->context->getServiceManager()->get(TypeSurveyConnection::class);
-    //     $surveyTargetAudienceConnection = $this->context->getServiceManager()->get(TypeSurveyTargetAudienceConnection::class);
-    //     $surveyAnswerConnection = $this->context->getServiceManager()->get(TypeSurveyAnswerConnection::class);
-    //     $surveyConfigurationConnection = $this->context->getServiceManager()->get(TypeSurveyConfigurationConnection::class);
-    //     $surveyContentConnection = $this->context->getServiceManager()->get(TypeSurveyContentConnection::class);
-    //     $surveyQuestionConnection = $this->context->getServiceManager()->get(TypeSurveyQuestionConnection::class);
-    //     $surveyQuestionOptionConnection = $this->context->getServiceManager()->get(TypeSurveyQuestionOptionConnection::class);
-    //     $surveySectionConnection = $this->context->getServiceManager()->get(TypeSurveySectionConnection::class);
-    //     $surveySectionItemConnection = $this->context->getServiceManager()->get(TypeSurveySectionItemConnection::class);
-    //     $surveyAnswerSessionConnection = $this->context->getServiceManager()->get(TypeSurveyAnswerSessionConnection::class);
+    //     $surveyConnection = $this->context->getServiceManager()->get(DoctrineTypeSurveyConnection::class);
+    //     $surveyTargetAudienceConnection = $this->context->getServiceManager()->get(DoctrineTypeSurveyTargetAudienceConnection::class);
+    //     $surveyAnswerConnection = $this->context->getServiceManager()->get(DoctrineTypeSurveyAnswerConnection::class);
+    //     $surveyConfigurationConnection = $this->context->getServiceManager()->get(DoctrineTypeSurveyConfigurationConnection::class);
+    //     $surveyContentConnection = $this->context->getServiceManager()->get(DoctrineTypeSurveyContentConnection::class);
+    //     $surveyQuestionConnection = $this->context->getServiceManager()->get(DoctrineTypeSurveyQuestionConnection::class);
+    //     $surveyQuestionOptionConnection = $this->context->getServiceManager()->get(DoctrineTypeSurveyQuestionOptionConnection::class);
+    //     $surveySectionConnection = $this->context->getServiceManager()->get(DoctrineTypeSurveySectionConnection::class);
+    //     $surveySectionItemConnection = $this->context->getServiceManager()->get(DoctrineTypeSurveySectionItemConnection::class);
+    //     $surveyAnswerSessionConnection = $this->context->getServiceManager()->get(DoctrineTypeSurveyAnswerSessionConnection::class);
     //     return [
-    //         'getSurveys' => ResolverFactory::forConnection(Survey::class, Survey::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
-    //         'getSurvey' => ResolverFactory::forItem(Survey::class,),
-    //         'getSurveyTargetAudiences' => ResolverFactory::forConnection(SurveyTargetAudience::class, SurveyTargetAudience::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
-    //         'getSurveyTargetAudience' => ResolverFactory::forItem(SurveyTargetAudience::class,),
-    //         'getSurveyAnswers' => ResolverFactory::forConnection(SurveyAnswer::class, SurveyAnswer::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
-    //         'getSurveyAnswer' => ResolverFactory::forItem(SurveyAnswer::class,),
-    //         'getSurveyConfigurations' => ResolverFactory::forConnection(SurveyConfiguration::class, SurveyConfiguration::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
-    //         'getSurveyConfiguration' => ResolverFactory::forItem(SurveyConfiguration::class,),
-    //         'getSurveyContents' => ResolverFactory::forConnection(SurveyContent::class, SurveyContent::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
-    //         'getSurveyContent' => ResolverFactory::forItem(SurveyContent::class,),
-    //         'getSurveyQuestions' => ResolverFactory::forConnection(SurveyQuestion::class, SurveyQuestion::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
-    //         'getSurveyQuestion' => ResolverFactory::forItem(SurveyQuestion::class,),
-    //         'getSurveyQuestionOptions' => ResolverFactory::forConnection(SurveyQuestionOption::class, SurveyQuestionOption::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
-    //         'getSurveyQuestionOption' => ResolverFactory::forItem(SurveyQuestionOption::class,),
-    //         'getSurveySections' => ResolverFactory::forConnection(SurveySection::class, SurveySection::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
-    //         'getSurveySection' => ResolverFactory::forItem(SurveySection::class,),
-    //         'getSurveySectionItems' => ResolverFactory::forConnection(SurveySectionItem::class, SurveySectionItem::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
-    //         'getSurveySectionItem' => ResolverFactory::forItem(SurveySectionItem::class,),
-    //         'getSurveyAnswerSessions' => ResolverFactory::forConnection(SurveyAnswerSession::class, SurveyAnswerSession::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
-    //         'getSurveyAnswerSession' => ResolverFactory::forItem(SurveyAnswerSession::class,),
+    //         'getSurveys' => ResolverFactory::forConnection(DoctrineSurvey::class, Survey::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
+    //         'getSurvey' => ResolverFactory::forItem(DoctrineSurvey::class,),
+    //         'getSurveyTargetAudiences' => ResolverFactory::forConnection(DoctrineSurveyTargetAudience::class, SurveyTargetAudience::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
+    //         'getSurveyTargetAudience' => ResolverFactory::forItem(DoctrineSurveyTargetAudience::class,),
+    //         'getSurveyAnswers' => ResolverFactory::forConnection(DoctrineSurveyAnswer::class, SurveyAnswer::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
+    //         'getSurveyAnswer' => ResolverFactory::forItem(DoctrineSurveyAnswer::class,),
+    //         'getSurveyConfigurations' => ResolverFactory::forConnection(DoctrineSurveyConfiguration::class, SurveyConfiguration::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
+    //         'getSurveyConfiguration' => ResolverFactory::forItem(DoctrineSurveyConfiguration::class,),
+    //         'getSurveyContents' => ResolverFactory::forConnection(DoctrineSurveyContent::class, SurveyContent::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
+    //         'getSurveyContent' => ResolverFactory::forItem(DoctrineSurveyContent::class,),
+    //         'getSurveyQuestions' => ResolverFactory::forConnection(DoctrineSurveyQuestion::class, SurveyQuestion::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
+    //         'getSurveyQuestion' => ResolverFactory::forItem(DoctrineSurveyQuestion::class,),
+    //         'getSurveyQuestionOptions' => ResolverFactory::forConnection(DoctrineSurveyQuestionOption::class, SurveyQuestionOption::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
+    //         'getSurveyQuestionOption' => ResolverFactory::forItem(DoctrineSurveyQuestionOption::class,),
+    //         'getSurveySections' => ResolverFactory::forConnection(DoctrineSurveySection::class, SurveySection::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
+    //         'getSurveySection' => ResolverFactory::forItem(DoctrineSurveySection::class,),
+    //         'getSurveySectionItems' => ResolverFactory::forConnection(DoctrineSurveySectionItem::class, SurveySectionItem::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
+    //         'getSurveySectionItem' => ResolverFactory::forItem(DoctrineSurveySectionItem::class,),
+    //         'getSurveyAnswerSessions' => ResolverFactory::forConnection(DoctrineSurveyAnswerSession::class, SurveyAnswerSession::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
+    //         'getSurveyAnswerSession' => ResolverFactory::forItem(DoctrineSurveyAnswerSession::class,),
     //         'findSurveyAnswerSessionByUsernameAndPassword' => FieldFindAnswerSessionByUsernameAndPassword::get($this->context, $proxy = null),
     //         'findSurveyAnswerSessionByOwnerCode' => FieldFindAnswerSessionByOwnerCode::get($this->context, $proxy = null),
     //     ];
@@ -271,36 +281,36 @@ class GPDSurveyModule extends AbstractModule
     // {
     //     return [
     //         'buildSurvey' => FieldBuildSurvey::get($this->context, $this->defaultProxy),
-    //         'createSurvey' => ResolverFactory::buildFieldCreate($this->context, Survey::class, Survey::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
-    //         'updateSurvey' => ResolverFactory::buildFieldUpdate($this->context, Survey::class, Survey::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
+    //         'createSurvey' => ResolverFactory::buildFieldCreate($this->context, DoctrineSurvey::class, Survey::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
+    //         'updateSurvey' => ResolverFactory::buildFieldUpdate($this->context, DoctrineSurvey::class, Survey::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
     //         'deleteSurvey' => FieldDeleteSurvey::get($this->context, $this->defaultProxy),
     //         'buildSurveyTargetAudience' => FieldBuildSurveyTargetAudience::get($this->context,  $this->defaultProxy),
-    //         'createSurveyTargetAudience' => ResolverFactory::buildFieldCreate($this->context, SurveyTargetAudience::class, SurveyTargetAudience::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
-    //         'updateSurveyTargetAudience' => ResolverFactory::buildFieldUpdate($this->context, SurveyTargetAudience::class, SurveyTargetAudience::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
+    //         'createSurveyTargetAudience' => ResolverFactory::buildFieldCreate($this->context, DoctrineSurveyTargetAudience::class, SurveyTargetAudience::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
+    //         'updateSurveyTargetAudience' => ResolverFactory::buildFieldUpdate($this->context, DoctrineSurveyTargetAudience::class, SurveyTargetAudience::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
     //         'deleteSurveyTargetAudience' => FieldDeleteSurveyTargetAudience::get($this->context, $this->defaultProxy),
-    //         'createSurveyAnswer' => ResolverFactory::buildFieldCreate($this->context, SurveyAnswer::class, SurveyAnswer::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
-    //         'updateSurveyAnswer' => ResolverFactory::buildFieldUpdate($this->context, SurveyAnswer::class, SurveyAnswer::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
-    //         'deleteSurveyAnswer' => ResolverFactory::buildFieldDelete($this->context, SurveyAnswer::class, SurveyAnswer::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
-    //         'createSurveyConfiguration' => ResolverFactory::buildFieldCreate($this->context, SurveyConfiguration::class, SurveyConfiguration::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
-    //         'updateSurveyConfiguration' => ResolverFactory::buildFieldUpdate($this->context, SurveyConfiguration::class, SurveyConfiguration::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
-    //         'deleteSurveyConfiguration' => ResolverFactory::buildFieldDelete($this->context, SurveyConfiguration::class, SurveyConfiguration::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
-    //         'createSurveyContent' => ResolverFactory::buildFieldCreate($this->context, SurveyContent::class, SurveyContent::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
-    //         'updateSurveyContent' => ResolverFactory::buildFieldUpdate($this->context, SurveyContent::class, SurveyContent::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
+    //         'createSurveyAnswer' => ResolverFactory::buildFieldCreate($this->context, DoctrineSurveyAnswer::class, SurveyAnswer::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
+    //         'updateSurveyAnswer' => ResolverFactory::buildFieldUpdate($this->context, DoctrineSurveyAnswer::class, SurveyAnswer::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
+    //         'deleteSurveyAnswer' => ResolverFactory::buildFieldDelete($this->context, DoctrineSurveyAnswer::class, SurveyAnswer::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
+    //         'createSurveyConfiguration' => ResolverFactory::buildFieldCreate($this->context, DoctrineSurveyConfiguration::class, SurveyConfiguration::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
+    //         'updateSurveyConfiguration' => ResolverFactory::buildFieldUpdate($this->context, DoctrineSurveyConfiguration::class, SurveyConfiguration::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
+    //         'deleteSurveyConfiguration' => ResolverFactory::buildFieldDelete($this->context, DoctrineSurveyConfiguration::class, SurveyConfiguration::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
+    //         'createSurveyContent' => ResolverFactory::buildFieldCreate($this->context, DoctrineSurveyContent::class, SurveyContent::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
+    //         'updateSurveyContent' => ResolverFactory::buildFieldUpdate($this->context, DoctrineSurveyContent::class, SurveyContent::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
     //         'deleteSurveyContent' => FieldDeleteSurveyContent::get($this->context, $this->defaultProxy),
     //         'buildSurveyQuestion' => FieldBuildSurveyQuestion::get($this->context, $this->defaultProxy),
-    //         'createSurveyQuestion' => ResolverFactory::buildFieldCreate($this->context, SurveyQuestion::class, SurveyQuestion::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
-    //         'updateSurveyQuestion' => ResolverFactory::buildFieldUpdate($this->context, SurveyQuestion::class, SurveyQuestion::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
+    //         'createSurveyQuestion' => ResolverFactory::buildFieldCreate($this->context, DoctrineSurveyQuestion::class, SurveyQuestion::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
+    //         'updateSurveyQuestion' => ResolverFactory::buildFieldUpdate($this->context, DoctrineSurveyQuestion::class, SurveyQuestion::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
     //         'deleteSurveyQuestion' => FieldDeleteSurveyQuestion::get($this->context,  $this->defaultProxy),
-    //         'createSurveyQuestionOption' => ResolverFactory::buildFieldCreate($this->context, SurveyQuestionOption::class, SurveyQuestionOption::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
-    //         'updateSurveyQuestionOption' => ResolverFactory::buildFieldUpdate($this->context, SurveyQuestionOption::class, SurveyQuestionOption::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
+    //         'createSurveyQuestionOption' => ResolverFactory::buildFieldCreate($this->context, DoctrineSurveyQuestionOption::class, SurveyQuestionOption::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
+    //         'updateSurveyQuestionOption' => ResolverFactory::buildFieldUpdate($this->context, DoctrineSurveyQuestionOption::class, SurveyQuestionOption::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
     //         'deleteSurveyQuestionOption' => FieldDeleteSurveyQuestionOption::get($this->context, $this->defaultProxy),
     //         'buildSurveySection' => FieldBuildSurveySection::get($this->context, $this->defaultProxy),
-    //         'createSurveySection' => ResolverFactory::buildFieldCreate($this->context, SurveySection::class, SurveySection::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
-    //         'updateSurveySection' => ResolverFactory::buildFieldUpdate($this->context, SurveySection::class, SurveySection::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
+    //         'createSurveySection' => ResolverFactory::buildFieldCreate($this->context, DoctrineSurveySection::class, SurveySection::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
+    //         'updateSurveySection' => ResolverFactory::buildFieldUpdate($this->context, DoctrineSurveySection::class, SurveySection::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
     //         'deleteSurveySection' => FieldDeleteSurveySection::get($this->context,  $this->defaultProxy),
     //         'buildSurveySectionItem' => FieldBuildSurveySectionItem::get($this->context, $this->defaultProxy),
-    //         'createSurveySectionItem' => ResolverFactory::buildFieldCreate($this->context, SurveySectionItem::class, SurveySectionItem::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
-    //         'updateSurveySectionItem' => ResolverFactory::buildFieldUpdate($this->context, SurveySectionItem::class, SurveySectionItem::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
+    //         'createSurveySectionItem' => ResolverFactory::buildFieldCreate($this->context, DoctrineSurveySectionItem::class, SurveySectionItem::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
+    //         'updateSurveySectionItem' => ResolverFactory::buildFieldUpdate($this->context, DoctrineSurveySectionItem::class, SurveySectionItem::RELATIONS_MANY_TO_ONE, $this->defaultProxy),
     //         'deleteSurveySectionItem' => FieldDeleteSurveySectionItem::get($this->context,  $this->defaultProxy),
     //         'createSurveyAnswerSession' => FieldCreateAnswerSession::get($this->context, $proxy = null),
     //         'updateSurveyAnswerSession' => FieldUpdateAnswerSession::get($this->context, $proxy = null),
