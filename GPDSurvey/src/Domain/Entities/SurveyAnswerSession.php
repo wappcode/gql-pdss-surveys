@@ -6,6 +6,7 @@ use GPDSurvey\Domain\ValueObject\ULID;
 
 class SurveyAnswerSession
 {
+
     protected  \DateTimeImmutable $created;
     protected \DateTimeImmutable $updated;
 
@@ -84,6 +85,24 @@ class SurveyAnswerSession
     {
         $this->completed = true;
         $this->touch();
+    }
+
+    public function toArray(): array
+    {
+        return [
+            'id' => $this->id()->value(),
+            'name' => $this->name(),
+            'username' => $this->username(),
+            'password' => $this->password(),
+            'ownerCode' => $this->ownerCode(),
+            'score' => $this->score(),
+            'scorePercent' => $this->scorePercent(),
+            'completed' => $this->isCompleted(),
+            'targetAudience' => $this->targetAudience()->toArray(),
+            'survey' => $this->survey()->toArray(),
+            'created' => $this->created()->format(\DateTimeInterface::ATOM),
+            'updated' => $this->updated()->format(\DateTimeInterface::ATOM),
+        ];
     }
 
     private function touch(): self

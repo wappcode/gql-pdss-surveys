@@ -6,6 +6,7 @@ use GPDSurvey\Domain\ValueObject\ULID;
 
 class Survey
 {
+
     protected  \DateTimeImmutable $created;
     protected \DateTimeImmutable $updated;
     public function __construct(private ULID $id, private string $title, private bool $active = true)
@@ -60,6 +61,17 @@ class Survey
         $this->touch();
 
         return $this;
+    }
+
+    public function toArray(): array
+    {
+        return [
+            'id' => $this->id()->value(),
+            'title' => $this->title(),
+            'active' => $this->isActive(),
+            'created' => $this->created()->format(\DateTimeInterface::ATOM),
+            'updated' => $this->updated()->format(\DateTimeInterface::ATOM),
+        ];
     }
 
     private function touch(): self

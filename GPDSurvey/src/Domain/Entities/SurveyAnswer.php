@@ -7,6 +7,7 @@ use GPDSurvey\Domain\ValueObject\IntID;
 
 class SurveyAnswer
 {
+
     protected \DateTimeImmutable $created;
     protected \DateTimeImmutable $updated;
 
@@ -21,6 +22,11 @@ class SurveyAnswer
     ) {
         $this->created = new \DateTimeImmutable();
         $this->updated = new \DateTimeImmutable();
+    }
+
+    public function id(): IntID
+    {
+        return $this->id;
     }
 
     public function value(): ?AnswerValue
@@ -62,6 +68,15 @@ class SurveyAnswer
     {
         return $this->scorePercent;
     }
+    public function created(): \DateTimeImmutable
+    {
+        return $this->created;
+    }
+
+    public function updated(): \DateTimeImmutable
+    {
+        return $this->updated;
+    }
 
     /**
      *
@@ -70,6 +85,20 @@ class SurveyAnswer
     public function session(): ?SurveyAnswerSession
     {
         return $this->session;
+    }
+
+    public function toArray(): array
+    {
+        return [
+            'id' => $this->id()->value(),
+            'value' => $this->value()?->value(),
+            'score' => $this->score(),
+            'scorePercent' => $this->scorePercent(),
+            'question' => $this->question() !== null ? $this->question()->toArray() : null,
+            'session' => $this->session() !== null ? $this->session()->toArray() : null,
+            'created' => $this->created()->format(\DateTimeInterface::ATOM),
+            'updated' => $this->updated()->format(\DateTimeInterface::ATOM),
+        ];
     }
 
     private function touch(): self

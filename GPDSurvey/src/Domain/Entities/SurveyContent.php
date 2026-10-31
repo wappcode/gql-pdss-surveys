@@ -7,6 +7,7 @@ use GPDSurvey\Domain\Entities\SurveyConfiguration;
 
 class SurveyContent
 {
+
     protected \DateTimeImmutable $created;
     protected \DateTimeImmutable $updated;
 
@@ -47,6 +48,19 @@ class SurveyContent
     {
         return $this->presentation;
     }
+
+    public function toArray(): array
+    {
+        return [
+            'id' => $this->id()->value(),
+            'type' => $this->type(),
+            'body' => $this->body(),
+            'presentation' => $this->presentation() !== null ? $this->presentation()->toArray() : null,
+            'created' => $this->created()->format(\DateTimeInterface::ATOM),
+            'updated' => $this->updated()->format(\DateTimeInterface::ATOM),
+        ];
+    }
+
     private function touch(): self
     {
         $this->updated = new \DateTimeImmutable();

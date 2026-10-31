@@ -7,6 +7,7 @@ use GPDSurvey\Domain\ValueObject\ULid;
 
 class SurveySectionItem
 {
+
     protected  \DateTimeImmutable $created;
     protected \DateTimeImmutable $updated;
 
@@ -70,6 +71,23 @@ class SurveySectionItem
     {
         return $this->updated;
     }
+
+    public function toArray(): array
+    {
+        return [
+            'id' => $this->id()->value(),
+            'type' => $this->type(),
+            'order' => $this->order(),
+            'section' => $this->section()->toArray(),
+            'hidden' => $this->hidden(),
+            'conditions' => $this->conditions() !== null ? $this->conditions()->toArray() : null,
+            'question' => $this->question() !== null ? $this->question()->toArray() : null,
+            'content' => $this->content() !== null ? $this->content()->toArray() : null,
+            'created' => $this->created()->format(\DateTimeInterface::ATOM),
+            'updated' => $this->updated()->format(\DateTimeInterface::ATOM),
+        ];
+    }
+
     private function touch(): self
     {
         $this->updated = new \DateTimeImmutable();

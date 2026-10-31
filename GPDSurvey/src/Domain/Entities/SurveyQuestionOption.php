@@ -9,6 +9,7 @@ use GPDSurvey\Domain\ValueObject\IntID;
 
 class SurveyQuestionOption
 {
+
     protected \DateTimeImmutable $created;
     protected \DateTimeImmutable $updated;
 
@@ -66,6 +67,21 @@ class SurveyQuestionOption
     public function question(): SurveyQuestion
     {
         return $this->question;
+    }
+
+    public function toArray(): array
+    {
+        return [
+            'id' => $this->id()->value(),
+            'value' => $this->value(),
+            'title' => $this->title(),
+            'order' => $this->order(),
+            'content' => $this->content() !== null ? $this->content()->toArray() : null,
+            'presentation' => $this->presentation() !== null ? $this->presentation()->toArray() : null,
+            'question' => $this->question()->toArray(),
+            'created' => $this->created()->format(\DateTimeInterface::ATOM),
+            'updated' => $this->updated()->format(\DateTimeInterface::ATOM),
+        ];
     }
 
     private function touch(): void

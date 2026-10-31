@@ -5,11 +5,11 @@ namespace GPDSurvey\Domain\Entities;
 use GPDSurvey\Domain\Entities\SurveyContent;
 use GPDSurvey\Domain\Entities\SurveyConfiguration;
 use GPDSurvey\Domain\Entities\Survey;
-use Doctrine\Common\Collections\Collection;
 use GPDSurvey\Domain\ValueObject\IntID;
 
 class SurveySection
 {
+
     protected \DateTimeImmutable $created;
     protected \DateTimeImmutable $updated;
 
@@ -17,7 +17,7 @@ class SurveySection
         private IntID $id,
         private string $title,
         private ?SurveyContent $content = null,
-        private Collection $items,
+        private array $items,
         private int $order,
         private bool $hidden = false,
         private ?SurveyConfiguration $presentation = null,
@@ -56,7 +56,7 @@ class SurveySection
     {
         return $this->survey;
     }
-    public function items(): Collection
+    public function items(): array
     {
         return $this->items;
     }
@@ -74,6 +74,23 @@ class SurveySection
     {
         return $this->presentation;
     }
+
+    public function toArray(): array
+    {
+        return [
+            'id' => $this->id()->value(),
+            'title' => $this->title(),
+            'content' => $this->content() !== null ? $this->content()->toArray() : null,
+            'items' => array_map(fn($item) => $item->toArray(), $this->items),
+            'order' => $this->order(),
+            'hidden' => $this->hidden(),
+            'presentation' => $this->presentation() !== null ? $this->presentation()->toArray() : null,
+            'survey' => $this->survey()->toArray(),
+            'created' => $this->created()->format(\DateTimeInterface::ATOM),
+            'updated' => $this->updated()->format(\DateTimeInterface::ATOM),
+        ];
+    }
+
     private function touch(): self
     {
         $this->updated = new \DateTimeImmutable();

@@ -9,6 +9,7 @@ use GPDSurvey\Domain\ValueObject\ULid;
 
 class SurveyQuestion
 {
+
     protected \DateTimeImmutable $created;
     protected \DateTimeImmutable $updated;
 
@@ -117,6 +118,38 @@ class SurveyQuestion
     public function hint(): ?SurveyContent
     {
         return $this->hint;
+    }
+
+    public function created(): \DateTimeImmutable
+    {
+        return $this->created;
+    }
+
+    public function updated(): \DateTimeImmutable
+    {
+        return $this->updated;
+    }
+
+    public function toArray(): array
+    {
+        return [
+            'id' => $this->id()->value(),
+            'title' => $this->title(),
+            'code' => $this->code(),
+            'type' => $this->type(),
+            'required' => $this->required(),
+            'other' => $this->other(),
+            'score' => $this->score(),
+            'options' => $this->options() !== null ? array_map(fn($option) => $option->toArray(), $this->options()) : null,
+            'hint' => $this->hint() !== null ? $this->hint()->toArray() : null,
+            'content' => $this->content() !== null ? $this->content()->toArray() : null,
+            'presentation' => $this->presentation() !== null ? $this->presentation()->toArray() : null,
+            'validators' => $this->validators() !== null ? $this->validators()->toArray() : null,
+            'answerScore' => $this->answerScore() !== null ? $this->answerScore()->toArray() : null,
+            'survey' => $this->survey()->toArray(),
+            'created' => $this->created()->format(\DateTimeInterface::ATOM),
+            'updated' => $this->updated()->format(\DateTimeInterface::ATOM),
+        ];
     }
 
     private function touch(): self

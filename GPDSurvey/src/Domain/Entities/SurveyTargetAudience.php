@@ -11,6 +11,7 @@ use GPDSurvey\Domain\ValueObject\ULid;
 
 class SurveyTargetAudience
 {
+
     protected  DateTimeImmutable $created;
     protected DateTimeImmutable $updated;
 
@@ -76,6 +77,25 @@ class SurveyTargetAudience
     {
         return $this->password;
     }
+
+    public function toArray(): array
+    {
+        return [
+            'id' => $this->id()->value(),
+            'title' => $this->title(),
+            'survey' => $this->survey()->toArray(),
+            'starts' => $this->starts() !== null ? $this->starts()->format(\DateTimeInterface::ATOM) : null,
+            'ends' => $this->ends() !== null ? $this->ends()->format(\DateTimeInterface::ATOM) : null,
+            'welcome' => $this->welcome() !== null ? $this->welcome()->toArray() : null,
+            'farewell' => $this->farewell() !== null ? $this->farewell()->toArray() : null,
+            'attempts' => $this->attempts(),
+            'presentation' => $this->presentation() !== null ? $this->presentation()->toArray() : null,
+            'password' => $this->password(),
+            'created' => $this->created->format(\DateTimeInterface::ATOM),
+            'updated' => $this->updated->format(\DateTimeInterface::ATOM),
+        ];
+    }
+
     private function touch(): self
     {
         $this->updated = new \DateTimeImmutable();
