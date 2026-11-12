@@ -5,7 +5,6 @@ namespace GPDSurvey\Infrastructure\Doctrine\Entities;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use PDSSUtilities\AbstractEntityModelUlid;
 
 #[ORM\Entity]
 #[ORM\Table(
@@ -18,7 +17,7 @@ use PDSSUtilities\AbstractEntityModelUlid;
         new ORM\UniqueConstraint(name: 'username', columns: ['target_audience_id', 'username']),
     ]
 )]
-class DoctrineSurveyAnswerSession extends AbstractEntityModelUlid
+class DoctrineSurveyAnswerSession extends DoctrineAbstractEntityModelUlid
 {
 
 
@@ -42,12 +41,6 @@ class DoctrineSurveyAnswerSession extends AbstractEntityModelUlid
 
     #[ORM\Column(type: 'decimal', name: 'score_percent', precision: 8, scale: 4, nullable: true)]
     private ?float $scorePercent;
-
-    #[ORM\Column(type: 'datetimetz_immutable', name: 'created', nullable: false)]
-    protected \DateTimeImmutable $created;
-
-    #[ORM\Column(type: 'datetimetz_immutable', name: 'updated', nullable: false)]
-    protected \DateTimeImmutable $updated;
 
     #[ORM\OneToMany(targetEntity: DoctrineSurveyAnswer::class, mappedBy: 'session')]
     private Collection $answers;

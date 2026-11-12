@@ -5,7 +5,6 @@ namespace GPDSurvey\Infrastructure\Doctrine\Entities;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use PDSSUtilities\AbstractEntityModelUlid;
 
 #[ORM\Entity]
 #[ORM\Table(
@@ -18,7 +17,7 @@ use PDSSUtilities\AbstractEntityModelUlid;
         new ORM\UniqueConstraint(name: 'question_survey_code', columns: ['survey_id', 'code']),
     ]
 )]
-class DoctrineSurveyQuestion extends AbstractEntityModelUlid
+class DoctrineSurveyQuestion extends DoctrineAbstractEntityModelUlid
 {
 
 
@@ -66,12 +65,6 @@ class DoctrineSurveyQuestion extends AbstractEntityModelUlid
     #[ORM\ManyToOne(targetEntity: DoctrineSurvey::class, inversedBy: 'questions')]
     #[ORM\JoinColumn(name: 'survey_id', referencedColumnName: 'id', nullable: false)]
     private DoctrineSurvey $survey;
-
-    #[ORM\Column(type: 'datetimetz_immutable', name: 'created', nullable: false)]
-    protected \DateTimeImmutable $created;
-
-    #[ORM\Column(type: 'datetimetz_immutable', name: 'updated', nullable: false)]
-    protected \DateTimeImmutable $updated;
 
     public function __construct()
     {

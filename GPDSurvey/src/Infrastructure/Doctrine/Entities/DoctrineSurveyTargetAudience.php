@@ -5,7 +5,6 @@ namespace GPDSurvey\Infrastructure\Doctrine\Entities;
 use DateTimeImmutable;
 use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
-use PDSSUtilities\AbstractEntityModelUlid;
 
 #[ORM\Entity]
 #[ORM\Table(
@@ -15,7 +14,7 @@ use PDSSUtilities\AbstractEntityModelUlid;
         new ORM\Index(name: 'user_updated_idx', columns: ['updated']),
     ]
 )]
-class DoctrineSurveyTargetAudience extends AbstractEntityModelUlid
+class DoctrineSurveyTargetAudience extends DoctrineAbstractEntityModelUlid
 {
 
 
@@ -51,11 +50,6 @@ class DoctrineSurveyTargetAudience extends AbstractEntityModelUlid
     #[ORM\Column(type: 'string', length: 255, nullable: true, name: 'audience_password')]
     private ?string $password;
 
-    #[ORM\Column(type: 'datetimetz_immutable', name: 'created', nullable: false)]
-    protected \DateTimeImmutable $created;
-
-    #[ORM\Column(type: 'datetimetz_immutable', name: 'updated', nullable: false)]
-    protected \DateTimeImmutable $updated;
 
     /**
      * Get the value of title

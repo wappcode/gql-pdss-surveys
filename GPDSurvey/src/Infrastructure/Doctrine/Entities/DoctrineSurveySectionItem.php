@@ -3,7 +3,6 @@
 namespace GPDSurvey\Infrastructure\Doctrine\Entities;
 
 use Doctrine\ORM\Mapping as ORM;
-use PDSSUtilities\AbstractEntityModelUlid;
 
 #[ORM\Entity]
 #[ORM\Table(
@@ -13,7 +12,7 @@ use PDSSUtilities\AbstractEntityModelUlid;
         new ORM\Index(name: 'user_updated_idx', columns: ['updated']),
     ]
 )]
-class DoctrineSurveySectionItem extends AbstractEntityModelUlid
+class DoctrineSurveySectionItem extends DoctrineAbstractEntityModelUlid
 {
 
 
@@ -41,12 +40,6 @@ class DoctrineSurveySectionItem extends AbstractEntityModelUlid
 
     #[ORM\Column(type: 'boolean', name: 'hidden', nullable: false, options: ['default' => 0])]
     private bool $hidden;
-
-    #[ORM\Column(type: 'datetimetz_immutable', name: 'created', nullable: false)]
-    protected \DateTimeImmutable $created;
-
-    #[ORM\Column(type: 'datetimetz_immutable', name: 'updated', nullable: false)]
-    protected \DateTimeImmutable $updated;
 
 
     public function __construct()

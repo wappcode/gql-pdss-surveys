@@ -31,9 +31,8 @@ class CreateTargetAudienceWithSurveyUseCase
     public function execute(CreateTargetAudienceWithSurveyCommand $command): SurveyTargetAudience
     {
 
-        $survye = $this->createSurvey($command);
-        $targetAudience = $this->createSurveyTargetAudience($survye, $command);
-        $this->surveyTargetAudienceRepository->create($targetAudience);
+        $survey = $this->createSurvey($command);
+        $targetAudience = $this->createSurveyTargetAudience($survey, $command);
         return $targetAudience;
     }
 
