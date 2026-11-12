@@ -3,7 +3,9 @@
 namespace GPDSurvey\Infrastructure\Doctrine\Mappers;
 
 use GPDSurvey\Domain\Entities\SurveyConfiguration;
+use GPDSurvey\Domain\ValueObject\SurveyContentBodyValue;
 use GPDSurvey\Domain\Entities\SurveyContent as DomainSurveyContent;
+use GPDSurvey\Domain\Model\SurveyContentType;
 use GPDSurvey\Domain\ValueObject\IntID;
 use GPDSurvey\Infrastructure\Doctrine\Entities\DoctrineSurveyContent;
 
@@ -18,8 +20,8 @@ final class DoctrineSurveyContentToDomainMapper
     {
         $domain = new DomainSurveyContent(
             new IntID((int) ($entity->getId() ?? 0)),
-            $entity->getType(),
-            $entity->getBody(),
+            SurveyContentType::from($entity->getType()),
+            new SurveyContentBodyValue($entity->getBody()),
             $entity->getPresentation() !== null ? DoctrineSurveyConfigurationToDomainMapper::fromDoctrine($entity->getPresentation()) : null
         );
 

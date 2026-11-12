@@ -24,7 +24,10 @@ final class DomainSurveyToDoctrineMapper
 
         $doctrineSurvey
             ->setTitle($survey->title())
-            ->setActive($survey->isActive());
+            ->setActive($survey->isActive())
+            ->setCreated($survey->created())
+            ->setUpdated($survey->updated())
+        ;
 
         $this->setProperty($doctrineSurvey, 'created', $survey->created());
         $this->setProperty($doctrineSurvey, 'updated', $survey->updated());

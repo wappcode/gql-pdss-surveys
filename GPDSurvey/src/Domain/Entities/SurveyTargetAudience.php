@@ -15,7 +15,7 @@ class SurveyTargetAudience
     protected  DateTimeImmutable $created;
     protected DateTimeImmutable $updated;
 
-    private function __construct(
+    public function __construct(
         private ULid $id,
         private string $title,
         private Survey $survey,
@@ -96,6 +96,14 @@ class SurveyTargetAudience
         ];
     }
 
+    public function created(): \DateTimeImmutable
+    {
+        return $this->created;
+    }
+    public function updated(): \DateTimeImmutable
+    {
+        return $this->updated;
+    }
     private function touch(): self
     {
         $this->updated = new \DateTimeImmutable();

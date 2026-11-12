@@ -21,8 +21,8 @@ final class DomainSurveyContentToDoctrineMapper
         }
 
         $entity
-            ->setType($content->type())
-            ->setBody($content->body());
+            ->setType($content->type()->getValue())
+            ->setBody($content->body()->getValue());
 
         if ($content->presentation() !== null) {
             $entity->setPresentation(DomainSurveyConfigurationToDoctrineMapper::fromDomain($content->presentation()));

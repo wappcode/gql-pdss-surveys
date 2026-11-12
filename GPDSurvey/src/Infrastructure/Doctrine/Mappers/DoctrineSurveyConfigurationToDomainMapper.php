@@ -3,6 +3,7 @@
 namespace GPDSurvey\Infrastructure\Doctrine\Mappers;
 
 use GPDSurvey\Domain\Entities\SurveyConfiguration as DomainSurveyConfiguration;
+use GPDSurvey\Domain\Model\SurveyConfigurationType;
 use GPDSurvey\Domain\ValueObject\IntID;
 use GPDSurvey\Domain\ValueObject\SurveyConfigurationValue;
 use GPDSurvey\Infrastructure\Doctrine\Entities\DoctrineSurveyConfiguration;
@@ -19,7 +20,7 @@ final class DoctrineSurveyConfigurationToDomainMapper
         $domain = new DomainSurveyConfiguration(
             new IntID((int) ($entity->getId() ?? 0)),
             new SurveyConfigurationValue($entity->getValue()),
-            $entity->getType()
+            SurveyConfigurationType::from($entity->getType())
         );
 
         $this->setProperty($domain, 'created', $entity->getCreated());

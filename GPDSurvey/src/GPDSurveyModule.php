@@ -3,19 +3,8 @@
 namespace GPDSurvey;
 
 use GPDCore\Core\AbstractModule;
+use GPDCore\DataLoaders\EntityDataLoader;
 use GPDCore\Graphql\ResolverFactory;
-use GPDSurvey\Infrastructure\Doctrine\Entities\Survey;
-use GPDSurvey\Infrastructure\Doctrine\Entities\SurveyAnswer;
-use GPDSurvey\Infrastructure\Doctrine\Entities\SurveyAnswerSession;
-use GPDSurvey\Infrastructure\Doctrine\Entities\SurveyConfiguration;
-use GPDSurvey\Infrastructure\Doctrine\Entities\SurveyContent;
-use GPDSurvey\Infrastructure\Doctrine\Entities\SurveyQuestion;
-use GPDSurvey\Infrastructure\Doctrine\Entities\SurveyQuestionOption;
-use GPDSurvey\Infrastructure\Doctrine\Entities\SurveySection;
-use GPDSurvey\Infrastructure\Doctrine\Entities\SurveySectionItem;
-use GPDSurvey\Infrastructure\Doctrine\Entities\SurveyTargetAudience;
-use GPDSurvey\Graphql\FieldFindAnswerSessionByOwnerCode;
-use GPDSurvey\Graphql\FieldFindAnswerSessionByUsernameAndPassword;
 use GPDSurvey\Infrastructure\Doctrine\Entities\DoctrineSurvey;
 use GPDSurvey\Infrastructure\Doctrine\Entities\DoctrineSurveyAnswer;
 use GPDSurvey\Infrastructure\Doctrine\Entities\DoctrineSurveyAnswerSession;
@@ -26,6 +15,7 @@ use GPDSurvey\Infrastructure\Doctrine\Entities\DoctrineSurveyQuestionOption;
 use GPDSurvey\Infrastructure\Doctrine\Entities\DoctrineSurveySection;
 use GPDSurvey\Infrastructure\Doctrine\Entities\DoctrineSurveySectionItem;
 use GPDSurvey\Infrastructure\Doctrine\Entities\DoctrineSurveyTargetAudience;
+use GPDSurvey\Infrastructure\Graphql\Resolver\CreateTargetAudienceWithSurveyResolver;
 
 class GPDSurveyModule extends AbstractModule
 {
@@ -60,6 +50,8 @@ class GPDSurveyModule extends AbstractModule
     function getResolvers(): array
     {
         return [
+            'Survey::targetAudiences' => ResolverFactory::forCollection(DoctrineSurvey::class, 'targetAudiences', DoctrineSurveyTargetAudience::class),
+            'SurveyTargetAudience::survey' => ResolverFactory::forEntity(new EntityDataLoader(DoctrineSurvey::class), 'survey'),
             'Query::getSurveys' => ResolverFactory::forConnection(DoctrineSurvey::class),
             'Query::getSurvey' => ResolverFactory::forItem(DoctrineSurvey::class,),
             'Query::getSurveyTargetAudiences' => ResolverFactory::forConnection(DoctrineSurveyTargetAudience::class),
@@ -80,6 +72,8 @@ class GPDSurveyModule extends AbstractModule
             'Query::getSurveySectionItem' => ResolverFactory::forItem(DoctrineSurveySectionItem::class,),
             'Query::getSurveyAnswerSessions' => ResolverFactory::forConnection(DoctrineSurveyAnswerSession::class),
             'Query::getSurveyAnswerSession' => ResolverFactory::forItem(DoctrineSurveyAnswerSession::class,),
+            'Mutation::createTargetAudienceWithSurvey' => CreateTargetAudienceWithSurveyResolver::resolve(),
+
             // 'findSurveyAnswerSessionByUsernameAndPassword' => FieldFindAnswerSessionByUsernameAndPassword::get($this->context, $proxy = null),
             // 'findSurveyAnswerSessionByOwnerCode' => FieldFindAnswerSessionByOwnerCode::get($this->context, $proxy = null),
         ];

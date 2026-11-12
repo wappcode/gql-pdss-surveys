@@ -4,6 +4,8 @@ namespace GPDSurvey\Domain\Entities;
 
 use GPDSurvey\Domain\ValueObject\IntID;
 use GPDSurvey\Domain\Entities\SurveyConfiguration;
+use GPDSurvey\Domain\Model\SurveyContentType;
+use GPDSurvey\Domain\ValueObject\SurveyContentBodyValue;
 
 class SurveyContent
 {
@@ -13,8 +15,8 @@ class SurveyContent
 
     public function __construct(
         private IntID $id,
-        private string $type,
-        private ?string $body = null,
+        private SurveyContentType $type,
+        private ?SurveyContentBodyValue $body = null,
         private ?SurveyConfiguration $presentation = null,
     ) {
         $this->created = new \DateTimeImmutable();
@@ -34,12 +36,12 @@ class SurveyContent
         return $this->updated;
     }
 
-    public function type(): string
+    public function type(): SurveyContentType
     {
         return $this->type;
     }
 
-    public function body(): ?string
+    public function body(): ?SurveyContentBodyValue
     {
         return $this->body;
     }
@@ -53,8 +55,8 @@ class SurveyContent
     {
         return [
             'id' => $this->id()->value(),
-            'type' => $this->type(),
-            'body' => $this->body(),
+            'type' => $this->type()->getValue(),
+            'body' => $this->body() !== null ? $this->body()->getValue() : null,
             'presentation' => $this->presentation() !== null ? $this->presentation()->toArray() : null,
             'created' => $this->created()->format(\DateTimeInterface::ATOM),
             'updated' => $this->updated()->format(\DateTimeInterface::ATOM),

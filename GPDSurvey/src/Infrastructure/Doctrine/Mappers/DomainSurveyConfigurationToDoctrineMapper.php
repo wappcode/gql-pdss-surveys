@@ -22,7 +22,7 @@ final class DomainSurveyConfigurationToDoctrineMapper
 
         $entity
             ->setValue($configuration->value()->value())
-            ->setType($configuration->type());
+            ->setType($configuration->type()->getValue());
 
         $this->setProperty($entity, 'created', $configuration->created());
         $this->setProperty($entity, 'updated', $configuration->updated());

@@ -73,8 +73,25 @@ input BuildSurveyTargetAudienceInput {
   password: String
   survey: ID
 }
+input CreateTargetAudienceWithSurveyInput {
+  title: String!
+  description: String
+  active: Boolean!
+  starts: DateTime
+  ends: DateTime
+  welcomeMessage: String
+  farwellMessage: String
+  attempts: Int
+  presentation: JSONData
+  password: String
+  welcomeMessagePresentation: JSONData
+  farewellMessagePresentation: JSONData
+}
 
 type Mutation {
+  createTargetAudienceWithSurvey(
+    input: CreateTargetAudienceWithSurveyInput!
+  ): SurveyTargetAudience!
   """
   Construye una encuesta (Survey) puede actualizar un registro si se asigna un id válido. La actualización no es parcial elimina los elementos del registro previo que no esten en el input con excepción de Target Audiences
   """

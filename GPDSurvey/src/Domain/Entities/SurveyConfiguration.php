@@ -4,6 +4,7 @@ namespace GPDSurvey\Domain\Entities;
 
 use GPDSurvey\Domain\ValueObject\IntID;
 use GPDSurvey\Domain\ValueObject\SurveyConfigurationValue;
+use GPDSurvey\Domain\Model\SurveyConfigurationType;
 
 class SurveyConfiguration
 {
@@ -15,7 +16,7 @@ class SurveyConfiguration
     public function __construct(
         private IntID $id,
         private SurveyConfigurationValue $value,
-        private string $type,
+        private SurveyConfigurationType $type,
     ) {
         $this->created = new \DateTimeImmutable();
         $this->updated = new \DateTimeImmutable();
@@ -31,7 +32,7 @@ class SurveyConfiguration
         return $this->value;
     }
 
-    public function type(): string
+    public function type(): SurveyConfigurationType
     {
         return $this->type;
     }
@@ -49,7 +50,7 @@ class SurveyConfiguration
     {
         return [
             'id' => $this->id()->value(),
-            'type' => $this->type(),
+            'type' => $this->type()->getValue(),
             'value' => $this->value()->value(),
             'created' => $this->created()->format(\DateTimeInterface::ATOM),
             'updated' => $this->updated()->format(\DateTimeInterface::ATOM),
