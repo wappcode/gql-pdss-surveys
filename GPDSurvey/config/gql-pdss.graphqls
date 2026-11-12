@@ -684,17 +684,8 @@ type SurveyEdge {
   node: Survey!
 }
 
-"""
-Doctrine Entity For Survey
-"""
 input SurveyInput {
-  """
-  The value of title
-  """
   title: String!
-  """
-  The value of active
-  """
   active: Boolean!
 }
 """

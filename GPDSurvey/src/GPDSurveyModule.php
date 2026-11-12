@@ -15,6 +15,7 @@ use GPDSurvey\Infrastructure\Doctrine\Entities\DoctrineSurveyQuestionOption;
 use GPDSurvey\Infrastructure\Doctrine\Entities\DoctrineSurveySection;
 use GPDSurvey\Infrastructure\Doctrine\Entities\DoctrineSurveySectionItem;
 use GPDSurvey\Infrastructure\Doctrine\Entities\DoctrineSurveyTargetAudience;
+use GPDSurvey\Infrastructure\Graphql\Resolver\CreateSurveyResolver;
 use GPDSurvey\Infrastructure\Graphql\Resolver\CreateTargetAudienceWithSurveyResolver;
 
 class GPDSurveyModule extends AbstractModule
@@ -73,6 +74,7 @@ class GPDSurveyModule extends AbstractModule
             'Query::getSurveyAnswerSessions' => ResolverFactory::forConnection(DoctrineSurveyAnswerSession::class),
             'Query::getSurveyAnswerSession' => ResolverFactory::forItem(DoctrineSurveyAnswerSession::class,),
             'Mutation::createTargetAudienceWithSurvey' => CreateTargetAudienceWithSurveyResolver::resolve(),
+            'Mutation::createSurvey' => CreateSurveyResolver::resolve(),
 
             // 'findSurveyAnswerSessionByUsernameAndPassword' => FieldFindAnswerSessionByUsernameAndPassword::get($this->context, $proxy = null),
             // 'findSurveyAnswerSessionByOwnerCode' => FieldFindAnswerSessionByOwnerCode::get($this->context, $proxy = null),
