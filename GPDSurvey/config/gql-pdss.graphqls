@@ -1265,46 +1265,19 @@ type SurveyTargetAudienceEdge {
   cursor: String!
   node: SurveyTargetAudience!
 }
-"""
-Doctrine Entity For SurveyTargetAudience
-"""
+
 input SurveyTargetAudienceInput {
-  """
-  The value of title
-  """
   title: String!
-  """
-  The value of starts
-  """
   starts: DateTime
-  """
-  The value of ends
-  """
   ends: DateTime
-  """
-  The value of welcome
-  """
-  welcome: ID
-  """
-  The value of farewell
-  """
-  farewell: ID
-  """
-  The value of attempts
-  """
+  welcomeMessage: String
+  farewellMessage: String
   attempts: Int
-  """
-  The value of survey
-  """
   survey: ID!
-  """
-  The value of presentation
-  """
-  presentation: ID
-  """
-  The value of password
-  """
+  presentation: JSONData
   password: String
+  welcomeMessagePresentation: JSONData
+  farewellMessagePresentation: JSONData
 }
 """
 Doctrine Entity For SurveyTargetAudience
