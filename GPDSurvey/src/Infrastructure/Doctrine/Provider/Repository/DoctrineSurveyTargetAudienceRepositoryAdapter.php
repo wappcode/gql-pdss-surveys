@@ -12,6 +12,7 @@ use GPDSurvey\Domain\Entities\SurveyTargetAudience;
 use GPDSurvey\Infrastructure\Doctrine\Entities\DoctrineSurvey;
 use GPDSurvey\Infrastructure\Doctrine\Entities\DoctrineSurveyConfiguration;
 use GPDSurvey\Infrastructure\Doctrine\Entities\DoctrineSurveyContent;
+use GPDSurvey\Infrastructure\Doctrine\Entities\DoctrineSurveyTargetAudience;
 use GPDSurvey\Infrastructure\Doctrine\Mappers\DoctrineSurveyTargetAudienceToDomainMapper;
 use GPDSurvey\Infrastructure\Doctrine\Mappers\DomainSurveyTargetAudienceToDoctrineMapper;
 
@@ -31,6 +32,14 @@ class DoctrineSurveyTargetAudienceRepositoryAdapter implements SurveyTargetAudie
         $this->configurationRepository = $configurationRepository;
     }
 
+    public function findById(string $id): ?SurveyTargetAudience
+    {
+        $doctrineSurveyTargetAudience = $this->entityManager->getRepository(DoctrineSurveyTargetAudience::class)->find($id);
+        if (!$doctrineSurveyTargetAudience) {
+            return null;
+        }
+        return DoctrineSurveyTargetAudienceToDomainMapper::fromDoctrine($doctrineSurveyTargetAudience);
+    }
     public function create(SurveyTargetAudience $surveyTargetAudience): SurveyTargetAudience
     {
         $doctrineSurveyTargetAudience = DomainSurveyTargetAudienceToDoctrineMapper::fromDomain($surveyTargetAudience);

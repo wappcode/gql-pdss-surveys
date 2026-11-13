@@ -2,7 +2,7 @@
 
 namespace GPDSurvey\Domain\ValueObject;
 
-class ULid
+class ULID
 {
     private const ENCODING = '0123456789ABCDEFGHJKMNPQRSTVWXYZ';
     private string $value;
