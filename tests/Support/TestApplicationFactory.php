@@ -10,6 +10,7 @@ use GPDCore\Core\Application;
 use GPDCore\Services\GraphQLServer;
 use GPDSurvey\GPDSurveyModule;
 use GraphqlModule\GraphqlModule;
+use Laminas\Diactoros\ServerRequestFactory;
 
 final class TestApplicationFactory
 {
@@ -38,5 +39,19 @@ final class TestApplicationFactory
             15,
             1000
         );
+    }
+
+    public static function executeGraphQL(Application $app, string $query, array $variables = []): array
+    {
+        $request = ServerRequestFactory::fromGlobals(
+            ['REQUEST_METHOD' => 'POST'],
+            [],
+            ['query' => $query, 'variables' => $variables]
+        );
+
+        $response = $app->run($request);
+        $payload = json_decode((string) $response->getBody(), true);
+
+        return is_array($payload) ? $payload : [];
     }
 }
