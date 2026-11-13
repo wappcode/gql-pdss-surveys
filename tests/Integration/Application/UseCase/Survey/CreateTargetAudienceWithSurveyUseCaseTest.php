@@ -17,7 +17,7 @@ use GPDSurvey\Infrastructure\Doctrine\Provider\Repository\DoctrineSurveyContentR
 use GPDSurvey\Infrastructure\Doctrine\Provider\Repository\DoctrineSurveyRepositoryAdapter;
 use GPDSurvey\Infrastructure\Doctrine\Provider\Repository\DoctrineSurveyTargetAudienceRepositoryAdapter;
 use PHPUnit\Framework\TestCase;
-use Tests\Support\TestBootstrap;
+use Tests\Support\DoctrineTestFactory;
 
 final class CreateTargetAudienceWithSurveyUseCaseTest extends TestCase
 {
@@ -25,8 +25,8 @@ final class CreateTargetAudienceWithSurveyUseCaseTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->entityManager = TestBootstrap::createEntityManager();
-        TestBootstrap::createSchema($this->entityManager, [
+        $this->entityManager = DoctrineTestFactory::createEntityManager();
+        DoctrineTestFactory::createSchema($this->entityManager, [
             DoctrineSurvey::class,
             DoctrineSurveyConfiguration::class,
             DoctrineSurveyContent::class,
@@ -36,7 +36,7 @@ final class CreateTargetAudienceWithSurveyUseCaseTest extends TestCase
 
     protected function tearDown(): void
     {
-        TestBootstrap::dropSchema($this->entityManager);
+        DoctrineTestFactory::dropSchema($this->entityManager);
         $this->entityManager->close();
     }
 

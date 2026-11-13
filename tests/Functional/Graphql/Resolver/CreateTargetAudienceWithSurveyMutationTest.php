@@ -10,8 +10,8 @@ use GPDSurvey\Infrastructure\Doctrine\Entities\DoctrineSurveyConfiguration;
 use GPDSurvey\Infrastructure\Doctrine\Entities\DoctrineSurveyContent;
 use GPDSurvey\Infrastructure\Doctrine\Entities\DoctrineSurveyTargetAudience;
 use PHPUnit\Framework\TestCase;
+use Tests\Support\DoctrineTestFactory;
 use Tests\Support\TestApplicationFactory;
-use Tests\Support\TestBootstrap;
 
 final class CreateTargetAudienceWithSurveyMutationTest extends TestCase
 {
@@ -19,8 +19,8 @@ final class CreateTargetAudienceWithSurveyMutationTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->entityManager = TestBootstrap::createEntityManager();
-        TestBootstrap::createSchema($this->entityManager, [
+        $this->entityManager = DoctrineTestFactory::createEntityManager();
+        DoctrineTestFactory::createSchema($this->entityManager, [
             DoctrineSurvey::class,
             DoctrineSurveyConfiguration::class,
             DoctrineSurveyContent::class,
@@ -30,7 +30,7 @@ final class CreateTargetAudienceWithSurveyMutationTest extends TestCase
 
     protected function tearDown(): void
     {
-        TestBootstrap::dropSchema($this->entityManager);
+        DoctrineTestFactory::dropSchema($this->entityManager);
         $this->entityManager->close();
     }
 

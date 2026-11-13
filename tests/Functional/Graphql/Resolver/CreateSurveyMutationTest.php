@@ -7,8 +7,8 @@ namespace Tests\Functional\Graphql\Resolver;
 use Doctrine\ORM\EntityManagerInterface;
 use GPDSurvey\Infrastructure\Doctrine\Entities\DoctrineSurvey;
 use PHPUnit\Framework\TestCase;
+use Tests\Support\DoctrineTestFactory;
 use Tests\Support\TestApplicationFactory;
-use Tests\Support\TestBootstrap;
 
 final class CreateSurveyMutationTest extends TestCase
 {
@@ -16,15 +16,15 @@ final class CreateSurveyMutationTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->entityManager = TestBootstrap::createEntityManager();
-        TestBootstrap::createSchema($this->entityManager, [
+        $this->entityManager = DoctrineTestFactory::createEntityManager();
+        DoctrineTestFactory::createSchema($this->entityManager, [
             DoctrineSurvey::class,
         ]);
     }
 
     protected function tearDown(): void
     {
-        TestBootstrap::dropSchema($this->entityManager);
+        DoctrineTestFactory::dropSchema($this->entityManager);
         $this->entityManager->close();
     }
 

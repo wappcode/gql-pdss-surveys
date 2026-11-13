@@ -11,8 +11,9 @@ use GPDSurvey\Infrastructure\Doctrine\Entities\DoctrineSurveyContent;
 use GPDSurvey\Infrastructure\Doctrine\Entities\DoctrineSurveyTargetAudience;
 use Laminas\Diactoros\ServerRequestFactory;
 use PHPUnit\Framework\TestCase;
+use Tests\Support\DoctrineTestFactory;
+use Tests\Support\SurveyFactory;
 use Tests\Support\TestApplicationFactory;
-use Tests\Support\TestBootstrap;
 
 final class CreateTargetAudienceResolverTest extends TestCase
 {
@@ -20,8 +21,8 @@ final class CreateTargetAudienceResolverTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->entityManager = TestBootstrap::createEntityManager();
-        TestBootstrap::createSchema($this->entityManager, [
+        $this->entityManager = DoctrineTestFactory::createEntityManager();
+        DoctrineTestFactory::createSchema($this->entityManager, [
             DoctrineSurvey::class,
             DoctrineSurveyConfiguration::class,
             DoctrineSurveyContent::class,
@@ -31,18 +32,13 @@ final class CreateTargetAudienceResolverTest extends TestCase
 
     protected function tearDown(): void
     {
-        TestBootstrap::dropSchema($this->entityManager);
+        DoctrineTestFactory::dropSchema($this->entityManager);
         $this->entityManager->close();
     }
 
     public function testGraphqlMutationCreatesTargetAudience(): void
     {
-        $survey = new DoctrineSurvey();
-        $survey->setTitle('Customer survey');
-        $survey->setActive(true);
-
-        $this->entityManager->persist($survey);
-        $this->entityManager->flush();
+        $survey = SurveyFactory::create($this->entityManager, 'Customer survey', true);
 
         $app = TestApplicationFactory::createApplication($this->entityManager);
         $request = ServerRequestFactory::fromGlobals(

@@ -8,7 +8,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Tools\SchemaTool;
 use GPDCore\Factory\EntityManagerFactory;
 
-final class TestBootstrap
+final class DoctrineTestFactory
 {
     public static function createEntityManager(): EntityManagerInterface
     {

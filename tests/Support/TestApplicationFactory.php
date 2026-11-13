@@ -16,7 +16,7 @@ final class TestApplicationFactory
 {
     public static function createApplication(?EntityManagerInterface $entityManager = null): Application
     {
-        $entityManager ??= TestBootstrap::createEntityManager();
+        $entityManager ??= DoctrineTestFactory::createEntityManager();
         AppConfig::getInstance()->setMasterConfig([]);
 
         $app = new Application(AppConfig::getInstance(), $entityManager, 'testing');

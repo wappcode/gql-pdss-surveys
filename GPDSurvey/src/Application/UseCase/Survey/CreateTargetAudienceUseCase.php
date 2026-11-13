@@ -35,21 +35,21 @@ class CreateTargetAudienceUseCase
         }
         if ($command->welcomeMessage) {
             $welcomeBody = new SurveyContentBodyValue($command->welcomeMessage);
-            $welcomePresentation = empty($command->welcomeMessagePresentation) ? [] : new SurveyConfiguration(
+            $welcomePresentation = empty($command->welcomeMessagePresentation) ? null : new SurveyConfiguration(
                 new IntID(),
                 new SurveyConfigurationValue($command->welcomeMessagePresentation),
                 SurveyConfigurationType::PRESENTATION
             );
-            $welcome = new SurveyContent(new IntID(), SurveyContentType::HTML, $welcomeBody);
+            $welcome = new SurveyContent(new IntID(), SurveyContentType::HTML, $welcomeBody, $welcomePresentation);
         }
         if ($command->farewellMessage) {
             $farewellBody = new SurveyContentBodyValue($command->farewellMessage);
-            $farewellPresentation = empty($command->farewellMessagePresentation) ? [] : new SurveyConfiguration(
+            $farewellPresentation = empty($command->farewellMessagePresentation) ? null : new SurveyConfiguration(
                 new IntID(),
                 new SurveyConfigurationValue($command->farewellMessagePresentation),
                 SurveyConfigurationType::PRESENTATION
             );
-            $farewell = new SurveyContent(new IntID(), SurveyContentType::HTML, $farewellBody);
+            $farewell = new SurveyContent(new IntID(), SurveyContentType::HTML, $farewellBody, $farewellPresentation);
         }
         if ($command->presentation) {
             $presentation = new SurveyConfiguration(
