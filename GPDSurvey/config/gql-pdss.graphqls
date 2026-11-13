@@ -92,6 +92,7 @@ type Mutation {
   createTargetAudienceWithSurvey(
     input: CreateTargetAudienceWithSurveyInput!
   ): SurveyTargetAudience!
+  createTargetAudience(input: SurveyTargetAudienceInput!): SurveyTargetAudience!
   """
   Construye una encuesta (Survey) puede actualizar un registro si se asigna un id válido. La actualización no es parcial elimina los elementos del registro previo que no esten en el input con excepción de Target Audiences
   """

@@ -25,15 +25,15 @@ class CreateTargetAudienceResolver
             $command = new CreateTargetAudienceCommand(
                 $args['survey'],
                 $args['title'],
-                $args['starts'],
-                $args['ends'],
+                $args['starts'] ?? null,
+                $args['ends'] ?? null,
                 $args['welcomeMessage'] ?? null,
-                $args['welcomeMessagePresentation'] ?? null,
                 $args['farewellMessage'] ?? null,
-                $args['farewellMessagePresentation'] ?? null,
-                $args['presentation'] ?? null,
                 $args['attempts'] ?? null,
-                $args['password'] ?? null
+                $args['presentation'] ?? null,
+                $args['password'] ?? null,
+                $args['welcomeMessagePresentation'] ?? null,
+                $args['farewellMessagePresentation'] ?? null,
             );
             $useCase = new CreateTargetAudienceUseCase($targetAudienceRepository, $surveyRepository);
             $targetAudience = $useCase->execute($command);

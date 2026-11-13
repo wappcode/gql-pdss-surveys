@@ -6,13 +6,9 @@ use DateTime;
 
 class CreateTargetAudienceCommand
 {
-
-
-
-
     public function __construct(
-        public string $title,
         public string $survey,
+        public string $title,
         public ?DateTime $starts,
         public ?DateTime $ends,
         public ?string $welcomeMessage,
